@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI 课程 Markdown 阅读器：以 UTF-8 读取并渲染课程讲义、作业、进度和参考资料。">
+  <title>AI Course Markdown Reader</title>
+  <link rel="stylesheet" href="styles/markdown-reader.css">
+</head>
+<body>
+  <div class="reader-shell">
+    <header class="reader-hero">
+      <div>
+        <a class="back-link" href="course-showcase.html">← 返回课程作战室</a>
+        <p class="eyebrow">UTF-8 Markdown Preview</p>
+        <h1 id="docTitle">课程资料阅读器</h1>
+        <p id="docSummary" class="doc-summary">正在读取真实课程文件，不使用 mock 数据。</p>
+      </div>
+      <aside class="file-panel" aria-label="当前文件信息">
+        <span id="docStatus" class="status-pill">LOADING</span>
+        <div class="file-path" id="filePath">file · -</div>
+        <div class="file-actions">
+          <a id="rawLink" href="#">刷新阅读视图</a>
+          <button id="copyPathButton" type="button">复制路径</button>
+        </div>
+      </aside>
+    </header>
+
+    <main class="reader-layout">
+      <aside class="toc-card" aria-label="文档目录">
+        <div class="toc-title">目录</div>
+        <nav id="tocList"></nav>
+      </aside>
+      <article id="markdownContent" class="markdown-body" aria-live="polite">
+        <p>正在加载 Markdown...</p>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const requestedFile = params.get("file") || "README.md";
+    const statusEl = document.querySelector("#docStatus");
+    const titleEl = document.querySelector("#docTitle");
+    const summaryEl = document.querySelector("#docSummary");
+    const filePathEl = document.querySelector("#filePath");
+    const rawLinkEl = document.querySelector("#rawLink");
+    const contentEl = document.querySelector("#markdownContent");
+    const tocListEl = document.querySelector("#tocList");
+    const copyPathButton = document.querySelector("#copyPathButton");
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function stripHash(path) {
+      return String(path).split("#")[0];
+    }
+
+    function hasUnsafePathSyntax(path) {
+      return /^([a-z]+:)?\/\//i.test(path) || path.startsWith("/") || path.includes("\\") || path.includes("\0");
+    }
+
+    function normalizeCoursePath(path, basePath = "") {
+      const cleanPath = decodeURIComponent(stripHash(path || "").trim());
+      if (!cleanPath || hasUnsafePathSyntax(cleanPath)) return null;
+
+      const baseParts = basePath && !hasUnsafePathSyntax(basePath)
+        ? stripHash(basePath).split("/").slice(0, -1)
+        : [];
+      const parts = cleanPath.split("/");
+      const output = cleanPath.startsWith("./") || cleanPath.startsWith("../") ? [...baseParts] : [];
+
+      for (const part of parts) {
+        if (!part || part === ".") continue;
+        if (part === "..") {
+          if (output.length === 0) return null;
+          output.pop();
+          continue;
+        }
+        output.push(part);
+      }
+
+      const normalized = output.join("/");
+      if (!normalized || normalized.startsWith(".") || normalized.includes("../")) return null;
+      return normalized;
+    }
+
+    function markdownViewerHref(path, basePath = "") {
+      const normalized = normalizeCoursePath(path, basePath);
+      if (!normalized) return "#";
+      return `reader.html?file=${encodeURIComponent(normalized)}`;
+    }
+
+    function isExternalHref(href) {
+      return /^(https?:|mailto:|tel:|#)/i.test(href);
+    }
+
+    function currentDir(path) {
+      const parts = String(path).split("/");
+      parts.pop();
+      return parts.join("/");
+    }
+
+    function slugify(text, index) {
+      const slug = String(text)
+        .trim()
+        .toLowerCase()
+        .replace(/[`*_~\[\]()#.：:，,。！？!?'"/\\]/g, "")
+        .replace(/\s+/g, "-")
+        .slice(0, 64);
+      return slug || `heading-${index}`;
+    }
+
+    function inlineMarkdown(text, basePath) {
+      const codeTokens = [];
+      let safe = escapeHtml(text).replace(/`([^`]+)`/g, (_, code) => {
+        const token = `@@CODE${codeTokens.length}@@`;
+        codeTokens.push(`<code>${code}</code>`);
+        return token;
+      });
+
+      safe = safe.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, href) => {
+        const cleanHref = href.trim();
+        if (isExternalHref(cleanHref)) {
+          return `<img src="${cleanHref}" alt="${alt}">`;
+        }
+        const normalized = normalizeCoursePath(cleanHref, basePath);
+        return normalized ? `<img src="${escapeHtml(normalized)}" alt="${alt}">` : escapeHtml(`[${alt}](${href})`);
+      });
+
+      safe = safe.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
+        const cleanHref = href.trim();
+        if (isExternalHref(cleanHref)) {
+          return `<a href="${escapeHtml(cleanHref)}" target="_blank" rel="noreferrer">${label}</a>`;
+        }
+        const hash = cleanHref.includes("#") ? `#${cleanHref.split("#").slice(1).join("#")}` : "";
+        const withoutHash = stripHash(cleanHref);
+        if (/\.md$/i.test(withoutHash)) {
+          const viewerHref = markdownViewerHref(withoutHash, basePath);
+          return `<a href="${escapeHtml(viewerHref + hash)}">${label}</a>`;
+        }
+        const normalized = normalizeCoursePath(cleanHref, basePath);
+        return normalized ? `<a href="${escapeHtml(normalized + hash)}">${label}</a>` : label;
+      });
+
+      safe = safe
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+        .replace(/__([^_]+)__/g, "<strong>$1</strong>")
+        .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+        .replace(/_([^_]+)_/g, "<em>$1</em>");
+
+      codeTokens.forEach((html, index) => {
+        safe = safe.replace(`@@CODE${index}@@`, html);
+      });
+      return safe;
+    }
+
+    function isTableSeparator(line) {
+      return /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+    }
+
+    function splitTableRow(line) {
+      return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(cell => cell.trim());
+    }
+
+    function renderTable(lines, start, basePath) {
+      const header = splitTableRow(lines[start]);
+      let index = start + 2;
+      const rows = [];
+      while (index < lines.length && /^\s*\|/.test(lines[index]) && !/^\s*$/.test(lines[index])) {
+        rows.push(splitTableRow(lines[index]));
+        index += 1;
+      }
+      const headHtml = header.map(cell => `<th>${inlineMarkdown(cell, basePath)}</th>`).join("");
+      const rowsHtml = rows.map(row => `<tr>${row.map(cell => `<td>${inlineMarkdown(cell, basePath)}</td>`).join("")}</tr>`).join("");
+      return {
+        html: `<div class="table-wrap"><table><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table></div>`,
+        nextIndex: index
+      };
+    }
+
+    function renderList(lines, start, ordered, basePath) {
+      const tag = ordered ? "ol" : "ul";
+      let index = start;
+      const items = [];
+      const pattern = ordered ? /^\s*\d+\.\s+(.+)$/ : /^\s*[-*+]\s+(.+)$/;
+
+      while (index < lines.length) {
+        const match = lines[index].match(pattern);
+        if (!match) break;
+        let item = match[1];
+        const checkMatch = item.match(/^\[( |x|X)\]\s+(.+)$/);
+        if (checkMatch) {
+          const checked = checkMatch[1].toLowerCase() === "x";
+          item = `<input type="checkbox" disabled ${checked ? "checked" : ""}> ${inlineMarkdown(checkMatch[2], basePath)}`;
+        } else {
+          item = inlineMarkdown(item, basePath);
+        }
+        items.push(`<li>${item}</li>`);
+        index += 1;
+      }
+      return { html: `<${tag}>${items.join("")}</${tag}>`, nextIndex: index };
+    }
+
+    function renderMarkdown(markdown, basePath) {
+      const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+      const html = [];
+      const headings = [];
+      let index = 0;
+      let headingIndex = 0;
+
+      while (index < lines.length) {
+        const line = lines[index];
+
+        if (/^\s*$/.test(line)) {
+          index += 1;
+          continue;
+        }
+
+        const fenceMatch = line.match(/^```\s*([^`]*)\s*$/);
+        if (fenceMatch) {
+          const lang = fenceMatch[1].trim();
+          index += 1;
+          const codeLines = [];
+          while (index < lines.length && !/^```\s*$/.test(lines[index])) {
+            codeLines.push(lines[index]);
+            index += 1;
+          }
+          index += 1;
+          html.push(`<pre data-lang="${escapeHtml(lang || "text")}"><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+          continue;
+        }
+
+        if (index + 1 < lines.length && /^\s*\|/.test(line) && isTableSeparator(lines[index + 1])) {
+          const table = renderTable(lines, index, basePath);
+          html.push(table.html);
+          index = table.nextIndex;
+          continue;
+        }
+
+        const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
+        if (headingMatch) {
+          headingIndex += 1;
+          const level = headingMatch[1].length;
+          const rawText = headingMatch[2].trim();
+          const id = slugify(rawText, headingIndex);
+          headings.push({ level, text: rawText.replace(/`/g, ""), id });
+          html.push(`<h${level} id="${id}">${inlineMarkdown(rawText, basePath)}</h${level}>`);
+          index += 1;
+          continue;
+        }
+
+        if (/^\s*[-*+]\s+/.test(line)) {
+          const list = renderList(lines, index, false, basePath);
+          html.push(list.html);
+          index = list.nextIndex;
+          continue;
+        }
+
+        if (/^\s*\d+\.\s+/.test(line)) {
+          const list = renderList(lines, index, true, basePath);
+          html.push(list.html);
+          index = list.nextIndex;
+          continue;
+        }
+
+        if (/^>\s?/.test(line)) {
+          const quoteLines = [];
+          while (index < lines.length && /^>\s?/.test(lines[index])) {
+            quoteLines.push(lines[index].replace(/^>\s?/, ""));
+            index += 1;
+          }
+          html.push(`<blockquote>${quoteLines.map(item => `<p>${inlineMarkdown(item, basePath)}</p>`).join("")}</blockquote>`);
+          continue;
+        }
+
+        if (/^\s*(-{3,}|_{3,}|\*{3,})\s*$/.test(line)) {
+          html.push("<hr>");
+          index += 1;
+          continue;
+        }
+
+        const paragraph = [line.trim()];
+        index += 1;
+        while (
+          index < lines.length &&
+          !/^\s*$/.test(lines[index]) &&
+          !/^(#{1,6})\s+/.test(lines[index]) &&
+          !/^```/.test(lines[index]) &&
+          !/^\s*[-*+]\s+/.test(lines[index]) &&
+          !/^\s*\d+\.\s+/.test(lines[index]) &&
+          !/^>\s?/.test(lines[index]) &&
+          !(index + 1 < lines.length && /^\s*\|/.test(lines[index]) && isTableSeparator(lines[index + 1]))
+        ) {
+          paragraph.push(lines[index].trim());
+          index += 1;
+        }
+        html.push(`<p>${inlineMarkdown(paragraph.join(" "), basePath)}</p>`);
+      }
+
+      return { html: html.join("\n"), headings };
+    }
+
+    function renderToc(headings) {
+      const visibleHeadings = headings.filter(item => item.level <= 3);
+      if (visibleHeadings.length === 0) {
+        tocListEl.innerHTML = "<p class=\"toc-empty\">暂无目录</p>";
+        return;
+      }
+      tocListEl.innerHTML = visibleHeadings.map(item => `
+        <a class="toc-level-${item.level}" href="#${item.id}">${escapeHtml(item.text)}</a>
+      `).join("");
+    }
+
+    async function fetchUtf8Text(path) {
+      const response = await fetch(path, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`${path} returned ${response.status}`);
+      }
+      const buffer = await response.arrayBuffer();
+      return new TextDecoder("utf-8").decode(buffer);
+    }
+
+    function extractTitle(markdown, fallback) {
+      const match = markdown.match(/^#\s+(.+)$/m);
+      return match ? match[1].trim() : fallback;
+    }
+
+    async function loadDocument() {
+      const safePath = normalizeCoursePath(requestedFile);
+      if (!safePath || !/\.md$/i.test(safePath)) {
+        statusEl.textContent = "BLOCKED";
+        statusEl.className = "status-pill error";
+        titleEl.textContent = "无法打开这个文件";
+        summaryEl.textContent = "阅读器只允许预览 ai-course 目录内的 Markdown 文件，避免误打开无关或不安全路径。";
+        contentEl.innerHTML = `<p>被拒绝的路径：<code>${escapeHtml(requestedFile)}</code></p>`;
+        renderToc([]);
+        return;
+      }
+
+      filePathEl.textContent = `file · ${safePath}`;
+      rawLinkEl.href = markdownViewerHref(safePath);
+      copyPathButton.addEventListener("click", async () => {
+        await navigator.clipboard?.writeText(safePath);
+        copyPathButton.textContent = "已复制";
+        setTimeout(() => { copyPathButton.textContent = "复制路径"; }, 1200);
+      });
+
+      try {
+        const markdown = await fetchUtf8Text(safePath);
+        const title = extractTitle(markdown, safePath);
+        const rendered = renderMarkdown(markdown, safePath);
+        document.title = `${title} · AI Course Reader`;
+        titleEl.textContent = title;
+        summaryEl.textContent = "已按 UTF-8 读取真实 Markdown 文件，并渲染为更适合阅读的网页。";
+        statusEl.textContent = "UTF-8 OK";
+        statusEl.className = "status-pill ok";
+        contentEl.innerHTML = rendered.html || "<p>这个 Markdown 文件是空的。</p>";
+        renderToc(rendered.headings);
+      } catch (error) {
+        statusEl.textContent = "NOT FOUND";
+        statusEl.className = "status-pill error";
+        titleEl.textContent = "文件读取失败";
+        summaryEl.textContent = "没有创建 mock 页面；只有真实存在的 Markdown 文件才会显示内容。";
+        contentEl.innerHTML = `<p>无法读取：<code>${escapeHtml(safePath)}</code></p><p>${escapeHtml(error.message)}</p>`;
+        renderToc([]);
+      }
+    }
+
+    loadDocument();
+  </script>
+</body>
+</html>

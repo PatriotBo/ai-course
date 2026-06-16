@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI 应用 / Agent 开发课程展示网页：课程概览、学习路径、课表、项目规划与历史资料回看中心。">
+  <title>AI Academy Mission Control · AI 应用 / Agent 开发课程</title>
+  <link rel="stylesheet" href="styles/course-showcase.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="top-nav" aria-label="课程模块导航">
+      <div class="nav-inner">
+        <div class="brand-mark"><span class="pulse"></span>AI Academy Mission Control</div>
+        <div class="nav-links">
+          <a href="#overview">概览</a>
+          <a href="#path">学习路径</a>
+          <a href="#week1">Week 1</a>
+          <a href="#lesson0">Lesson 0</a>
+          <a href="#projects">项目</a>
+          <a href="#archive">回看中心</a>
+          <a href="#glossary">术语</a>
+        </div>
+      </div>
+    </nav>
+
+    <header id="overview" class="hero" aria-labelledby="page-title">
+      <section class="hero-card">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <div class="float-line one" aria-hidden="true"></div>
+        <div class="float-line two" aria-hidden="true"></div>
+        <div class="kicker">Backend Engineer → AI Agent Engineer</div>
+        <h1 id="page-title">AI 应用 / Agent 开发课程作战室</h1>
+        <p class="hero-subtitle">
+          这不是一份静态课表，而是你的 AI 转型训练控制台：从 LLM API、Prompt、RAG、Tool Calling、Agent Loop、Memory、LangGraph、MCP 到生产工程化与真实项目简历化，按 12 周路线逐步推进。
+        </p>
+        <div class="hero-actions">
+          <button class="btn js-not-started" type="button" data-message="当前课程还没有正式开始。要开始学习，请回到对话里说：开始 Lesson 0。">开始 Lesson 0 →</button>
+          <a class="btn secondary" href="reader.html?file=lessons%2Fweek00-lesson00-ai-career-map.md">查看 Lesson 0 备课讲义 →</a>
+          <a class="btn secondary" href="reader.html?file=assignments%2Fweek00-lesson00-homework.md">查看 Lesson 0 作业文件 →</a>
+          <a class="btn secondary" href="reader.html?file=COURSE_PLAN.md">课程总纲源文件 →</a>
+        </div>
+        <div class="stat-strip" aria-label="课程关键指标">
+          <div class="stat"><strong>12</strong><span>周系统训练</span></div>
+          <div class="stat"><strong>39</strong><span>节正课与项目课</span></div>
+          <div class="stat"><strong>5+</strong><span>阶段项目资产</span></div>
+          <div class="stat"><strong>60m</strong><span>每节至少投入</span></div>
+        </div>
+      </section>
+
+      <aside class="cockpit" aria-label="当前学习进度驾驶舱">
+        <div class="cockpit-screen">
+          <div class="status-row">
+            <span class="badge locked" id="courseStatusBadge">NOT STARTED</span>
+            <span class="badge blue" id="sourceSyncBadge">同步自 PROGRESS.md</span>
+          </div>
+          <div class="progress-ring" aria-label="当前课程总进度 0/39">
+            <div class="progress-ring-inner">
+              <div><strong>0/39</strong><span>Lessons Done</span></div>
+            </div>
+          </div>
+          <div class="cockpit-list">
+            <div class="cockpit-item"><label>当前阶段</label><b id="currentPhase">Phase 0：AI 能力地图与术语入门</b></div>
+            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 0</span> · <span id="currentLesson">Lesson 0</span></b></div>
+            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 0 Lesson 0：后端工程师的 AI 能力地图</b></div>
+            <div class="cockpit-item"><label>当前项目</label><b id="currentProject">尚未开始</b></div>
+            <div class="cockpit-item"><label>数据来源</label><b><a href="reader.html?file=PROGRESS.md">PROGRESS.md</a> / <a href="reader.html?file=COURSE_PLAN.md">COURSE_PLAN.md</a></b></div>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <main>
+      <section class="section" id="path">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Learning Route</div>
+            <h2 class="section-title">12 周学习路径</h2>
+            <p class="section-copy">从能力地图起步，逐步把传统后端技能迁移到 AI 应用系统：模型调用、检索、工具、Agent、协议、工程化和面试表达。</p>
+          </div>
+          <span class="badge locked">Week 0 正在准备</span>
+        </div>
+        <div class="panel">
+          <div class="path-grid" id="pathGrid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="week1">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Week 1 · LLM API Basics</div>
+            <h2 class="section-title">Week 1 详细课表</h2>
+            <p class="section-copy">第一周的目标不是“能调通模型”这么简单，而是建立一个后端工程师能接受的 LLM 调用基础：参数、流式输出、超时、重试、限流和成本。</p>
+          </div>
+          <span class="badge locked">计划课表 · 文件待生成</span>
+        </div>
+        <div class="grid-3" id="weekOneGrid"></div>
+      </section>
+
+      <section class="section" id="lesson0">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Lesson 0 Briefing</div>
+            <h2 class="section-title">Lesson 0 备课单</h2>
+            <p class="section-copy">正式开课前的诊断课：先把招聘市场要求、AI 能力分层、后端能力迁移关系讲清楚，避免后续学成一堆散点。</p>
+          </div>
+          <a class="btn" href="reader.html?file=lessons%2Fweek00-lesson00-ai-career-map.md">打开 Lesson 0 备课讲义</a>
+        </div>
+        <div class="grid-2">
+          <article class="module-card">
+            <span class="badge available">60-75 分钟</span>
+            <h3>本节目标</h3>
+            <ul class="check-list">
+              <li>讲清 AI 应用工程师和传统后端的差异</li>
+              <li>拆解 Agent 工程师需要掌握的能力</li>
+              <li>把招聘 JD 翻译成可学习的技术模块</li>
+              <li>把已有后端经验映射到 AI 系统能力</li>
+              <li>确认 12 周路线为什么这样安排</li>
+            </ul>
+          </article>
+          <article class="module-card">
+            <span class="badge blue">课堂练习</span>
+            <h3>后端经验 → AI 能力迁移</h3>
+            <p>你需要列出最熟悉的后端能力，并映射成 AI 应用中的能力。例如 Kafka 消费失败重试，可以迁移到 Agent 工具失败重试、任务死信队列和人工补偿。</p>
+            <div class="hero-actions" style="margin-top: 20px;">
+              <a class="btn secondary" href="reader.html?file=assignments%2Fweek00-lesson00-homework.md">查看作业文件</a>
+              <button class="btn secondary js-not-started" type="button" data-message="当前 Lesson 0 尚未正式学习，作业也还未提交。可以先查看题目，正式开始请说：开始 Lesson 0。">提交前提示</button>
+            </div>
+          </article>
+        </div>
+        <div class="panel" style="margin-top: 18px;">
+          <h3 style="position:relative;z-index:2;margin:0 0 12px;font-size:24px;">后端能力迁移图</h3>
+          <div class="transfer-map" id="transferMap"></div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Project Roadmap</div>
+            <h2 class="section-title">项目规划</h2>
+            <p class="section-copy">每个阶段都不只听课，而是沉淀一个可运行、可展示、可写进简历的项目资产。最终项目从真实 GitHub 项目中选择，拆解、复刻并改造成自己的作品。</p>
+          </div>
+          <a class="btn secondary" href="reader.html?file=PROJECTS.md">项目档案</a>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </section>
+
+      <section class="section" id="archive">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Course Archive</div>
+            <h2 class="section-title">历史课程回看中心</h2>
+            <p class="section-copy">这里只展示仓库里真实存在的课程文件，未生成的课程不会伪装成回看页。当前课程还未正式开始，因此“已完成课程回看”为 0；Lesson 0 备课讲义与作业文件作为当前资料开放查看。</p>
+          </div>
+          <span class="badge locked" id="historyCountBadge">历史课程 0</span>
+        </div>
+        <div class="panel">
+          <div class="archive-toolbar">
+            <div class="filter-pills" role="tablist" aria-label="资料分类筛选">
+              <button class="active" data-filter="all">全部</button>
+              <button data-filter="lesson">课件</button>
+              <button data-filter="assignment">作业</button>
+              <button data-filter="code">代码</button>
+              <button data-filter="review">复盘</button>
+              <button data-filter="reference">参考资料</button>
+              <button data-filter="question">问题记录</button>
+            </div>
+            <input id="archiveSearch" class="search-box" type="search" placeholder="搜索：Agent / RAG / 作业 / Week 1 ..." aria-label="搜索课程资料">
+          </div>
+          <div class="archive-grid" id="archiveGrid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="glossary">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Glossary Radar</div>
+            <h2 class="section-title">AI 圈高频概念雷达</h2>
+            <p class="section-copy">先建立概念索引：后续学 Agent、RAG、MCP、Eval 时，不会被 harness、loop、memory、guardrails 这些词打断节奏。</p>
+          </div>
+          <a class="btn secondary" href="reader.html?file=GLOSSARY.md">完整术语表</a>
+        </div>
+        <div class="terms-grid" id="termsGrid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>课程资料目录：<a href="reader.html?file=README.md">ai-course/README.md</a> · 总纲：<a href="reader.html?file=COURSE_PLAN.md">COURSE_PLAN.md</a> · 进度：<a href="reader.html?file=PROGRESS.md">PROGRESS.md</a></p>
+      <p>Designed as an AI Academy Mission Control for a backend engineer turning into an AI Agent engineer.</p>
+    </footer>
+  </div>
+
+  <script>
+    const sourceFiles = {
+      progress: "PROGRESS.md",
+      plan: "COURSE_PLAN.md",
+      projects: "PROJECTS.md",
+      glossary: "GLOSSARY.md"
+    };
+
+    const courseState = {
+      currentPhase: "Phase 0：AI 能力地图与术语入门",
+      currentWeek: "Week 0",
+      currentLesson: "Lesson 0",
+      totalLessons: 39,
+      completedLessons: 0,
+      currentProject: "尚未开始",
+      nextLesson: "Week 0 Lesson 0：后端工程师的 AI 能力地图",
+      started: false,
+      completedLessonRows: []
+    };
+
+    const courseData = {
+      weeks: [
+        { week: "Week 0", phase: "Phase 0", title: "AI 能力地图 + AI 圈术语", output: "学习路线图 + 术语表 v1" },
+        { week: "Week 1", phase: "Phase 1", title: "LLM API 基础", output: "可运行 LLM 调用脚本" },
+        { week: "Week 2", phase: "Phase 1", title: "Prompt Engineering + 结构化输出", output: "Prompt 测试集 + JSON 输出服务" },
+        { week: "Week 3", phase: "Phase 2", title: "RAG 基础：Embedding / Chunking / Vector DB", output: "本地文档问答 Demo" },
+        { week: "Week 4", phase: "Phase 2", title: "RAG 进阶：Hybrid Search / Rerank / Eval", output: "RAG 知识库助手 v1" },
+        { week: "Week 5", phase: "Phase 3", title: "Tool Calling / Function Calling", output: "Tool-Using Assistant v1" },
+        { week: "Week 6", phase: "Phase 4", title: "Agent Loop / ReAct / Planning / Reflection", output: "单 Agent 任务执行器" },
+        { week: "Week 7", phase: "Phase 4", title: "Memory / Context Engineering / Agent 可靠性", output: "带记忆的 Agent" },
+        { week: "Week 8", phase: "Phase 5", title: "LangGraph：State / Node / Edge / Checkpoint", output: "可恢复 Agent Workflow" },
+        { week: "Week 9", phase: "Phase 5", title: "Multi-Agent / Supervisor / Debate", output: "多 Agent Research Assistant" },
+        { week: "Week 10", phase: "Phase 6", title: "MCP：Server / Client / Tools / Resources", output: "本地 MCP Server" },
+        { week: "Week 11", phase: "Phase 7", title: "AI 应用工程化：服务化、成本、评估、部署", output: "Production AI Service Template" },
+        { week: "Week 12", phase: "Phase 8", title: "真实项目拆解 + 简历化", output: "最终项目 + 面试材料" }
+      ],
+      weekOne: [
+        { code: "L03", title: "LLM API 第一课", goal: "理解 messages / token / model / temperature，并能完成一次稳定模型调用。", output: "code/llm-api-basics", tags: ["Python", "LLM API", "Token"] },
+        { code: "L04", title: "Streaming 与后端接口封装", goal: "用 FastAPI 输出 SSE 流，把模型流式响应封装成后端接口。", output: "streaming endpoint", tags: ["FastAPI", "SSE", "Backend"] },
+        { code: "L05", title: "错误处理与成本估算", goal: "处理超时、重试、限流、成本日志，写出生产可用 LLM client wrapper。", output: "LLM client wrapper", tags: ["Retry", "Rate Limit", "Cost"] }
+      ],
+      transfers: [
+        ["API 设计", "LLM API Gateway / Agent API"],
+        ["数据库建模", "Vector DB / Memory Store / Trace Store"],
+        ["Redis 缓存", "Prompt Cache / Embedding Cache / Context Cache"],
+        ["Kafka 消息队列", "Async Agent Task / Retry / DLQ"],
+        ["RPC / 微服务", "Tool Server / MCP Server / Model Router"],
+        ["配置中心", "Prompt Version / Model Config / Eval Config"],
+        ["日志监控", "Agent Trace / Tool Call Log / Token Cost"],
+        ["权限系统", "Tool Permission / Human Approval / Guardrails"],
+        ["任务调度", "Agent Workflow / Planner / Executor"],
+        ["容灾降级", "Model Fallback / Tool Fallback / Safe Reply"]
+      ],
+      projects: [
+        { title: "Project 1：LLM API Backend Service", time: "Week 1-2", stack: "Python · FastAPI · Pydantic · SSE", desc: "封装生产友好的 LLM 调用后端服务，支持普通生成、流式输出、结构化输出、重试、超时和成本日志。" },
+        { title: "Project 2：RAG Knowledge Assistant", time: "Week 3-4", stack: "LlamaIndex / LangChain · Vector DB · Rerank", desc: "构建本地文档知识库助手，支持文档加载、切分、Embedding、检索、引用来源和 RAG Eval。" },
+        { title: "Project 3：Tool-Using Agent", time: "Week 5-7", stack: "Tool Calling · Pydantic · SQLite/Redis", desc: "构建能选择工具、执行工具、处理失败的 Agent，覆盖 Tool Schema、权限边界、执行日志和 Memory。" },
+        { title: "Project 4：Multi-Agent Research Assistant", time: "Week 8-9", stack: "LangGraph · Checkpoint · Debate", desc: "用 LangGraph 构建多 Agent 调研助手，支持状态机、checkpoint、人工审批、多 Agent 协作和辩论。" },
+        { title: "Project 5：MCP Tool Server", time: "Week 10", stack: "MCP SDK · Python · Go optional", desc: "写一个本地 MCP Server，把本地工具和业务数据标准化暴露给 AI Agent。" },
+        { title: "Final Project：真实项目复刻 + 改造", time: "Week 12", stack: "Dify / RAGFlow / OpenHands / TradingAgents / mem0", desc: "从真实 GitHub 项目选型，拆解、复刻、改造成可演示、可写进简历的作品。" }
+      ],
+      currentResources: [
+        { type: "lesson", status: "current", title: "Week 0 Lesson 0：备课讲义", desc: "真实文件：后端工程师的 AI 能力地图。状态为备课单已生成，等待正式授课。", href: "lessons/week00-lesson00-ai-career-map.md", label: "打开真实讲义" },
+        { type: "assignment", status: "current", title: "Homework：Week 0 Lesson 0", desc: "真实文件：Lesson 0 作业题。课程尚未开始，当前仅作为题目预览，尚未提交。", href: "assignments/week00-lesson00-homework.md", label: "查看真实作业" },
+        { type: "reference", status: "source", title: "课程总纲", desc: "真实文件：12 周路线、36+ 节课列表、阶段项目和评估标准。", href: "COURSE_PLAN.md", label: "打开总纲" },
+        { type: "reference", status: "source", title: "学习进度 Ledger", desc: "真实文件：当前阶段、已完成课程、作业状态、薄弱点和项目进度。", href: "PROGRESS.md", label: "查看进度源文件" },
+        { type: "reference", status: "source", title: "课程参考资料库", desc: "真实目录说明：后续保存 DeepLearning.AI、OpenAI Cookbook、LangGraph、LlamaIndex、MCP 等参考资料。", href: "references/README.md", label: "打开资料库" },
+        { type: "code", status: "source", title: "课程代码工作区规范", desc: "真实目录说明：后续保存 llm-api-service、rag-knowledge-assistant、tool-using-agent 等项目代码。", href: "code/README.md", label: "查看代码目录" },
+        { type: "review", status: "source", title: "作业批改与阶段复盘目录", desc: "真实目录说明：后续保存每次作业批改、阶段复盘和项目评审记录。", href: "reviews/README.md", label: "查看复盘目录" }
+      ],
+      pendingResources: [
+        { type: "lesson", title: "Week 1 课程讲义", desc: "L03-L05 还没有生成对应讲义文件；正式学到 Week 1 后再出现真实文件链接。", label: "待生成提示", message: "Week 1 的讲义文件还不存在。等完成 Lesson 0 并进入 Week 1 后，这里会挂上真实文件链接。" },
+        { type: "assignment", title: "Week 1 作业", desc: "模型调用脚本、SSE 接口、错误重试 wrapper 的作业文件尚未生成。", label: "待生成提示", message: "Week 1 作业文件还不存在，不会跳转到 mock 页面。进入 Week 1 后再生成并关联真实文件。" },
+        { type: "question", title: "课堂问题记录", desc: "当前还未正式授课，因此没有历史问题记录文件。", label: "未开始提示", message: "课程还没有开始，所以问题记录为空。正式授课后会把真实问题与复盘记录放入 reviews/ 或进度 Ledger。" }
+      ],
+      terms: [
+        { title: "Agent Loop", desc: "观察 → 思考 → 行动 → 反馈的循环，让 LLM 从单轮回答升级为任务执行器。" },
+        { title: "Harness", desc: "运行、测试、评估模型或 Agent 的外层框架，类似测试框架 + 任务运行器。" },
+        { title: "Hermes", desc: "不是固定概念，常见于模型系列、通信层或工具调用命名，必须结合上下文判断。" },
+        { title: "ReAct", desc: "Reasoning + Acting，一边推理一边调用工具，形成 Thought / Action / Observation 循环。" },
+        { title: "RAG", desc: "先检索相关资料，再让模型基于资料回答，核心是召回、排序、上下文拼接和可追溯。" },
+        { title: "MCP", desc: "Model Context Protocol，AI 应用连接外部工具、数据和工作流的标准协议。" },
+        { title: "Eval", desc: "AI 系统的测试评估体系，类似单元测试、集成测试、回归测试和线上监控。" },
+        { title: "Guardrails", desc: "AI 系统的安全边界，包含输入过滤、输出校验、工具权限和敏感操作审批。" }
+      ]
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function weekNumber(weekLabel) {
+      const match = String(weekLabel).match(/Week\s+(\d+)/i);
+      return match ? Number(match[1]) : 0;
+    }
+
+    function markdownHref(path) {
+      return `reader.html?file=${encodeURIComponent(path)}`;
+    }
+
+    async function fetchText(path) {
+      const response = await fetch(path, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`${path} returned ${response.status}`);
+      }
+      return response.text();
+    }
+
+    async function resourceExists(path) {
+      try {
+        const response = await fetch(path, { method: "HEAD", cache: "no-store" });
+        if (response.ok) return true;
+        const fallback = await fetch(path, { cache: "no-store" });
+        return fallback.ok;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function parseProgressMarkdown(markdown) {
+      const rowValue = (label) => {
+        const pattern = new RegExp(`\\|\\s*${label}\\s*\\|\\s*([^|]+)\\|`);
+        const match = markdown.match(pattern);
+        return match ? match[1].trim() : null;
+      };
+
+      const progressValue = rowValue("当前总进度") || "0 / 39 lessons";
+      const progressMatch = progressValue.match(/(\d+)\s*\/\s*(\d+)/);
+      const lessonRows = [...markdown.matchAll(/- \[([ xX])\]\s+(L\d+)\s+(.+)/g)].map(match => ({
+        done: match[1].toLowerCase() === "x",
+        code: match[2],
+        title: match[3].trim()
+      }));
+      const completedLessonRows = lessonRows.filter(item => item.done);
+
+      return {
+        currentPhase: rowValue("当前阶段") || courseState.currentPhase,
+        currentWeek: rowValue("当前周") || courseState.currentWeek,
+        currentLesson: rowValue("当前课") || courseState.currentLesson,
+        currentProject: rowValue("当前项目") || courseState.currentProject,
+        nextLesson: rowValue("下节课") || courseState.nextLesson,
+        completedLessons: progressMatch ? Number(progressMatch[1]) : completedLessonRows.length,
+        totalLessons: progressMatch ? Number(progressMatch[2]) : courseState.totalLessons,
+        completedLessonRows,
+        started: completedLessonRows.length > 0 || (progressMatch ? Number(progressMatch[1]) > 0 : false)
+      };
+    }
+
+    function applyProgressState(nextState) {
+      Object.assign(courseState, nextState);
+      const completed = courseState.completedLessons;
+      const total = courseState.totalLessons;
+      const percent = total > 0 ? completed / total : 0;
+      const degrees = Math.round(percent * 360);
+      const currentWeekNumber = weekNumber(courseState.currentWeek);
+
+      document.querySelector("#currentPhase").textContent = courseState.currentPhase;
+      document.querySelector("#currentWeek").textContent = courseState.currentWeek;
+      document.querySelector("#currentLesson").textContent = courseState.currentLesson;
+      document.querySelector("#nextLesson").textContent = courseState.nextLesson;
+      document.querySelector("#currentProject").textContent = courseState.currentProject;
+      document.querySelector("#historyCountBadge").textContent = `历史课程 ${completed}`;
+
+      const statusBadge = document.querySelector("#courseStatusBadge");
+      statusBadge.textContent = courseState.started ? "IN PROGRESS" : "NOT STARTED";
+      statusBadge.className = `badge ${courseState.started ? "available" : "locked"}`;
+
+      const progressRing = document.querySelector(".progress-ring");
+      progressRing.setAttribute("aria-label", `当前课程总进度 ${completed}/${total}`);
+      progressRing.style.background = `conic-gradient(var(--accent-amber) ${degrees}deg, rgba(242, 169, 59, 0.2) ${degrees}deg, rgba(184, 193, 209, 0.08) ${degrees}deg 360deg)`;
+      document.querySelector(".progress-ring-inner strong").textContent = `${completed}/${total}`;
+
+      renderPathGrid(currentWeekNumber);
+      renderArchive();
+    }
+
+    function renderPathGrid(currentWeekNumber = weekNumber(courseState.currentWeek)) {
+      const pathGrid = document.querySelector("#pathGrid");
+      pathGrid.innerHTML = courseData.weeks.map((item) => {
+        const num = weekNumber(item.week);
+        const isCurrent = num === currentWeekNumber;
+        const isComplete = courseState.completedLessons > 0 && num < currentWeekNumber;
+        const statusText = isComplete ? "已完成" : (isCurrent ? "当前位置" : "计划中");
+        const statusClass = isComplete ? "available" : (isCurrent ? "locked" : "blue");
+        return `
+          <article class="week-node ${isCurrent ? "current" : ""} ${isComplete ? "completed" : "planned"}">
+            <div class="week-index"><span>${escapeHtml(item.week)}</span><span>${escapeHtml(item.phase)}</span></div>
+            <span class="badge ${statusClass}">${statusText}</span>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${isCurrent ? "当前课程还未正式开始，先从 Lesson 0 建立能力地图和学习坐标。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
+            <div class="deliverable">OUTPUT · ${escapeHtml(item.output)}</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderWeekOne() {
+      const weekOneGrid = document.querySelector("#weekOneGrid");
+      weekOneGrid.innerHTML = courseData.weekOne.map(item => `
+        <article class="module-card unavailable">
+          <div class="lesson-code">${escapeHtml(item.code)}</div>
+          <span class="badge locked">讲义待生成</span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p>${escapeHtml(item.goal)}</p>
+          <ul class="outcome-list">
+            <li>计划产出物：${escapeHtml(item.output)}</li>
+            <li>训练关键词：${escapeHtml(item.tags.join(" / "))}</li>
+          </ul>
+          <button class="text-link unavailable-trigger" type="button" data-message="${escapeHtml(`${item.code} 的课程文件还没有生成。当前不会跳到 mock 页面，正式进入 Week 1 后再关联真实讲义、代码和作业。`)}">为什么不能打开？ →</button>
+        </article>
+      `).join("");
+    }
+
+    function renderTransferMap() {
+      const transferMap = document.querySelector("#transferMap");
+      transferMap.innerHTML = courseData.transfers.map(([from, to]) => `
+        <div class="transfer-row"><span>${escapeHtml(from)}</span><span class="arrow">→</span><span>${escapeHtml(to)}</span></div>
+      `).join("");
+    }
+
+    function renderProjects() {
+      const projectsGrid = document.querySelector("#projectsGrid");
+      projectsGrid.innerHTML = courseData.projects.map((project) => `
+        <article class="project-card unavailable">
+          <span class="badge locked">${escapeHtml(project.time)} · 未开始</span>
+          <h3>${escapeHtml(project.title)}</h3>
+          <p>${escapeHtml(project.desc)}</p>
+          <div class="project-meta"><span class="badge">${escapeHtml(project.stack)}</span></div>
+        </article>
+      `).join("");
+    }
+
+    function renderArchive() {
+      const archiveGrid = document.querySelector("#archiveGrid");
+      const historyCards = courseState.completedLessonRows.length === 0
+        ? [{ type: "lesson", empty: true, title: "暂无已完成历史课程", desc: "PROGRESS.md 显示当前总进度为 0 / 39 lessons。开始并完成 Lesson 0 后，这里才会出现真实历史课程回看。" }]
+        : courseState.completedLessonRows.map(item => ({ type: "lesson", status: "complete", title: `${item.code} ${item.title}`, desc: "已完成课程记录来自 PROGRESS.md。对应讲义文件存在时才会展示链接。" }));
+
+      const cards = [
+        ...historyCards,
+        ...courseData.currentResources,
+        ...courseData.pendingResources.map(item => ({ ...item, pending: true }))
+      ];
+
+      archiveGrid.innerHTML = cards.map(item => {
+        const type = item.type || "reference";
+        const title = escapeHtml(item.title);
+        const desc = escapeHtml(item.desc);
+        const text = escapeHtml(`${item.title} ${item.desc} ${type}`);
+        const isUnavailable = item.empty || item.pending || item.exists === false;
+        const badgeText = item.empty ? "历史为空" : item.pending ? "待生成" : item.exists === false ? "文件缺失" : item.status === "current" ? "当前资料" : item.status === "source" ? "真实文件" : "可回看";
+        const badgeClass = item.empty || item.pending || item.exists === false ? "locked" : "available";
+        const action = item.href && item.exists !== false
+          ? `<a href="${escapeHtml(markdownHref(item.href))}">${escapeHtml(item.label)} →</a>`
+          : `<button class="text-link unavailable-trigger" type="button" data-message="${escapeHtml(item.message || item.desc)}">${escapeHtml(item.label || "查看说明")} →</button>`;
+        const sourcePath = item.href ? `<div class="source-path">file · ${escapeHtml(item.href)}</div>` : `<div class="source-path">no file · 不创建 mock 页面</div>`;
+
+        return `
+          <article class="archive-card ${isUnavailable ? "unavailable" : ""}" data-type="${escapeHtml(type)}" data-text="${text}">
+            <div>
+              <span class="badge ${badgeClass}">${badgeText}</span>
+              <h3>${title}</h3>
+              <p>${desc}</p>
+              ${sourcePath}
+            </div>
+            ${action}
+          </article>
+        `;
+      }).join("");
+      applyArchiveFilter();
+    }
+
+    function applyArchiveFilter() {
+      const keyword = document.querySelector("#archiveSearch").value.trim().toLowerCase();
+      document.querySelectorAll(".archive-card").forEach(card => {
+        const typeMatch = activeFilter === "all" || card.dataset.type === activeFilter;
+        const textMatch = !keyword || card.dataset.text.toLowerCase().includes(keyword);
+        card.classList.toggle("is-hidden", !(typeMatch && textMatch));
+      });
+    }
+
+    function renderTerms() {
+      const termsGrid = document.querySelector("#termsGrid");
+      termsGrid.innerHTML = courseData.terms.map(term => `
+        <article class="term-card">
+          <span class="badge blue">AI TERM</span>
+          <h3>${escapeHtml(term.title)}</h3>
+          <p>${escapeHtml(term.desc)}</p>
+        </article>
+      `).join("");
+    }
+
+    function showNotice(message) {
+      const existing = document.querySelector("#noticeModal");
+      if (existing) existing.remove();
+      document.body.insertAdjacentHTML("beforeend", `
+        <div class="notice-modal" id="noticeModal" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
+          <div class="notice-card">
+            <span class="badge locked">未开始 / 待生成</span>
+            <h2 id="noticeTitle">这个入口现在还不能打开</h2>
+            <p>${escapeHtml(message)}</p>
+            <button class="btn" type="button" data-close-notice>知道了</button>
+          </div>
+        </div>
+      `);
+      document.querySelector("[data-close-notice]").focus();
+    }
+
+    document.addEventListener("click", (event) => {
+      const trigger = event.target.closest(".unavailable-trigger, .js-not-started");
+      if (trigger) {
+        event.preventDefault();
+        showNotice(trigger.dataset.message || "当前资料还未生成。为了长期使用，本页面不会跳转到 mock 页面。等真实文件生成后再开放链接。");
+      }
+      if (event.target.matches("[data-close-notice]") || event.target.id === "noticeModal") {
+        document.querySelector("#noticeModal")?.remove();
+      }
+    });
+
+    const filterButtons = [...document.querySelectorAll(".filter-pills button")];
+    const searchInput = document.querySelector("#archiveSearch");
+    let activeFilter = "all";
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        activeFilter = button.dataset.filter;
+        applyArchiveFilter();
+      });
+    });
+    searchInput.addEventListener("input", applyArchiveFilter);
+
+    async function verifyCurrentResourceFiles() {
+      await Promise.all(courseData.currentResources.map(async (item) => {
+        item.exists = await resourceExists(item.href);
+      }));
+      renderArchive();
+    }
+
+    async function loadProgressFromSource() {
+      try {
+        const markdown = await fetchText(sourceFiles.progress);
+        applyProgressState(parseProgressMarkdown(markdown));
+        document.querySelector("#sourceSyncBadge").textContent = "PROGRESS.md OK";
+      } catch (error) {
+        document.querySelector("#sourceSyncBadge").textContent = "静态快照";
+      }
+    }
+
+    renderPathGrid();
+    renderWeekOne();
+    renderTransferMap();
+    renderProjects();
+    renderArchive();
+    renderTerms();
+    loadProgressFromSource();
+    verifyCurrentResourceFiles();
+  </script>
+</body>
+</html>
