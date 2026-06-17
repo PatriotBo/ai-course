@@ -10,12 +10,12 @@
 |---|---|
 | 当前阶段 | Phase 0：AI 能力地图与术语入门 |
 | 当前周 | Week 0 |
-| 当前课 | Lesson 0 |
+| 当前课 | Lesson 0（进行中） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
-| 当前总进度 | 0 / 39 lessons |
+| 当前总进度 | 0 / 39 lessons（L00 进行中） |
 | 当前项目 | 尚未开始 |
-| 下节课 | Week 0 Lesson 0：后端工程师的 AI 能力地图 |
+| 下节课 | 继续 Week 0 Lesson 0：完成能力诊断与课后作业 |
 
 ---
 
@@ -67,16 +67,17 @@
 
 | 课程 | 作业 | 状态 | 备注 |
 |---|---|---|---|
-| L00 | `assignments/week00-lesson00-homework.md` | 已生成，未开始 | Lesson 0 尚未正式学习，作业未提交 |
+| L00 | `assignments/week00-lesson00-homework.md` | 课堂练习已完成，作业未提交 | 课堂练习记录：`reviews/week00-lesson00-class-exercise.md` |
 
 ---
 
 ## 4. 当前薄弱点
 
-> 初始状态，待 Lesson 0 诊断后更新。
+> Lesson 0 课堂练习后初步诊断。
 
-- AI 能力地图尚未系统化；
-- Agent / RAG / MCP / Eval 概念需要建立完整索引；
+- AI 能力地图已开始建立，但还需要继续清晰区分 LLM API、RAG、Tool Calling、Agent、MCP、Skill 的边界；
+- 对后端能力迁移方向理解较好，后续需要把 Redis/Kafka/Go/MySQL 等经验落到具体 AI 工程模块和代码实现；
+- 性能优化需要从“快”扩展到“稳定性、成本、首 token 时间、工具耗时、检索耗时、可观测性”；
 - 缺少可写进简历的 AI 项目资产；
 - 需要训练面试表达。
 

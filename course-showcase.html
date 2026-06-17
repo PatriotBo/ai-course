@@ -124,7 +124,7 @@
             <p>你需要列出最熟悉的后端能力，并映射成 AI 应用中的能力。例如 Kafka 消费失败重试，可以迁移到 Agent 工具失败重试、任务死信队列和人工补偿。</p>
             <div class="hero-actions" style="margin-top: 20px;">
               <a class="btn secondary" href="reader.html?file=assignments%2Fweek00-lesson00-homework.md">查看作业文件</a>
-              <button class="btn secondary js-not-started" type="button" data-message="当前 Lesson 0 尚未正式学习，作业也还未提交。可以先查看题目，正式开始请说：开始 Lesson 0。">提交前提示</button>
+              <button class="btn secondary js-not-started" type="button" data-message="Lesson 0 已经开始，课堂练习已完成；课后作业还未提交。可以先查看题目，完成后把答案发给我批改。">提交前提示</button>
             </div>
           </article>
         </div>
@@ -253,8 +253,9 @@
         { title: "Final Project：真实项目复刻 + 改造", time: "Week 12", stack: "Dify / RAGFlow / OpenHands / TradingAgents / mem0", desc: "从真实 GitHub 项目选型，拆解、复刻、改造成可演示、可写进简历的作品。" }
       ],
       currentResources: [
-        { type: "lesson", status: "current", title: "Week 0 Lesson 0：备课讲义", desc: "真实文件：后端工程师的 AI 能力地图。状态为备课单已生成，等待正式授课。", href: "lessons/week00-lesson00-ai-career-map.md", label: "打开真实讲义" },
-        { type: "assignment", status: "current", title: "Homework：Week 0 Lesson 0", desc: "真实文件：Lesson 0 作业题。课程尚未开始，当前仅作为题目预览，尚未提交。", href: "assignments/week00-lesson00-homework.md", label: "查看真实作业" },
+        { type: "lesson", status: "current", title: "Week 0 Lesson 0：课程讲义", desc: "真实文件：后端工程师的 AI 能力地图。Lesson 0 已经开始，可继续回看讲义。", href: "lessons/week00-lesson00-ai-career-map.md", label: "打开真实讲义" },
+        { type: "assignment", status: "current", title: "Homework：Week 0 Lesson 0", desc: "真实文件：Lesson 0 作业题。课堂练习已完成，课后作业尚未提交。", href: "assignments/week00-lesson00-homework.md", label: "查看真实作业" },
+        { type: "review", status: "current", title: "Lesson 0 课堂练习记录", desc: "真实文件：记录用户后端能力迁移回答、课堂诊断和下一步学习优先级。", href: "reviews/week00-lesson00-class-exercise.md", label: "查看课堂记录" },
         { type: "reference", status: "source", title: "课程总纲", desc: "真实文件：12 周路线、36+ 节课列表、阶段项目和评估标准。", href: "COURSE_PLAN.md", label: "打开总纲" },
         { type: "reference", status: "source", title: "学习进度 Ledger", desc: "真实文件：当前阶段、已完成课程、作业状态、薄弱点和项目进度。", href: "PROGRESS.md", label: "查看进度源文件" },
         { type: "reference", status: "source", title: "课程参考资料库", desc: "真实目录说明：后续保存 DeepLearning.AI、OpenAI Cookbook、LangGraph、LlamaIndex、MCP 等参考资料。", href: "references/README.md", label: "打开资料库" },
@@ -264,7 +265,7 @@
       pendingResources: [
         { type: "lesson", title: "Week 1 课程讲义", desc: "L03-L05 还没有生成对应讲义文件；正式学到 Week 1 后再出现真实文件链接。", label: "待生成提示", message: "Week 1 的讲义文件还不存在。等完成 Lesson 0 并进入 Week 1 后，这里会挂上真实文件链接。" },
         { type: "assignment", title: "Week 1 作业", desc: "模型调用脚本、SSE 接口、错误重试 wrapper 的作业文件尚未生成。", label: "待生成提示", message: "Week 1 作业文件还不存在，不会跳转到 mock 页面。进入 Week 1 后再生成并关联真实文件。" },
-        { type: "question", title: "课堂问题记录", desc: "当前还未正式授课，因此没有历史问题记录文件。", label: "未开始提示", message: "课程还没有开始，所以问题记录为空。正式授课后会把真实问题与复盘记录放入 reviews/ 或进度 Ledger。" }
+        { type: "question", title: "课堂问题记录", desc: "当前 Lesson 0 已开始，但还没有单独的问题记录文件；课堂练习记录已保存到 reviews/。", label: "记录提示", message: "当前还没有单独的问题记录文件。Lesson 0 的课堂练习和诊断已保存到 reviews/week00-lesson00-class-exercise.md。" }
       ],
       terms: [
         { title: "Agent Loop", desc: "观察 → 思考 → 行动 → 反馈的循环，让 LLM 从单轮回答升级为任务执行器。" },
@@ -331,16 +332,20 @@
       }));
       const completedLessonRows = lessonRows.filter(item => item.done);
 
+      const currentLesson = rowValue("当前课") || courseState.currentLesson;
+      const nextLesson = rowValue("下节课") || courseState.nextLesson;
+      const startedMarker = `${progressValue} ${currentLesson} ${nextLesson}`;
+
       return {
         currentPhase: rowValue("当前阶段") || courseState.currentPhase,
         currentWeek: rowValue("当前周") || courseState.currentWeek,
-        currentLesson: rowValue("当前课") || courseState.currentLesson,
+        currentLesson,
         currentProject: rowValue("当前项目") || courseState.currentProject,
-        nextLesson: rowValue("下节课") || courseState.nextLesson,
+        nextLesson,
         completedLessons: progressMatch ? Number(progressMatch[1]) : completedLessonRows.length,
         totalLessons: progressMatch ? Number(progressMatch[2]) : courseState.totalLessons,
         completedLessonRows,
-        started: completedLessonRows.length > 0 || (progressMatch ? Number(progressMatch[1]) > 0 : false)
+        started: completedLessonRows.length > 0 || (progressMatch ? Number(progressMatch[1]) > 0 : false) || /进行中|已开始/.test(startedMarker)
       };
     }
 
@@ -385,7 +390,7 @@
             <div class="week-index"><span>${escapeHtml(item.week)}</span><span>${escapeHtml(item.phase)}</span></div>
             <span class="badge ${statusClass}">${statusText}</span>
             <h3>${escapeHtml(item.title)}</h3>
-            <p>${isCurrent ? "当前课程还未正式开始，先从 Lesson 0 建立能力地图和学习坐标。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
+            <p>${isCurrent ? "Lesson 0 正在进行：已完成课堂练习，下一步完成作业并形成能力诊断。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
             <div class="deliverable">OUTPUT · ${escapeHtml(item.output)}</div>
           </article>
         `;
