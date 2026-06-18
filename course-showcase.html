@@ -36,7 +36,7 @@
         <div class="hero-actions">
           <a class="btn" href="#archive">进入历史课程回看中心 →</a>
           <a class="btn secondary" href="reader.html?file=PROGRESS.md">查看学习进度 →</a>
-          <button class="btn secondary unavailable-trigger" type="button" data-message="Lesson 2 的讲义文件还没有生成。开始下一节课前会生成真实讲义，不会跳转到 mock 页面。">Lesson 2 待生成 →</button>
+          <a class="btn secondary" href="reader.html?file=lessons%2Fweek00-lesson02-real-project-selection.md">开始 Lesson 2 讲义 →</a>
         </div>
         <div class="stat-strip" aria-label="课程关键指标">
           <div class="stat"><strong>12</strong><span>周系统训练</span></div>
@@ -60,7 +60,7 @@
 
           <div class="cockpit-list">
             <div class="cockpit-item"><label>当前阶段</label><b id="currentPhase">Phase 0：AI 能力地图与术语入门</b></div>
-            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 0</span> · <span id="currentLesson">Lesson 2（待开始）</span></b></div>
+            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 0</span> · <span id="currentLesson">Lesson 2（进行中）</span></b></div>
             <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 0 Lesson 2：真实项目选择方法</b></div>
             <div class="cockpit-item"><label>当前项目</label><b id="currentProject">尚未开始</b></div>
             <div class="cockpit-item"><label>数据来源</label><b><a href="reader.html?file=PROGRESS.md">PROGRESS.md</a> / <a href="reader.html?file=COURSE_PLAN.md">COURSE_PLAN.md</a></b></div>
@@ -77,7 +77,7 @@
             <h2 class="section-title">12 周学习路径</h2>
             <p class="section-copy">从能力地图起步，逐步把传统后端技能迁移到 AI 应用系统：模型调用、检索、工具、Agent、协议、工程化和面试表达。</p>
           </div>
-          <span class="badge available">Lesson 0-1 已完成</span>
+          <span class="badge available">Lesson 2 进行中</span>
         </div>
         <div class="panel">
           <div class="path-grid" id="pathGrid"></div>
@@ -166,7 +166,7 @@
     const courseState = {
       currentPhase: "Phase 0：AI 能力地图与术语入门",
       currentWeek: "Week 0",
-      currentLesson: "Lesson 2（待开始）",
+      currentLesson: "Lesson 2（进行中）",
       totalLessons: 39,
       completedLessons: 2,
       currentProject: "尚未开始",
@@ -244,6 +244,7 @@
         }
       ],
       terms: [
+        { title: "Agentic Workflow", tag: "今日新增", desc: "由 LLM 参与局部决策的任务工作流，把模型推理、工具调用、状态、审批、恢复和评估组织成可运行系统。", detail: "Agentic Workflow 不是纯聊天，也不是传统固定流程。它把 LLM 的动态决策能力放进有状态、有权限、有 checkpoint、有 trace、有 eval 的工作流里，让系统既能根据上下文灵活推进任务，又能保持生产可控。", backend: "这里不强行等同传统后端。它和固定状态机相似的一点是有边界和状态；不同点是某些节点由模型根据上下文动态决定下一步。", interview: "Agentic Workflow 的价值是把 LLM 的动态推理能力放进可控工程流程，用状态、权限、checkpoint、trace 和 eval 管住不确定性。" },
         { title: "Agent Harness", tag: "今日新增", desc: "模型之外的 Agent 运行框架，管理工具、状态、权限、日志、评估和失败恢复。", detail: "Agent Harness 是包在 LLM 外面的工程执行层。LLM 负责推理和决策，但工具注册、参数校验、权限控制、状态持久化、执行日志、失败重试、Checkpoint 和 Eval 都应该由 Harness 承担。", backend: "类似服务框架 + 任务调度器 + RPC 客户端 + 状态存储 + 日志系统 + 测试框架 + 安全沙箱。", interview: "生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。" },
         { title: "Agentic AI", tag: "昨日新增", desc: "从被动问答升级为目标驱动、多步骤执行的 AI 系统。", detail: "Agentic AI 指具备目标理解、规划、工具调用、状态管理和反馈循环能力的 AI 系统。它不是单个模型名称，也不等于多 Agent；重点是让 LLM 从回答器变成任务执行系统。", backend: "类似一个带状态的任务编排系统：拆任务、调服务、处理失败、记录过程并继续推进目标。", interview: "Agentic AI 的工程重点是工具协议、状态存储、执行日志、失败恢复和 Eval 闭环。" },
         { title: "Agent Loop", tag: "核心", desc: "观察 → 思考 → 行动 → 反馈的循环，让 LLM 从单轮回答升级为任务执行器。", detail: "Agent Loop 是 Agent 持续推进任务的执行循环：读取当前状态，决定下一步，执行工具或生成回复，再把结果写回状态继续判断。", backend: "类似消费任务的 worker + 状态机 + 重试机制。", interview: "Agent Loop 是让 LLM 从一次性生成升级为多步骤任务执行器的核心机制。" },
@@ -376,7 +377,7 @@
             <div class="week-index"><span>${escapeHtml(item.week)}</span><span>${escapeHtml(item.phase)}</span></div>
             <span class="badge ${statusClass}">${statusText}</span>
             <h3>${escapeHtml(item.title)}</h3>
-            <p>${isCurrent ? "Week 0 已完成 Lesson 0 和 Lesson 1，下一步进入 Lesson 2：真实项目选择方法。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
+            <p>${isCurrent ? "Week 0 已完成 Lesson 0 和 Lesson 1，当前正在进行 Lesson 2：真实项目选择方法。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
             <div class="deliverable">OUTPUT · ${escapeHtml(item.output)}</div>
           </article>
         `;

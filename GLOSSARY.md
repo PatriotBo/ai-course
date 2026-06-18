@@ -230,3 +230,30 @@ Thought → Action → Observation → Thought → Action → ...
 - Agent Harness 也不只是工具调用，它还包括状态、权限、日志、评估和恢复。
 
 **面试表达**：生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。
+
+---
+
+## 19. Agentic Workflow
+
+> 今日新增术语：2026-06-18  
+> 选择理由：近期 Agent 工程讨论中，越来越多资料强调企业级 AI 应用不是“更强模型 + 几个函数”，而是把模型放进可恢复、可观测、可治理、可扩展的工作流系统里；Agentic Workflow 正是描述这种从对话走向任务执行的关键概念。
+
+**一句话**：Agentic Workflow 是由 LLM 参与决策的任务工作流，它把模型推理、工具调用、状态管理、人工审批、错误恢复和评估闭环组织成一个可运行的系统。
+
+**不要强行类比**：它和传统固定工作流不完全一样。传统工作流的路径通常由代码预先写死；Agentic Workflow 中某些节点可以由模型根据上下文动态选择下一步，因此它既有 workflow 的可控性，也有 agent 的动态性。
+
+**关键组成**：
+- Goal：任务目标和完成标准；
+- State：当前任务状态、上下文和中间结果；
+- Model Decision：由模型判断下一步或生成结构化决策；
+- Tools：执行搜索、数据库、文件、API 等外部操作；
+- Human Gate：高风险节点由人审批；
+- Checkpoint：关键状态可恢复；
+- Trace / Eval：记录执行过程并评估结果质量。
+
+**容易混淆**：
+- Agentic Workflow 不等于纯 Agent Loop；它通常更强调可控的流程边界；
+- Agentic Workflow 不等于传统 Workflow；它允许模型参与局部决策；
+- Agentic Workflow 也不是某个具体框架，LangGraph、Dify Workflow、LlamaIndex Workflow 都可以实现类似思想。
+
+**面试表达**：Agentic Workflow 的价值是把 LLM 的动态推理能力放进可控的工程流程里，让系统既能根据上下文灵活决策，又能通过状态、权限、checkpoint、trace 和 eval 保持生产可控。

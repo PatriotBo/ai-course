@@ -10,7 +10,7 @@
 |---|---|
 | 当前阶段 | Phase 0：AI 能力地图与术语入门 |
 | 当前周 | Week 0 |
-| 当前课 | Lesson 2（待开始） |
+| 当前课 | Lesson 2（进行中） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
 | 当前总进度 | 2 / 39 lessons |
@@ -69,6 +69,7 @@
 |---|---|---|---|
 | L00 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson00-class-exercise.md`；作业批改：`reviews/week00-lesson00-homework-review.md` |
 | L01 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson01-class-exercise.md`；作业批改：`reviews/week00-lesson01-homework-review.md` |
+| L02 | `assignments/week00-lesson02-homework.md` | 已生成，未提交 | Lesson 2 正在学习：真实项目选择方法 |
 
 ---
 
@@ -86,6 +87,7 @@
 - Checkpoint 需要补进后端类比词库：类似 Kafka offset、任务状态快照、workflow checkpoint；
 - 风险题需要形成“风险 + 工程手段”的表达习惯，如 max steps、timeout、budget、tool whitelist、checkpoint、fallback；
 - Agent Harness 设计还需从模块清单升级为运行闭环：输入、状态、工具、观测、评分、决策、继续/结束、复盘。
+- Lesson 2 开始后，需要训练真实项目选择能力：不能只看 star 数，需要基于目标匹配、主链路清晰度、可运行性、可裁剪性、工程化含量、作品集价值和风险成本做判断。
 
 ---
 
@@ -136,12 +138,13 @@
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 课后作业 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Agent Harness；昨日新增：Agentic AI |
+| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Agentic Workflow；已包含 Agent Harness、Agentic AI 等术语 |
 | Lesson 1 讲义 | `lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md` | 已完成 | AI 圈黑话课 1：harness / loop / hermes / ReAct |
 | Lesson 1 课堂练习 | `reviews/week00-lesson01-class-exercise.md` | 已完成 | 课中 Harness / Loop / ReAct 诊断，不与课后作业混用 |
 | Lesson 1 课后作业 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
 | Lesson 1 完整批改 | `reviews/week00-lesson01-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| Lesson 2 讲义 | `lessons/week00-lesson02-real-project-selection.md` | 未生成 | 下一课开始前生成真实讲义，不创建 mock 页面 |
+| Lesson 2 讲义 | `lessons/week00-lesson02-real-project-selection.md` | 已生成，进行中 | 真实项目选择方法：项目分类、评分框架、GitHub 阅读 SOP、复刻层级 |
+| Lesson 2 课后作业 | `assignments/week00-lesson02-homework.md` | 已生成，未提交 | 项目候选清单、10 维评分、最小复刻闭环与面试表达 |
 
 ---
 
