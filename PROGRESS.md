@@ -10,18 +10,18 @@
 |---|---|
 | 当前阶段 | Phase 0：AI 能力地图与术语入门 |
 | 当前周 | Week 0 |
-| 当前课 | Lesson 0（进行中） |
+| 当前课 | Lesson 1（待开始） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
-| 当前总进度 | 0 / 39 lessons（L00 进行中） |
+| 当前总进度 | 1 / 39 lessons |
 | 当前项目 | 尚未开始 |
-| 下节课 | 继续 Week 0 Lesson 0：完成能力诊断与课后作业 |
+| 下节课 | Week 0 Lesson 1：AI 圈黑话课 1：harness / loop / hermes / ReAct |
 
 ---
 
 ## 2. 已完成课程
 
-- [ ] L00 后端工程师的 AI 能力地图
+- [x] L00 后端工程师的 AI 能力地图
 - [ ] L01 AI 圈黑话课 1：harness / loop / hermes / ReAct
 - [ ] L02 真实项目选择方法
 - [ ] L03 LLM API 第一课
@@ -67,19 +67,19 @@
 
 | 课程 | 作业 | 状态 | 备注 |
 |---|---|---|---|
-| L00 | `assignments/week00-lesson00-homework.md` | 课堂练习已完成，作业未提交 | 课堂练习记录：`reviews/week00-lesson00-class-exercise.md` |
+| L00 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson00-class-exercise.md`；作业批改：`reviews/week00-lesson00-homework-review.md` |
 
 ---
 
 ## 4. 当前薄弱点
 
-> Lesson 0 课堂练习后初步诊断。
+> Lesson 0 作业批改后诊断。
 
-- AI 能力地图已开始建立，但还需要继续清晰区分 LLM API、RAG、Tool Calling、Agent、MCP、Skill 的边界；
-- 对后端能力迁移方向理解较好，后续需要把 Redis/Kafka/Go/MySQL 等经验落到具体 AI 工程模块和代码实现；
-- 性能优化需要从“快”扩展到“稳定性、成本、首 token 时间、工具耗时、检索耗时、可观测性”；
-- 缺少可写进简历的 AI 项目资产；
-- 需要训练面试表达。
+- MCP 概念边界需要修正：MCP 的核心是标准化连接工具、数据源和上下文资源，不是多 Agent 互相通信协议；
+- Agent 概念需要从“记忆/上下文管理”升级到“目标驱动的任务执行循环”：LLM + Tools + Memory/State + Planning + Execution Loop；
+- RAG 需要理解为“基于外部可追溯资料回答，降低幻觉并支持私有/实时知识”，不只是补充私有知识；
+- 项目模块拆解还偏粗，需要训练输入、输出、状态、工具、失败处理、质量评估六个维度；
+- Python、LangGraph、Eval、AI 项目工程化和面试表达需要系统补齐。
 
 ---
 
@@ -96,7 +96,36 @@
 
 ---
 
-## 6. 每节课后更新模板
+## 6. 课后记录
+
+### 2026-06-17 Lesson 0 课后记录
+
+- 今日主题：后端工程师的 AI 能力地图。
+- 关键概念：AI 应用不是简单调 API，而是围绕 LLM 构建可控、可观测、可评估、可降级的工程系统；后端能力可迁移到 LLM Gateway、RAG、Tool Server、Agent Task、Trace、Eval 等模块。
+- 完成代码：无，本课为路线认知和诊断课。
+- 作业：已提交并批改，记录见 `reviews/week00-lesson00-homework-review.md`。
+- 掌握情况：能正确识别 LLM API 只是 AI 应用链路一环，具备较好的后端工程迁移意识。
+- 薄弱点：MCP、Agent、RAG 的边界需要修正；项目模块拆解和面试表达需要继续训练。
+- 下节课：Week 0 Lesson 1：AI 圈黑话课 1：harness / loop / hermes / ReAct。
+
+---
+
+## 7. 已生成资料索引
+
+| 类型 | 文件 | 状态 | 说明 |
+|---|---|---|---|
+| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00 完成，L01 待开始 |
+| Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
+| Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
+| Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
+| Lesson 0 课后作业 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
+| Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
+| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Agentic AI |
+| Lesson 1 讲义 | 待生成 | 未开始 | 开始 Lesson 1 后再生成真实文件并开放入口 |
+
+---
+
+## 8. 每节课后更新模板
 
 ```markdown
 ## YYYY-MM-DD Lesson X 课后记录

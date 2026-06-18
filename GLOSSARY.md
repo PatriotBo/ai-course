@@ -1,6 +1,6 @@
 # AI Engineering Glossary
 
-> AI 圈术语表。每周持续更新。  
+> AI 圈术语表。每周持续更新。
 > 解释格式：一句话解释 → 后端类比 → 真实项目位置 → 面试表达。
 
 ---
@@ -142,7 +142,7 @@ Thought → Action → Observation → Thought → Action → ...
 
 ## 13. Workflow vs Agent
 
-**Workflow**：流程固定，路径可预测。  
+**Workflow**：流程固定，路径可预测。
 **Agent**：由模型动态决定下一步，路径不完全固定。
 
 **后端类比**：
@@ -177,3 +177,29 @@ Thought → Action → Observation → Thought → Action → ...
 - 工具权限；
 - 敏感操作审批；
 - 合规策略。
+
+---
+
+## 17. Agentic AI
+
+> 今日新增术语：2026-06-17
+> 选择理由：近期 AI Agent、MCP、上下文工程相关讨论中，“Agentic AI”经常被用来描述从被动问答走向主动任务执行的 AI 系统。
+
+**一句话**：Agentic AI 指具备目标理解、规划、工具调用、状态管理和多步骤执行能力的 AI 系统，而不是只回答问题的普通聊天模型。
+
+**后端类比**：普通 Chatbot 像一次 RPC 调用；Agentic AI 更像一个带状态的任务编排系统，能拆任务、调服务、处理失败、记录过程并持续推进目标。
+
+**关键组成**：
+- Goal：明确任务目标；
+- Planning：拆分步骤和选择路径；
+- Tools：调用外部工具、API、数据库或文件系统；
+- Memory / State：保存任务上下文、用户偏好和执行状态；
+- Feedback Loop：根据执行结果继续调整；
+- Guardrails：限制高风险动作，保证安全边界。
+
+**容易混淆**：
+- Agentic AI 不是单个模型名称；
+- Agentic AI 不等于“多 Agent”；
+- 只有一次模型调用的 Chatbot 通常不能算完整 Agentic AI。
+
+**面试表达**：Agentic AI 的重点是把 LLM 从“回答器”升级为“任务执行系统”，工程上需要工具协议、状态存储、执行日志、失败恢复和评估闭环支撑。

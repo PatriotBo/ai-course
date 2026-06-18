@@ -865,6 +865,60 @@ h1 {
   padding: 20px;
 }
 
+.term-trigger {
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.term-trigger:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 4px;
+}
+
+.term-more {
+  display: inline-flex;
+  margin-top: 14px;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.term-detail-card {
+  width: min(760px, 100%);
+}
+
+.term-lead {
+  color: var(--paper) !important;
+  font-size: 16px;
+}
+
+.term-detail-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.term-detail-grid section {
+  border: 1px solid rgba(242, 230, 200, 0.14);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(245, 235, 210, 0.055);
+}
+
+.term-detail-grid h3 {
+  margin: 0 0 8px;
+  color: var(--accent-amber);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.term-detail-grid p {
+  margin: 0;
+}
+
 .footer {
   padding: 48px 0 72px;
   color: var(--paper-muted);
