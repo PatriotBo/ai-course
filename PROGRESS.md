@@ -10,19 +10,19 @@
 |---|---|
 | 当前阶段 | Phase 0：AI 能力地图与术语入门 |
 | 当前周 | Week 0 |
-| 当前课 | Lesson 1（待开始） |
+| 当前课 | Lesson 2（待开始） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
-| 当前总进度 | 1 / 39 lessons |
+| 当前总进度 | 2 / 39 lessons |
 | 当前项目 | 尚未开始 |
-| 下节课 | Week 0 Lesson 1：AI 圈黑话课 1：harness / loop / hermes / ReAct |
+| 下节课 | Week 0 Lesson 2：真实项目选择方法 |
 
 ---
 
 ## 2. 已完成课程
 
 - [x] L00 后端工程师的 AI 能力地图
-- [ ] L01 AI 圈黑话课 1：harness / loop / hermes / ReAct
+- [x] L01 AI 圈黑话课 1：harness / loop / hermes / ReAct
 - [ ] L02 真实项目选择方法
 - [ ] L03 LLM API 第一课
 - [ ] L04 Streaming 与后端接口封装
@@ -68,6 +68,7 @@
 | 课程 | 作业 | 状态 | 备注 |
 |---|---|---|---|
 | L00 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson00-class-exercise.md`；作业批改：`reviews/week00-lesson00-homework-review.md` |
+| L01 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson01-class-exercise.md`；作业批改：`reviews/week00-lesson01-homework-review.md` |
 
 ---
 
@@ -79,7 +80,12 @@
 - Agent 概念需要从“记忆/上下文管理”升级到“目标驱动的任务执行循环”：LLM + Tools + Memory/State + Planning + Execution Loop；
 - RAG 需要理解为“基于外部可追溯资料回答，降低幻觉并支持私有/实时知识”，不只是补充私有知识；
 - 项目模块拆解还偏粗，需要训练输入、输出、状态、工具、失败处理、质量评估六个维度；
-- Python、LangGraph、Eval、AI 项目工程化和面试表达需要系统补齐。
+- Python、LangGraph、Eval、AI 项目工程化和面试表达需要系统补齐；
+- Lesson 1 作业后，Harness / LLM、Agent Harness、Agent Loop、ReAct 的概念边界已基本建立；
+- 仍需强化 Observation 与 Eval/Test Assertion 的边界：Observation 是工具或环境返回的事实结果，不等于结果断言；
+- Checkpoint 需要补进后端类比词库：类似 Kafka offset、任务状态快照、workflow checkpoint；
+- 风险题需要形成“风险 + 工程手段”的表达习惯，如 max steps、timeout、budget、tool whitelist、checkpoint、fallback；
+- Agent Harness 设计还需从模块清单升级为运行闭环：输入、状态、工具、观测、评分、决策、继续/结束、复盘。
 
 ---
 
@@ -108,20 +114,34 @@
 - 薄弱点：MCP、Agent、RAG 的边界需要修正；项目模块拆解和面试表达需要继续训练。
 - 下节课：Week 0 Lesson 1：AI 圈黑话课 1：harness / loop / hermes / ReAct。
 
+### 2026-06-18 Lesson 1 课后记录
+
+- 今日主题：AI 圈黑话课 1：harness / loop / hermes / ReAct。
+- 关键概念：LLM 是推理生成组件，Harness 是工程运行环境；Agent Harness 管理 Tool、State、Trace、Eval、Guardrails、Budget 等生产级职责；Agent Loop 通过 Thought / Action / Observation 多步推进任务；Hermes 不能脱离项目上下文解释。
+- 完成代码：无，本课为概念边界和系统设计训练课。
+- 作业：已提交并批改，记录见 `reviews/week00-lesson01-homework-review.md`。
+- 掌握情况：能较清楚地区分 Harness、Agent Harness、Agent Loop 和 ReAct，并能初步设计“吵架帮手 Agent Harness”的 Prompt、Tool、State、Guardrails 模块。
+- 薄弱点：Observation 与 Eval/Test Assertion 的边界、Checkpoint 类比、风险与工程治理手段、Agent Harness 完整运行闭环仍需加强。
+- 下节课：Week 0 Lesson 2：真实项目选择方法。
+
 ---
 
 ## 7. 已生成资料索引
 
 | 类型 | 文件 | 状态 | 说明 |
 |---|---|---|---|
-| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00 完成，L01 待开始 |
+| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00/L01 完成，L02 待开始 |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 课后作业 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Agentic AI |
-| Lesson 1 讲义 | 待生成 | 未开始 | 开始 Lesson 1 后再生成真实文件并开放入口 |
+| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Agent Harness；昨日新增：Agentic AI |
+| Lesson 1 讲义 | `lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md` | 已完成 | AI 圈黑话课 1：harness / loop / hermes / ReAct |
+| Lesson 1 课堂练习 | `reviews/week00-lesson01-class-exercise.md` | 已完成 | 课中 Harness / Loop / ReAct 诊断，不与课后作业混用 |
+| Lesson 1 课后作业 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
+| Lesson 1 完整批改 | `reviews/week00-lesson01-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
+| Lesson 2 讲义 | `lessons/week00-lesson02-real-project-selection.md` | 未生成 | 下一课开始前生成真实讲义，不创建 mock 页面 |
 
 ---
 

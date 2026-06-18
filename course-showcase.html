@@ -35,9 +35,9 @@
           这不是一份静态课表，而是你的 AI 转型训练控制台：从 LLM API、Prompt、RAG、Tool Calling、Agent Loop、Memory、LangGraph、MCP 到生产工程化与真实项目简历化，按 12 周路线逐步推进。
         </p>
         <div class="hero-actions">
-          <button class="btn js-not-started" type="button" data-message="Lesson 1 讲义还没有生成。请回到对话里说：开始 Lesson 1，我会先生成真实讲义，再开放页面入口。">进入 Lesson 1 →</button>
-          <a class="btn secondary" href="reader.html?file=lessons%2Fweek00-lesson00-ai-career-map.md">回看 Lesson 0 讲义 →</a>
-          <a class="btn secondary" href="reader.html?file=reviews%2Fweek00-lesson00-homework-review.md">查看 Lesson 0 完整批改 →</a>
+          <a class="btn" href="reader.html?file=reviews%2Fweek00-lesson01-homework-review.md">回看 Lesson 1 完整批改 →</a>
+          <a class="btn secondary" href="reader.html?file=lessons%2Fweek00-lesson01-ai-jargon-harness-loop-hermes-react.md">回看 Lesson 1 讲义 →</a>
+          <button class="btn secondary unavailable-trigger" type="button" data-message="Lesson 2 的讲义文件还没有生成。开始下一节课前会生成真实讲义，不会跳转到 mock 页面。">Lesson 2 待生成 →</button>
         </div>
         <div class="stat-strip" aria-label="课程关键指标">
           <div class="stat"><strong>12</strong><span>周系统训练</span></div>
@@ -53,15 +53,16 @@
             <span class="badge available" id="courseStatusBadge">IN PROGRESS</span>
             <span class="badge blue" id="sourceSyncBadge">同步自 PROGRESS.md</span>
           </div>
-          <div class="progress-ring" aria-label="当前课程总进度 1/39">
+            <div class="progress-ring" aria-label="当前课程总进度 2/39">
             <div class="progress-ring-inner">
-              <div><strong>1/39</strong><span>Lessons Done</span></div>
+              <div><strong>2/39</strong><span>Lessons Done</span></div>
             </div>
           </div>
+
           <div class="cockpit-list">
             <div class="cockpit-item"><label>当前阶段</label><b id="currentPhase">Phase 0：AI 能力地图与术语入门</b></div>
-            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 0</span> · <span id="currentLesson">Lesson 1（待开始）</span></b></div>
-            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 0 Lesson 1：AI 圈黑话课 1：harness / loop / hermes / ReAct</b></div>
+            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 0</span> · <span id="currentLesson">Lesson 2（待开始）</span></b></div>
+            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 0 Lesson 2：真实项目选择方法</b></div>
             <div class="cockpit-item"><label>当前项目</label><b id="currentProject">尚未开始</b></div>
             <div class="cockpit-item"><label>数据来源</label><b><a href="reader.html?file=PROGRESS.md">PROGRESS.md</a> / <a href="reader.html?file=COURSE_PLAN.md">COURSE_PLAN.md</a></b></div>
           </div>
@@ -77,7 +78,7 @@
             <h2 class="section-title">12 周学习路径</h2>
             <p class="section-copy">从能力地图起步，逐步把传统后端技能迁移到 AI 应用系统：模型调用、检索、工具、Agent、协议、工程化和面试表达。</p>
           </div>
-          <span class="badge available">Lesson 0 已完成</span>
+          <span class="badge available">Lesson 0-1 已完成</span>
         </div>
         <div class="panel">
           <div class="path-grid" id="pathGrid"></div>
@@ -150,9 +151,9 @@
           <div>
             <div class="kicker">Course Archive</div>
             <h2 class="section-title">历史课程回看中心</h2>
-            <p class="section-copy">这里只展示仓库里真实存在的课程文件，未生成的课程不会伪装成回看页。Lesson 0 已完成，讲义、课堂练习和完整批改记录均已生成；课后作业回看只保留完整批改记录。Lesson 1 尚未生成时只显示提示。</p>
+            <p class="section-copy">这里只展示仓库里真实存在的课程文件，未生成的课程不会伪装成回看页。Lesson 0 和 Lesson 1 已完成，讲义、课堂练习和完整批改记录均已生成；课后作业回看只保留完整批改记录。Lesson 2 尚未生成时只显示提示。</p>
           </div>
-          <span class="badge available" id="historyCountBadge">历史课程 1</span>
+          <span class="badge available" id="historyCountBadge">历史课程 2</span>
         </div>
         <div class="panel">
           <div class="archive-toolbar">
@@ -201,13 +202,16 @@
     const courseState = {
       currentPhase: "Phase 0：AI 能力地图与术语入门",
       currentWeek: "Week 0",
-      currentLesson: "Lesson 1（待开始）",
+      currentLesson: "Lesson 2（待开始）",
       totalLessons: 39,
-      completedLessons: 1,
+      completedLessons: 2,
       currentProject: "尚未开始",
-      nextLesson: "Week 0 Lesson 1：AI 圈黑话课 1：harness / loop / hermes / ReAct",
+      nextLesson: "Week 0 Lesson 2：真实项目选择方法",
       started: true,
-      completedLessonRows: [{ done: true, code: "L00", title: "后端工程师的 AI 能力地图" }]
+      completedLessonRows: [
+        { done: true, code: "L00", title: "后端工程师的 AI 能力地图" },
+        { done: true, code: "L01", title: "AI 圈黑话课 1：harness / loop / hermes / ReAct" }
+      ]
     };
 
     const courseData = {
@@ -255,6 +259,9 @@
         { type: "lesson", status: "done", title: "Week 0 Lesson 0：课程讲义", desc: "真实文件：后端工程师的 AI 能力地图。Lesson 0 已完成，可作为历史课程回看。", href: "lessons/week00-lesson00-ai-career-map.md", label: "回看讲义" },
         { type: "review", status: "done", title: "Lesson 0 课堂练习记录", desc: "真实文件：只记录课中后端能力迁移回答、课堂诊断和学习优先级，不混入课后作业批改。", href: "reviews/week00-lesson00-class-exercise.md", label: "查看课堂记录" },
         { type: "assignment", status: "done", title: "Lesson 0 完整批改记录", desc: "真实文件：包含基础题、诊断题、思考题、面试题的逐项批改和后续学习建议。课后作业回看只保留此完整批改入口。", href: "reviews/week00-lesson00-homework-review.md", label: "查看完整批改" },
+        { type: "lesson", status: "done", title: "Week 0 Lesson 1：AI 圈黑话课", desc: "真实文件：harness / loop / Hermes / ReAct 讲义已生成，Lesson 1 已完成，可作为历史课程回看。", href: "lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md", label: "回看讲义" },
+        { type: "review", status: "done", title: "Lesson 1 课堂练习记录", desc: "真实文件：记录 Harness / Loop / ReAct 课堂回答、诊断和吵架帮手 Agent Harness 补充讲解。", href: "reviews/week00-lesson01-class-exercise.md", label: "查看课堂记录" },
+        { type: "assignment", status: "done", title: "Lesson 1 完整批改记录", desc: "真实文件：包含基础题、后端类比题、系统设计题、风险题和面试题的逐项批改。课后作业回看只保留此完整批改入口。", href: "reviews/week00-lesson01-homework-review.md", label: "查看完整批改" },
         { type: "reference", status: "source", title: "课程总纲", desc: "真实文件：12 周路线、36+ 节课列表、阶段项目和评估标准。", href: "COURSE_PLAN.md", label: "打开总纲" },
         { type: "reference", status: "source", title: "学习进度 Ledger", desc: "真实文件：当前阶段、已完成课程、作业状态、薄弱点和项目进度。", href: "PROGRESS.md", label: "查看进度源文件" },
         { type: "reference", status: "source", title: "课程参考资料库", desc: "真实目录说明：后续保存 DeepLearning.AI、OpenAI Cookbook、LangGraph、LlamaIndex、MCP 等参考资料。", href: "references/README.md", label: "打开资料库" },
@@ -262,12 +269,13 @@
         { type: "review", status: "source", title: "作业批改与阶段复盘目录", desc: "真实目录说明：后续保存每次作业批改、阶段复盘和项目评审记录。", href: "reviews/README.md", label: "查看复盘目录" }
       ],
       pendingResources: [
-        { type: "lesson", title: "Week 1 课程讲义", desc: "L03-L05 还没有生成对应讲义文件；正式学到 Week 1 后再出现真实文件链接。", label: "待生成提示", message: "Week 1 的讲义文件还不存在。等完成 Lesson 0 并进入 Week 1 后，这里会挂上真实文件链接。" },
-        { type: "assignment", title: "Week 1 作业", desc: "模型调用脚本、SSE 接口、错误重试 wrapper 的作业文件尚未生成。", label: "待生成提示", message: "Week 1 作业文件还不存在，不会跳转到 mock 页面。进入 Week 1 后再生成并关联真实文件。" },
-        { type: "lesson", title: "Week 0 Lesson 1：AI 圈黑话课", desc: "L01 讲义文件尚未生成。正式开始 Lesson 1 后会关联真实讲义，不创建 mock 页面。", label: "待生成提示", message: "Lesson 1 的讲义文件还不存在。你可以在对话里说：开始 Lesson 1，我会先备课并生成真实讲义。" }
+        { type: "lesson", title: "Week 0 Lesson 2：真实项目选择方法", desc: "L02 讲义文件尚未生成。开始 Lesson 2 前再生成真实讲义，不创建 mock 页面。", label: "待生成提示", message: "Lesson 2 的讲义文件还不存在。开始下一节课前，我会再生成真实讲义并开放入口。" },
+        { type: "lesson", title: "Week 1 课程讲义", desc: "L03-L05 还没有生成对应讲义文件；正式学到 Week 1 后再出现真实文件链接。", label: "待生成提示", message: "Week 1 的讲义文件还不存在。等完成 Week 0 并进入 Week 1 后，这里会挂上真实文件链接。" },
+        { type: "assignment", title: "Week 1 作业", desc: "模型调用脚本、SSE 接口、错误重试 wrapper 的作业文件尚未生成。", label: "待生成提示", message: "Week 1 作业文件还不存在，不会跳转到 mock 页面。进入 Week 1 后再生成并关联真实文件。" }
       ],
       terms: [
-        { title: "Agentic AI", tag: "今日新增", desc: "从被动问答升级为目标驱动、多步骤执行的 AI 系统。", detail: "Agentic AI 指具备目标理解、规划、工具调用、状态管理和反馈循环能力的 AI 系统。它不是单个模型名称，也不等于多 Agent；重点是让 LLM 从回答器变成任务执行系统。", backend: "类似一个带状态的任务编排系统：拆任务、调服务、处理失败、记录过程并继续推进目标。", interview: "Agentic AI 的工程重点是工具协议、状态存储、执行日志、失败恢复和 Eval 闭环。" },
+        { title: "Agent Harness", tag: "今日新增", desc: "模型之外的 Agent 运行框架，管理工具、状态、权限、日志、评估和失败恢复。", detail: "Agent Harness 是包在 LLM 外面的工程执行层。LLM 负责推理和决策，但工具注册、参数校验、权限控制、状态持久化、执行日志、失败重试、Checkpoint 和 Eval 都应该由 Harness 承担。", backend: "类似服务框架 + 任务调度器 + RPC 客户端 + 状态存储 + 日志系统 + 测试框架 + 安全沙箱。", interview: "生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。" },
+        { title: "Agentic AI", tag: "昨日新增", desc: "从被动问答升级为目标驱动、多步骤执行的 AI 系统。", detail: "Agentic AI 指具备目标理解、规划、工具调用、状态管理和反馈循环能力的 AI 系统。它不是单个模型名称，也不等于多 Agent；重点是让 LLM 从回答器变成任务执行系统。", backend: "类似一个带状态的任务编排系统：拆任务、调服务、处理失败、记录过程并继续推进目标。", interview: "Agentic AI 的工程重点是工具协议、状态存储、执行日志、失败恢复和 Eval 闭环。" },
         { title: "Agent Loop", tag: "核心", desc: "观察 → 思考 → 行动 → 反馈的循环，让 LLM 从单轮回答升级为任务执行器。", detail: "Agent Loop 是 Agent 持续推进任务的执行循环：读取当前状态，决定下一步，执行工具或生成回复，再把结果写回状态继续判断。", backend: "类似消费任务的 worker + 状态机 + 重试机制。", interview: "Agent Loop 是让 LLM 从一次性生成升级为多步骤任务执行器的核心机制。" },
         { title: "Harness", tag: "工程", desc: "运行、测试、评估模型或 Agent 的外层框架。", detail: "Harness 不是模型能力本身，而是包住模型/Agent 的运行、测试、评估和日志脚手架，比如 Prompt harness、Eval harness、Agent harness。", backend: "类似测试框架 + 任务运行器 + 监控脚手架。", interview: "Harness 让模型能力可测试、可复现、可迭代。" },
         { title: "Hermes", tag: "黑话", desc: "不是固定概念，常见于模型系列、通信层或工具调用命名。", detail: "Hermes 在不同项目里可能指 Nous Hermes 模型系列、消息通信层、工具调用封装或项目代号，不能脱离上下文解释。", backend: "像一些项目把模块叫 gateway、bridge、router 一样，需要看具体代码和文档。", interview: "遇到 Hermes 先确认上下文，不要把它当成统一标准协议。" },
@@ -398,7 +406,7 @@
             <div class="week-index"><span>${escapeHtml(item.week)}</span><span>${escapeHtml(item.phase)}</span></div>
             <span class="badge ${statusClass}">${statusText}</span>
             <h3>${escapeHtml(item.title)}</h3>
-            <p>${isCurrent ? "Week 0 已完成 Lesson 0，下一步进入 Lesson 1：AI 圈黑话与 Agent 基础术语。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
+            <p>${isCurrent ? "Week 0 已完成 Lesson 0 和 Lesson 1，下一步进入 Lesson 2：真实项目选择方法。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
             <div class="deliverable">OUTPUT · ${escapeHtml(item.output)}</div>
           </article>
         `;
@@ -444,7 +452,8 @@
     function renderArchive() {
       const archiveGrid = document.querySelector("#archiveGrid");
       const lessonLinks = {
-        L00: "lessons/week00-lesson00-ai-career-map.md"
+        L00: "lessons/week00-lesson00-ai-career-map.md",
+        L01: "lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md"
       };
       const historyCards = courseState.completedLessonRows.length === 0
         ? [{ type: "lesson", empty: true, title: "暂无已完成历史课程", desc: "PROGRESS.md 当前没有已完成课程记录。生成并完成课程后，这里才会出现真实历史课程回看。" }]

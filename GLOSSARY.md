@@ -203,3 +203,30 @@ Thought → Action → Observation → Thought → Action → ...
 - 只有一次模型调用的 Chatbot 通常不能算完整 Agentic AI。
 
 **面试表达**：Agentic AI 的重点是把 LLM 从“回答器”升级为“任务执行系统”，工程上需要工具协议、状态存储、执行日志、失败恢复和评估闭环支撑。
+
+---
+
+## 18. Agent Harness
+
+> 今日新增术语：2026-06-18  
+> 选择理由：近期 AI Agent 工程讨论里，“Agent Harness”经常被用来描述模型之外真正决定 Agent 能否落地的执行框架，尤其适合和本节课的 harness / loop / ReAct 一起学习。
+
+**一句话**：Agent Harness 是包在 LLM 外面的 Agent 运行框架，负责把模型能力接入工具、状态、记忆、权限、日志、评估和失败恢复。
+
+**后端类比**：如果 LLM 是一个推理函数，Agent Harness 就像服务框架 + 任务调度器 + RPC 客户端 + 状态存储 + 日志系统 + 测试框架 + 安全沙箱。
+
+**关键组成**：
+- Tool Registry：注册工具及其 schema；
+- Executor：执行工具调用，并处理超时、重试、错误；
+- State / Memory：保存任务状态、上下文和长期记忆；
+- Permission / Guardrails：限制高风险动作；
+- Trace / Logs：记录模型调用、工具调用和 token 成本；
+- Eval：评估 Agent 是否真的完成目标；
+- Checkpoint：支持中断恢复和问题复盘。
+
+**容易混淆**：
+- Agent Harness 不是 LLM 本身；
+- Agent Harness 不等于单个 prompt；
+- Agent Harness 也不只是工具调用，它还包括状态、权限、日志、评估和恢复。
+
+**面试表达**：生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。
