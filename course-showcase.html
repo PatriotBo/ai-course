@@ -16,7 +16,6 @@
           <a href="#overview">概览</a>
           <a href="#path">学习路径</a>
           <a href="#week1">Week 1</a>
-          <a href="#lesson0">Lesson 0</a>
           <a href="#projects">项目</a>
           <a href="#archive">回看中心</a>
           <a href="#glossary">术语</a>
@@ -35,8 +34,8 @@
           这不是一份静态课表，而是你的 AI 转型训练控制台：从 LLM API、Prompt、RAG、Tool Calling、Agent Loop、Memory、LangGraph、MCP 到生产工程化与真实项目简历化，按 12 周路线逐步推进。
         </p>
         <div class="hero-actions">
-          <a class="btn" href="reader.html?file=reviews%2Fweek00-lesson01-homework-review.md">回看 Lesson 1 完整批改 →</a>
-          <a class="btn secondary" href="reader.html?file=lessons%2Fweek00-lesson01-ai-jargon-harness-loop-hermes-react.md">回看 Lesson 1 讲义 →</a>
+          <a class="btn" href="#archive">进入历史课程回看中心 →</a>
+          <a class="btn secondary" href="reader.html?file=PROGRESS.md">查看学习进度 →</a>
           <button class="btn secondary unavailable-trigger" type="button" data-message="Lesson 2 的讲义文件还没有生成。开始下一节课前会生成真实讲义，不会跳转到 mock 页面。">Lesson 2 待生成 →</button>
         </div>
         <div class="stat-strip" aria-label="课程关键指标">
@@ -82,6 +81,11 @@
         </div>
         <div class="panel">
           <div class="path-grid" id="pathGrid"></div>
+          <div class="transfer-panel">
+            <h3>后端能力迁移图</h3>
+            <p>这部分不是历史回看，而是课程路线中的长期能力参照：帮助你把已有后端经验映射到 AI 应用工程能力。</p>
+            <div class="transfer-map" id="transferMap"></div>
+          </div>
         </div>
       </section>
 
@@ -95,43 +99,6 @@
           <span class="badge locked">计划课表 · 文件待生成</span>
         </div>
         <div class="grid-3" id="weekOneGrid"></div>
-      </section>
-
-      <section class="section" id="lesson0">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Lesson 0 Debrief</div>
-            <h2 class="section-title">Lesson 0 课后回看</h2>
-            <p class="section-copy">本节诊断课已完成：课堂练习用于课中能力迁移诊断；课后回看只保留完整批改记录，避免作业题目页和批改摘要重复分散注意力。下一步进入 AI 圈黑话与 Agent 基础术语。</p>
-          </div>
-          <a class="btn" href="reader.html?file=reviews%2Fweek00-lesson00-homework-review.md">打开完整批改记录</a>
-        </div>
-        <div class="grid-2">
-          <article class="module-card">
-            <span class="badge available">60-75 分钟</span>
-            <h3>本节目标</h3>
-            <ul class="check-list">
-              <li>讲清 AI 应用工程师和传统后端的差异</li>
-              <li>拆解 Agent 工程师需要掌握的能力</li>
-              <li>把招聘 JD 翻译成可学习的技术模块</li>
-              <li>把已有后端经验映射到 AI 系统能力</li>
-              <li>确认 12 周路线为什么这样安排</li>
-            </ul>
-          </article>
-          <article class="module-card">
-            <span class="badge blue">课堂练习 + 完整批改</span>
-            <h3>资料边界已拆清楚</h3>
-            <p>课堂练习记录只保存课中能力迁移诊断；课后作业回看统一进入完整批改记录，不再展示作业摘要入口，避免以后回看时混淆。</p>
-            <div class="hero-actions" style="margin-top: 20px;">
-              <a class="btn secondary" href="reader.html?file=reviews%2Fweek00-lesson00-class-exercise.md">课堂练习记录</a>
-              <a class="btn secondary" href="reader.html?file=reviews%2Fweek00-lesson00-homework-review.md">完整批改记录</a>
-            </div>
-          </article>
-        </div>
-        <div class="panel" style="margin-top: 18px;">
-          <h3 style="position:relative;z-index:2;margin:0 0 12px;font-size:24px;">后端能力迁移图</h3>
-          <div class="transfer-map" id="transferMap"></div>
-        </div>
       </section>
 
       <section class="section" id="projects">
@@ -151,7 +118,7 @@
           <div>
             <div class="kicker">Course Archive</div>
             <h2 class="section-title">历史课程回看中心</h2>
-            <p class="section-copy">这里只展示仓库里真实存在的课程文件，未生成的课程不会伪装成回看页。Lesson 0 和 Lesson 1 已完成，讲义、课堂练习和完整批改记录均已生成；课后作业回看只保留完整批改记录。Lesson 2 尚未生成时只显示提示。</p>
+            <p class="section-copy">这里只展示已经完成的课程，不展示未开始或未生成的课程，并按完成时间倒序排列，最新完成的课程在最上面。默认“全部”视图按课程分组，每节课固定一行三张卡：讲义、课堂记录、课后作业完整批改。</p>
           </div>
           <span class="badge available" id="historyCountBadge">历史课程 2</span>
         </div>
@@ -159,12 +126,9 @@
           <div class="archive-toolbar">
             <div class="filter-pills" role="tablist" aria-label="资料分类筛选">
               <button class="active" data-filter="all">全部</button>
-              <button data-filter="lesson">课件</button>
-              <button data-filter="assignment">作业</button>
-              <button data-filter="code">代码</button>
-              <button data-filter="review">复盘</button>
-              <button data-filter="reference">参考资料</button>
-              <button data-filter="question">问题记录</button>
+              <button data-filter="lesson">讲义</button>
+              <button data-filter="review">课堂记录</button>
+              <button data-filter="assignment">课后作业</button>
             </div>
             <input id="archiveSearch" class="search-box" type="search" placeholder="搜索：Agent / RAG / 作业 / Week 1 ..." aria-label="搜索课程资料">
           </div>
@@ -255,23 +219,29 @@
         { title: "Project 5：MCP Tool Server", time: "Week 10", stack: "MCP SDK · Python · Go optional", desc: "写一个本地 MCP Server，把本地工具和业务数据标准化暴露给 AI Agent。" },
         { title: "Final Project：真实项目复刻 + 改造", time: "Week 12", stack: "Dify / RAGFlow / OpenHands / TradingAgents / mem0", desc: "从真实 GitHub 项目选型，拆解、复刻、改造成可演示、可写进简历的作品。" }
       ],
-      currentResources: [
-        { type: "lesson", status: "done", title: "Week 0 Lesson 0：课程讲义", desc: "真实文件：后端工程师的 AI 能力地图。Lesson 0 已完成，可作为历史课程回看。", href: "lessons/week00-lesson00-ai-career-map.md", label: "回看讲义" },
-        { type: "review", status: "done", title: "Lesson 0 课堂练习记录", desc: "真实文件：只记录课中后端能力迁移回答、课堂诊断和学习优先级，不混入课后作业批改。", href: "reviews/week00-lesson00-class-exercise.md", label: "查看课堂记录" },
-        { type: "assignment", status: "done", title: "Lesson 0 完整批改记录", desc: "真实文件：包含基础题、诊断题、思考题、面试题的逐项批改和后续学习建议。课后作业回看只保留此完整批改入口。", href: "reviews/week00-lesson00-homework-review.md", label: "查看完整批改" },
-        { type: "lesson", status: "done", title: "Week 0 Lesson 1：AI 圈黑话课", desc: "真实文件：harness / loop / Hermes / ReAct 讲义已生成，Lesson 1 已完成，可作为历史课程回看。", href: "lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md", label: "回看讲义" },
-        { type: "review", status: "done", title: "Lesson 1 课堂练习记录", desc: "真实文件：记录 Harness / Loop / ReAct 课堂回答、诊断和吵架帮手 Agent Harness 补充讲解。", href: "reviews/week00-lesson01-class-exercise.md", label: "查看课堂记录" },
-        { type: "assignment", status: "done", title: "Lesson 1 完整批改记录", desc: "真实文件：包含基础题、后端类比题、系统设计题、风险题和面试题的逐项批改。课后作业回看只保留此完整批改入口。", href: "reviews/week00-lesson01-homework-review.md", label: "查看完整批改" },
-        { type: "reference", status: "source", title: "课程总纲", desc: "真实文件：12 周路线、36+ 节课列表、阶段项目和评估标准。", href: "COURSE_PLAN.md", label: "打开总纲" },
-        { type: "reference", status: "source", title: "学习进度 Ledger", desc: "真实文件：当前阶段、已完成课程、作业状态、薄弱点和项目进度。", href: "PROGRESS.md", label: "查看进度源文件" },
-        { type: "reference", status: "source", title: "课程参考资料库", desc: "真实目录说明：后续保存 DeepLearning.AI、OpenAI Cookbook、LangGraph、LlamaIndex、MCP 等参考资料。", href: "references/README.md", label: "打开资料库" },
-        { type: "code", status: "source", title: "课程代码工作区规范", desc: "真实目录说明：后续保存 llm-api-service、rag-knowledge-assistant、tool-using-agent 等项目代码。", href: "code/README.md", label: "查看代码目录" },
-        { type: "review", status: "source", title: "作业批改与阶段复盘目录", desc: "真实目录说明：后续保存每次作业批改、阶段复盘和项目评审记录。", href: "reviews/README.md", label: "查看复盘目录" }
-      ],
-      pendingResources: [
-        { type: "lesson", title: "Week 0 Lesson 2：真实项目选择方法", desc: "L02 讲义文件尚未生成。开始 Lesson 2 前再生成真实讲义，不创建 mock 页面。", label: "待生成提示", message: "Lesson 2 的讲义文件还不存在。开始下一节课前，我会再生成真实讲义并开放入口。" },
-        { type: "lesson", title: "Week 1 课程讲义", desc: "L03-L05 还没有生成对应讲义文件；正式学到 Week 1 后再出现真实文件链接。", label: "待生成提示", message: "Week 1 的讲义文件还不存在。等完成 Week 0 并进入 Week 1 后，这里会挂上真实文件链接。" },
-        { type: "assignment", title: "Week 1 作业", desc: "模型调用脚本、SSE 接口、错误重试 wrapper 的作业文件尚未生成。", label: "待生成提示", message: "Week 1 作业文件还不存在，不会跳转到 mock 页面。进入 Week 1 后再生成并关联真实文件。" }
+      lessonArchives: [
+        {
+          code: "L00",
+          title: "后端工程师的 AI 能力地图",
+          date: "2026-06-17",
+          summary: "路线认知、后端能力迁移和 AI 工程师能力地图。",
+          resources: [
+            { type: "lesson", status: "done", title: "课程讲义", desc: "后端工程师的 AI 能力地图，解释 AI 应用工程师和传统后端的差异。", href: "lessons/week00-lesson00-ai-career-map.md", label: "回看讲义" },
+            { type: "review", status: "done", title: "课堂记录", desc: "课中能力迁移练习与课堂诊断，不混入课后作业批改。", href: "reviews/week00-lesson00-class-exercise.md", label: "课堂记录" },
+            { type: "assignment", status: "done", title: "课后作业", desc: "完整批改记录：基础题、诊断题、思考题和面试题逐项批改。", href: "reviews/week00-lesson00-homework-review.md", label: "完整批改" }
+          ]
+        },
+        {
+          code: "L01",
+          title: "AI 圈黑话课 1：harness / loop / hermes / ReAct",
+          date: "2026-06-18",
+          summary: "厘清 Harness、Agent Harness、Agent Loop、Hermes 和 ReAct 的系统边界。",
+          resources: [
+            { type: "lesson", status: "done", title: "课程讲义", desc: "AI 圈黑话课 1，覆盖 Harness、Agent Harness、Loop、Hermes 和 ReAct。", href: "lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md", label: "回看讲义" },
+            { type: "review", status: "done", title: "课堂记录", desc: "Harness / Loop / ReAct 课堂练习诊断，以及吵架帮手 Agent Harness 补讲。", href: "reviews/week00-lesson01-class-exercise.md", label: "课堂记录" },
+            { type: "assignment", status: "done", title: "课后作业", desc: "完整批改记录：基础题、后端类比、系统设计、风险题和面试表达。", href: "reviews/week00-lesson01-homework-review.md", label: "完整批改" }
+          ]
+        }
       ],
       terms: [
         { title: "Agent Harness", tag: "今日新增", desc: "模型之外的 Agent 运行框架，管理工具、状态、权限、日志、评估和失败恢复。", detail: "Agent Harness 是包在 LLM 外面的工程执行层。LLM 负责推理和决策，但工具注册、参数校验、权限控制、状态持久化、执行日志、失败重试、Checkpoint 和 Eval 都应该由 Harness 承担。", backend: "类似服务框架 + 任务调度器 + RPC 客户端 + 状态存储 + 日志系统 + 测试框架 + 安全沙箱。", interview: "生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。" },
@@ -451,52 +421,54 @@
 
     function renderArchive() {
       const archiveGrid = document.querySelector("#archiveGrid");
-      const lessonLinks = {
-        L00: "lessons/week00-lesson00-ai-career-map.md",
-        L01: "lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md"
-      };
-      const historyCards = courseState.completedLessonRows.length === 0
-        ? [{ type: "lesson", empty: true, title: "暂无已完成历史课程", desc: "PROGRESS.md 当前没有已完成课程记录。生成并完成课程后，这里才会出现真实历史课程回看。" }]
-        : courseState.completedLessonRows.map(item => ({
-          type: "lesson",
-          status: "complete",
-          title: `${item.code} ${item.title}`,
-          desc: "已完成课程记录来自 PROGRESS.md。讲义文件存在时可直接回看。",
-          href: lessonLinks[item.code],
-          label: "回看课程讲义"
-        }));
+      const completedCodes = new Set(courseState.completedLessonRows.map(item => item.code));
+      const lessons = courseData.lessonArchives
+        .filter(lesson => completedCodes.has(lesson.code))
+        .sort((a, b) => b.date.localeCompare(a.date) || b.code.localeCompare(a.code, undefined, { numeric: true }));
 
-      const cards = [
-        ...historyCards,
-        ...courseData.currentResources,
-        ...courseData.pendingResources.map(item => ({ ...item, pending: true }))
-      ];
-
-      archiveGrid.innerHTML = cards.map(item => {
-        const type = item.type || "reference";
-        const title = escapeHtml(item.title);
-        const desc = escapeHtml(item.desc);
-        const text = escapeHtml(`${item.title} ${item.desc} ${type}`);
-        const isUnavailable = item.empty || item.pending || item.exists === false;
-        const badgeText = item.empty ? "历史为空" : item.pending ? "待生成" : item.exists === false ? "文件缺失" : item.status === "current" ? "当前资料" : item.status === "source" ? "真实文件" : "可回看";
-        const badgeClass = item.empty || item.pending || item.exists === false ? "locked" : "available";
-        const action = item.href && item.exists !== false
-          ? `<a href="${escapeHtml(markdownHref(item.href))}">${escapeHtml(item.label)} →</a>`
-          : `<button class="text-link unavailable-trigger" type="button" data-message="${escapeHtml(item.message || item.desc)}">${escapeHtml(item.label || "查看说明")} →</button>`;
-        const sourcePath = item.href ? `<div class="source-path">file · ${escapeHtml(item.href)}</div>` : `<div class="source-path">no file · 不创建 mock 页面</div>`;
-
-        return `
-          <article class="archive-card ${isUnavailable ? "unavailable" : ""}" data-type="${escapeHtml(type)}" data-text="${text}">
+      if (lessons.length === 0) {
+        archiveGrid.innerHTML = `
+          <article class="archive-card unavailable" data-type="lesson" data-text="暂无已完成历史课程">
             <div>
-              <span class="badge ${badgeClass}">${badgeText}</span>
-              <h3>${title}</h3>
-              <p>${desc}</p>
-              ${sourcePath}
+              <span class="badge locked">历史为空</span>
+              <h3>暂无已完成历史课程</h3>
+              <p>PROGRESS.md 当前没有已完成课程记录。完成课程后，这里才会出现真实历史课程回看。</p>
+              <div class="source-path">no file · 不创建 mock 页面</div>
             </div>
-            ${action}
           </article>
         `;
-      }).join("");
+        applyArchiveFilter();
+        return;
+      }
+
+      archiveGrid.innerHTML = lessons.map(lesson => `
+        <section class="archive-lesson-group" data-lesson="${escapeHtml(lesson.code)}">
+          <div class="archive-lesson-head">
+            <div>
+              <span class="badge available">${escapeHtml(lesson.code)} · 已完成</span>
+              <h3>${escapeHtml(lesson.title)}</h3>
+              <p>${escapeHtml(lesson.summary)}</p>
+            </div>
+            <span class="archive-date">${escapeHtml(lesson.date)}</span>
+          </div>
+          <div class="archive-row">
+            ${lesson.resources.map(item => {
+              const text = escapeHtml(`${lesson.code} ${lesson.title} ${item.title} ${item.desc} ${item.type}`);
+              return `
+                <article class="archive-card" data-type="${escapeHtml(item.type)}" data-text="${text}">
+                  <div>
+                    <span class="badge ${item.type === "assignment" ? "available" : "blue"}">${escapeHtml(item.title)}</span>
+                    <h3>${escapeHtml(item.label)}</h3>
+                    <p>${escapeHtml(item.desc)}</p>
+                    <div class="source-path">file · ${escapeHtml(item.href)}</div>
+                  </div>
+                  <a href="${escapeHtml(markdownHref(item.href))}">${escapeHtml(item.label)} →</a>
+                </article>
+              `;
+            }).join("")}
+          </div>
+        </section>
+      `).join("");
       applyArchiveFilter();
     }
 
@@ -506,6 +478,10 @@
         const typeMatch = activeFilter === "all" || card.dataset.type === activeFilter;
         const textMatch = !keyword || card.dataset.text.toLowerCase().includes(keyword);
         card.classList.toggle("is-hidden", !(typeMatch && textMatch));
+      });
+      document.querySelectorAll(".archive-lesson-group").forEach(group => {
+        const visibleCards = [...group.querySelectorAll(".archive-card")].some(card => !card.classList.contains("is-hidden"));
+        group.classList.toggle("is-hidden", !visibleCards);
       });
     }
 
@@ -613,7 +589,8 @@
     searchInput.addEventListener("input", applyArchiveFilter);
 
     async function verifyCurrentResourceFiles() {
-      await Promise.all(courseData.currentResources.map(async (item) => {
+      const archiveItems = courseData.lessonArchives.flatMap(lesson => lesson.resources);
+      await Promise.all(archiveItems.map(async (item) => {
         item.exists = await resourceExists(item.href);
       }));
       renderArchive();
