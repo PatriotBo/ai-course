@@ -36,7 +36,7 @@
         <div class="hero-actions">
           <a class="btn" href="#archive">进入历史课程回看中心 →</a>
           <a class="btn secondary" href="reader.html?file=PROGRESS.md">查看学习进度 →</a>
-          <a class="btn secondary" href="reader.html?file=lessons%2Fweek00-lesson02-real-project-selection.md">开始 Lesson 2 讲义 →</a>
+          <a class="btn secondary" href="reader.html?file=reviews%2Fweek01-lesson03-homework-review.md">查看 Lesson 3 完整批改 →</a>
         </div>
         <div class="stat-strip" aria-label="课程关键指标">
           <div class="stat"><strong>12</strong><span>周系统训练</span></div>
@@ -52,17 +52,17 @@
             <span class="badge available" id="courseStatusBadge">IN PROGRESS</span>
             <span class="badge blue" id="sourceSyncBadge">同步自 PROGRESS.md</span>
           </div>
-            <div class="progress-ring" aria-label="当前课程总进度 2/39">
+            <div class="progress-ring" aria-label="当前课程总进度 4/39">
             <div class="progress-ring-inner">
-              <div><strong>2/39</strong><span>Lessons Done</span></div>
+              <div><strong>4/39</strong><span>Lessons Done</span></div>
             </div>
           </div>
 
           <div class="cockpit-list">
-            <div class="cockpit-item"><label>当前阶段</label><b id="currentPhase">Phase 0：AI 能力地图与术语入门</b></div>
-            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 0</span> · <span id="currentLesson">Lesson 2（进行中）</span></b></div>
-            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 0 Lesson 2：真实项目选择方法</b></div>
-            <div class="cockpit-item"><label>当前项目</label><b id="currentProject">尚未开始</b></div>
+            <div class="cockpit-item"><label>当前阶段</label><b id="currentPhase">Phase 1：LLM API 基础</b></div>
+            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 1</span> · <span id="currentLesson">Lesson 4（待开始）</span></b></div>
+            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 1 Lesson 4：Streaming 与后端接口封装</b></div>
+            <div class="cockpit-item"><label>当前项目</label><b id="currentProject">Project 1：LLM API Backend Service（启动中）</b></div>
             <div class="cockpit-item"><label>数据来源</label><b><a href="reader.html?file=PROGRESS.md">PROGRESS.md</a> / <a href="reader.html?file=COURSE_PLAN.md">COURSE_PLAN.md</a></b></div>
           </div>
         </div>
@@ -77,7 +77,7 @@
             <h2 class="section-title">12 周学习路径</h2>
             <p class="section-copy">从能力地图起步，逐步把传统后端技能迁移到 AI 应用系统：模型调用、检索、工具、Agent、协议、工程化和面试表达。</p>
           </div>
-          <span class="badge available">Lesson 2 进行中</span>
+          <span class="badge available">Lesson 3 已完成</span>
         </div>
         <div class="panel">
           <div class="path-grid" id="pathGrid"></div>
@@ -96,7 +96,7 @@
             <h2 class="section-title">Week 1 详细课表</h2>
             <p class="section-copy">第一周的目标不是“能调通模型”这么简单，而是建立一个后端工程师能接受的 LLM 调用基础：参数、流式输出、超时、重试、限流和成本。</p>
           </div>
-          <span class="badge locked">计划课表 · 文件待生成</span>
+          <span class="badge available">Lesson 3 已完成</span>
         </div>
         <div class="grid-3" id="weekOneGrid"></div>
       </section>
@@ -118,16 +118,17 @@
           <div>
             <div class="kicker">Course Archive</div>
             <h2 class="section-title">历史课程回看中心</h2>
-            <p class="section-copy">这里只展示已经完成的课程，不展示未开始或未生成的课程，并按完成时间倒序排列，最新完成的课程在最上面。默认“全部”视图按课程分组，每节课固定一行三张卡：讲义、课堂记录、课后作业完整批改。</p>
+            <p class="section-copy">这里只展示已经完成的课程，不展示未开始或未生成的课程，并按完成时间倒序排列，最新完成的课程在最上面。默认“全部”视图按课程分组展示真实资料；后续课堂练习与课后习题合并为课后练习，避免重复出题。</p>
           </div>
-          <span class="badge available" id="historyCountBadge">历史课程 2</span>
+          <span class="badge available" id="historyCountBadge">历史课程 4</span>
         </div>
         <div class="panel">
           <div class="archive-toolbar">
             <div class="filter-pills" role="tablist" aria-label="资料分类筛选">
               <button class="active" data-filter="all">全部</button>
               <button data-filter="lesson">讲义</button>
-              <button data-filter="review">课堂记录</button>
+              <button data-filter="code">代码/资料</button>
+              <button data-filter="review">课程记录</button>
               <button data-filter="assignment">课后作业</button>
             </div>
             <input id="archiveSearch" class="search-box" type="search" placeholder="搜索：Agent / RAG / 作业 / Week 1 ..." aria-label="搜索课程资料">
@@ -164,17 +165,19 @@
     };
 
     const courseState = {
-      currentPhase: "Phase 0：AI 能力地图与术语入门",
-      currentWeek: "Week 0",
-      currentLesson: "Lesson 2（进行中）",
+      currentPhase: "Phase 1：LLM API 基础",
+      currentWeek: "Week 1",
+      currentLesson: "Lesson 4（待开始）",
       totalLessons: 39,
-      completedLessons: 2,
-      currentProject: "尚未开始",
-      nextLesson: "Week 0 Lesson 2：真实项目选择方法",
+      completedLessons: 4,
+      currentProject: "Project 1：LLM API Backend Service（启动中）",
+      nextLesson: "Week 1 Lesson 4：Streaming 与后端接口封装",
       started: true,
       completedLessonRows: [
         { done: true, code: "L00", title: "后端工程师的 AI 能力地图" },
-        { done: true, code: "L01", title: "AI 圈黑话课 1：harness / loop / hermes / ReAct" }
+        { done: true, code: "L01", title: "AI 圈黑话课 1：harness / loop / hermes / ReAct" },
+        { done: true, code: "L02", title: "真实项目选择方法" },
+        { done: true, code: "L03", title: "LLM API 第一课" }
       ]
     };
 
@@ -241,9 +244,32 @@
             { type: "review", status: "done", title: "课堂记录", desc: "Harness / Loop / ReAct 课堂练习诊断，以及吵架帮手 Agent Harness 补讲。", href: "reviews/week00-lesson01-class-exercise.md", label: "课堂记录" },
             { type: "assignment", status: "done", title: "课后作业", desc: "完整批改记录：基础题、后端类比、系统设计、风险题和面试表达。", href: "reviews/week00-lesson01-homework-review.md", label: "完整批改" }
           ]
+        },
+        {
+          code: "L02",
+          title: "真实项目选择方法",
+          date: "2026-06-22",
+          summary: "建立真实项目选择框架：项目分类、10 维评分、GitHub 阅读 SOP 和复刻层级。",
+          resources: [
+            { type: "lesson", status: "done", title: "课程讲义", desc: "真实项目选择方法，覆盖项目类型、评分框架、阅读 SOP 和复刻策略。", href: "lessons/week00-lesson02-real-project-selection.md", label: "回看讲义" },
+            { type: "review", status: "done", title: "课堂记录", desc: "本节无课堂练习，记录项目选择方法课的核心结论与后续安排。", href: "reviews/week00-lesson02-class-note.md", label: "课程记录" },
+            { type: "assignment", status: "done", title: "课后作业", desc: "作业豁免记录：本节为项目选择方法课，用户确认不做课后习题。", href: "reviews/week00-lesson02-homework-review.md", label: "豁免记录" }
+          ]
+        },
+        {
+          code: "L03",
+          title: "LLM API 第一课：messages / token / model / temperature",
+          date: "2026-06-22",
+          summary: "建立 LLM API 工程边界：Gateway、messages、token、model、temperature、usage、trace 和结构化输出治理。",
+          resources: [
+            { type: "lesson", status: "done", title: "课程讲义", desc: "LLM API 第一课，讲解 messages、token、model、temperature 与 LLM Gateway 生产化封装。", href: "lessons/week01-lesson03-llm-api-basics.md", label: "回看讲义" },
+            { type: "code", status: "done", title: "代码/资料", desc: "最小 LLM Client 示例与 Python 语法补充，支持 mock、OpenAI-compatible、GLM 和腾讯混元配置切换。", href: "code/llm-api-basics/README.md", label: "查看代码资料" },
+            { type: "assignment", status: "done", title: "课后作业", desc: "完整批改记录：基础概念、参数选择、代码阅读、LLM Gateway 日志表和面试表达。", href: "reviews/week01-lesson03-homework-review.md", label: "完整批改" }
+          ]
         }
       ],
       terms: [
+        { title: "Responses API", tag: "今日新增", desc: "统一模型响应接口，把多轮状态、工具调用、流式输出和响应管理放进同一 API 形态。", detail: "Responses API 体现了模型接口从单次聊天补全走向统一响应入口的趋势。它可以承载有状态多轮响应、streaming、tool calling、响应检索/删除和上下文压缩等能力。学习时不要死记 SDK，而要抓住输入、上下文、参数、输出、usage、trace 和错误治理这些稳定抽象。", backend: "不强行等同某个后端组件。更合适的理解是：它是模型供应商提供的统一响应入口；在你的系统里仍应被封装在 LLM Gateway 后面。", interview: "Responses API 的意义是把文本生成、多轮状态、工具调用和流式事件统一到模型响应层。生产中我会用 LLM Gateway 封装它，统一处理参数、上下文、usage、trace 和错误治理。" },
         { title: "Agentic Workflow", tag: "今日新增", desc: "由 LLM 参与局部决策的任务工作流，把模型推理、工具调用、状态、审批、恢复和评估组织成可运行系统。", detail: "Agentic Workflow 不是纯聊天，也不是传统固定流程。它把 LLM 的动态决策能力放进有状态、有权限、有 checkpoint、有 trace、有 eval 的工作流里，让系统既能根据上下文灵活推进任务，又能保持生产可控。", backend: "这里不强行等同传统后端。它和固定状态机相似的一点是有边界和状态；不同点是某些节点由模型根据上下文动态决定下一步。", interview: "Agentic Workflow 的价值是把 LLM 的动态推理能力放进可控工程流程，用状态、权限、checkpoint、trace 和 eval 管住不确定性。" },
         { title: "Agent Harness", tag: "今日新增", desc: "模型之外的 Agent 运行框架，管理工具、状态、权限、日志、评估和失败恢复。", detail: "Agent Harness 是包在 LLM 外面的工程执行层。LLM 负责推理和决策，但工具注册、参数校验、权限控制、状态持久化、执行日志、失败重试、Checkpoint 和 Eval 都应该由 Harness 承担。", backend: "类似服务框架 + 任务调度器 + RPC 客户端 + 状态存储 + 日志系统 + 测试框架 + 安全沙箱。", interview: "生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。" },
         { title: "Agentic AI", tag: "昨日新增", desc: "从被动问答升级为目标驱动、多步骤执行的 AI 系统。", detail: "Agentic AI 指具备目标理解、规划、工具调用、状态管理和反馈循环能力的 AI 系统。它不是单个模型名称，也不等于多 Agent；重点是让 LLM 从回答器变成任务执行系统。", backend: "类似一个带状态的任务编排系统：拆任务、调服务、处理失败、记录过程并继续推进目标。", interview: "Agentic AI 的工程重点是工具协议、状态存储、执行日志、失败恢复和 Eval 闭环。" },
@@ -377,7 +403,7 @@
             <div class="week-index"><span>${escapeHtml(item.week)}</span><span>${escapeHtml(item.phase)}</span></div>
             <span class="badge ${statusClass}">${statusText}</span>
             <h3>${escapeHtml(item.title)}</h3>
-            <p>${isCurrent ? "Week 0 已完成 Lesson 0 和 Lesson 1，当前正在进行 Lesson 2：真实项目选择方法。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
+            <p>${isCurrent ? "当前处于 Week 1：LLM API 基础，Lesson 3 已完成，下一步进入 Lesson 4：Streaming 与后端接口封装。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
             <div class="deliverable">OUTPUT · ${escapeHtml(item.output)}</div>
           </article>
         `;
@@ -386,19 +412,35 @@
 
     function renderWeekOne() {
       const weekOneGrid = document.querySelector("#weekOneGrid");
-      weekOneGrid.innerHTML = courseData.weekOne.map(item => `
-        <article class="module-card unavailable">
-          <div class="lesson-code">${escapeHtml(item.code)}</div>
-          <span class="badge locked">讲义待生成</span>
-          <h3>${escapeHtml(item.title)}</h3>
-          <p>${escapeHtml(item.goal)}</p>
-          <ul class="outcome-list">
-            <li>计划产出物：${escapeHtml(item.output)}</li>
-            <li>训练关键词：${escapeHtml(item.tags.join(" / "))}</li>
-          </ul>
-          <button class="text-link unavailable-trigger" type="button" data-message="${escapeHtml(`${item.code} 的课程文件还没有生成。当前不会跳到 mock 页面，正式进入 Week 1 后再关联真实讲义、代码和作业。`)}">为什么不能打开？ →</button>
-        </article>
-      `).join("");
+      weekOneGrid.innerHTML = courseData.weekOne.map(item => {
+        const isGenerated = item.code === "L03";
+        const lessonHref = item.code === "L03" ? "lessons/week01-lesson03-llm-api-basics.md" : null;
+        const codeHref = item.code === "L03" ? "code/llm-api-basics/README.md" : null;
+        const codeNotesHref = item.code === "L03" ? "code/llm-api-basics/PYTHON_NOTES.md" : null;
+        const homeworkReviewHref = item.code === "L03" ? "reviews/week01-lesson03-homework-review.md" : null;
+        return `
+          <article class="module-card ${isGenerated ? "" : "unavailable"}">
+            <div class="lesson-code">${escapeHtml(item.code)}</div>
+            <span class="badge ${isGenerated ? "available" : "locked"}">${isGenerated ? "讲义已生成" : "讲义待生成"}</span>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.goal)}</p>
+            <ul class="outcome-list">
+              <li>计划产出物：${escapeHtml(item.output)}</li>
+              <li>训练关键词：${escapeHtml(item.tags.join(" / "))}</li>
+            </ul>
+            ${isGenerated ? `
+              <div class="module-actions">
+                <a class="text-link" href="${escapeHtml(markdownHref(lessonHref))}">打开讲义 →</a>
+                <a class="text-link" href="${escapeHtml(markdownHref(codeHref))}">查看代码 →</a>
+                <a class="text-link" href="${escapeHtml(markdownHref(codeNotesHref))}">Python 语法补充 →</a>
+                <a class="text-link" href="${escapeHtml(markdownHref(homeworkReviewHref))}">完整批改 →</a>
+              </div>
+            ` : `
+              <button class="text-link unavailable-trigger" type="button" data-message="${escapeHtml(`${item.code} 的课程文件还没有生成。当前不会跳到 mock 页面，正式进入对应课程后再关联真实讲义、代码和作业。`)}">为什么不能打开？ →</button>
+            `}
+          </article>
+        `;
+      }).join("");
     }
 
     function renderTransferMap() {

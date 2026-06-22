@@ -894,6 +894,13 @@ h1 {
   font-size: 17px;
 }
 
+.module-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+}
+
 .archive-card a,
 .text-link {
   display: inline-flex;
@@ -901,6 +908,10 @@ h1 {
   margin-top: 16px;
   color: var(--accent-cyan);
   text-decoration: none;
+}
+
+.module-actions .text-link {
+  margin-top: 0;
 }
 
 .text-link {

@@ -8,14 +8,14 @@
 
 | 项目 | 状态 |
 |---|---|
-| 当前阶段 | Phase 0：AI 能力地图与术语入门 |
-| 当前周 | Week 0 |
-| 当前课 | Lesson 2（进行中） |
+| 当前阶段 | Phase 1：LLM API 基础 |
+| 当前周 | Week 1 |
+| 当前课 | Lesson 4（待开始） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
-| 当前总进度 | 2 / 39 lessons |
-| 当前项目 | 尚未开始 |
-| 下节课 | Week 0 Lesson 2：真实项目选择方法 |
+| 当前总进度 | 4 / 39 lessons |
+| 当前项目 | Project 1：LLM API Backend Service（启动中） |
+| 下节课 | Week 1 Lesson 4：Streaming 与后端接口封装 |
 
 ---
 
@@ -23,8 +23,8 @@
 
 - [x] L00 后端工程师的 AI 能力地图
 - [x] L01 AI 圈黑话课 1：harness / loop / hermes / ReAct
-- [ ] L02 真实项目选择方法
-- [ ] L03 LLM API 第一课
+- [x] L02 真实项目选择方法
+- [x] L03 LLM API 第一课
 - [ ] L04 Streaming 与后端接口封装
 - [ ] L05 错误处理：超时、重试、限流、成本估算
 - [ ] L06 Prompt 设计原则
@@ -69,25 +69,25 @@
 |---|---|---|---|
 | L00 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson00-class-exercise.md`；作业批改：`reviews/week00-lesson00-homework-review.md` |
 | L01 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson01-class-exercise.md`；作业批改：`reviews/week00-lesson01-homework-review.md` |
-| L02 | `assignments/week00-lesson02-homework.md` | 已生成，未提交 | Lesson 2 正在学习：真实项目选择方法 |
+| L02 | `assignments/week00-lesson02-homework.md` | 已豁免 | 用户确认本节为项目选择方法课，不做课后习题；豁免记录：`reviews/week00-lesson02-homework-review.md` |
+| L03 | `assignments/week01-lesson03-homework.md` | 已提交，已批改 | 课堂练习记录为历史留存；后续同类题合并到课后练习，完整批改：`reviews/week01-lesson03-homework-review.md` |
 
 ---
 
 ## 4. 当前薄弱点
 
-> Lesson 0 作业批改后诊断。
-
-- MCP 概念边界需要修正：MCP 的核心是标准化连接工具、数据源和上下文资源，不是多 Agent 互相通信协议；
+- MCP 概念边界需要持续保持准确：MCP 的核心是标准化连接工具、数据源和上下文资源，不是多 Agent 互相通信协议；
 - Agent 概念需要从“记忆/上下文管理”升级到“目标驱动的任务执行循环”：LLM + Tools + Memory/State + Planning + Execution Loop；
 - RAG 需要理解为“基于外部可追溯资料回答，降低幻觉并支持私有/实时知识”，不只是补充私有知识；
 - 项目模块拆解还偏粗，需要训练输入、输出、状态、工具、失败处理、质量评估六个维度；
 - Python、LangGraph、Eval、AI 项目工程化和面试表达需要系统补齐；
-- Lesson 1 作业后，Harness / LLM、Agent Harness、Agent Loop、ReAct 的概念边界已基本建立；
-- 仍需强化 Observation 与 Eval/Test Assertion 的边界：Observation 是工具或环境返回的事实结果，不等于结果断言；
-- Checkpoint 需要补进后端类比词库：类似 Kafka offset、任务状态快照、workflow checkpoint；
+- Observation 与 Eval/Test Assertion 的边界要继续巩固：Observation 是工具或环境返回的事实结果，不等于结果断言；
 - 风险题需要形成“风险 + 工程手段”的表达习惯，如 max steps、timeout、budget、tool whitelist、checkpoint、fallback；
-- Agent Harness 设计还需从模块清单升级为运行闭环：输入、状态、工具、观测、评分、决策、继续/结束、复盘。
-- Lesson 2 开始后，需要训练真实项目选择能力：不能只看 star 数，需要基于目标匹配、主链路清晰度、可运行性、可裁剪性、工程化含量、作品集价值和风险成本做判断。
+- Lesson 2 已建立真实项目选择框架，后续选项目不能只看 star，需要使用 10 维评分；
+- Lesson 3 开始后，需要重点建立 LLM API 工程边界：messages、token、model、temperature、LLM Gateway、usage、trace、timeout 和成本意识；
+- Lesson 3 课堂练习暴露的问题：结构化输出不能只靠低 temperature，必须补 schema、validation、retry/fallback；LLM 调用日志必须补 token usage、cost、provider、prompt_version、finish_reason、retry_count，并考虑 messages/output 的隐私脱敏。
+- Lesson 3 课后作业暴露的问题：参数选择题漏答复杂技术文章和高频改写场景；模型选择不能只从成本看，还要看质量、延迟、上下文、工具能力、合规和部署；`max_tokens` 与上下文窗口概念要区分；面试表达需要从“要求满分答案”升级到自己能组织 1 分钟回答。
+- 后续课程形态修正：课堂练习和课后习题默认合并成一套课后练习，避免重复出题；代码示例必须补充必要注释和 Python 语法说明；模型调用示例必须支持通过配置切换 GLM、腾讯混元等 OpenAI-compatible provider。
 
 ---
 
@@ -95,7 +95,7 @@
 
 | 项目 | 状态 | 下一个动作 |
 |---|---|---|
-| Project 1：LLM API Backend Service | 未开始 | Week 1 创建 |
+| Project 1：LLM API Backend Service | 启动中 | Week 1 使用 `code/llm-api-basics/` 建立 LLM Client 基础 |
 | Project 2：RAG Knowledge Assistant | 未开始 | Week 3 创建 |
 | Project 3：Tool-Using Agent | 未开始 | Week 5 创建 |
 | Project 4：Multi-Agent Research Assistant | 未开始 | Week 8 创建 |
@@ -126,25 +126,49 @@
 - 薄弱点：Observation 与 Eval/Test Assertion 的边界、Checkpoint 类比、风险与工程治理手段、Agent Harness 完整运行闭环仍需加强。
 - 下节课：Week 0 Lesson 2：真实项目选择方法。
 
+### 2026-06-22 Lesson 2 课后记录
+
+- 今日主题：真实项目选择方法。
+- 关键概念：选择 AI 项目不能只看 star，要看目标匹配、主链路清晰度、可运行性、可裁剪性、工程化含量、学习曲线、作品集价值、改造空间、资料质量和风险成本。
+- 完成代码：无，本课为项目选择方法课。
+- 作业：用户确认本节不做课后习题，已记录为作业豁免，见 `reviews/week00-lesson02-homework-review.md`。
+- 掌握情况：本节作为后续项目选择框架，后续选 OpenAI Cookbook、LlamaIndex、LangGraph、TradingAgents 等项目时必须复用评分框架。
+- 薄弱点：后续还需要通过真实项目练习，把评分框架转化为实际 repo 阅读和复刻能力。
+- 下节课：Week 1 Lesson 3：LLM API 第一课。
+
+### 2026-06-22 Lesson 3 课后记录
+
+- 今日主题：LLM API 第一课：messages / token / model / temperature。
+- 关键概念：LLM API 是外部推理依赖，生产中应通过 LLM Client / Gateway 统一封装 messages 构造、模型选择、参数治理、usage/cost、timeout/retry、trace/logging 和结构化输出校验。
+- 完成代码：已生成 `code/llm-api-basics/`，包含最小 LLM Client、mock provider、OpenAI-compatible provider、GLM/腾讯混元配置示例、`.env.example`、Python 语法补充文档和 demo 脚本。
+- 作业：已提交并批改，记录见 `reviews/week01-lesson03-homework-review.md`。
+- 掌握情况：能理解 LLM API 不应散落在业务代码里，具备 Gateway、成本、参数和日志意识。
+- 薄弱点：结构化输出治理、生产级日志字段、隐私脱敏、prompt_version、finish_reason、retry_count、参数选择完整性和面试表达仍需加强。
+- 下节课：Week 1 Lesson 4：Streaming 与后端接口封装。
+
 ---
 
 ## 7. 已生成资料索引
 
 | 类型 | 文件 | 状态 | 说明 |
 |---|---|---|---|
-| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00/L01 完成，L02 待开始 |
+| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L02 完成，L03 进行中 |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
+| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Responses API；已包含 Agentic Workflow、Agent Harness 等术语 |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
-| Lesson 0 课后作业 | `assignments/week00-lesson00-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Agentic Workflow；已包含 Agent Harness、Agentic AI 等术语 |
 | Lesson 1 讲义 | `lessons/week00-lesson01-ai-jargon-harness-loop-hermes-react.md` | 已完成 | AI 圈黑话课 1：harness / loop / hermes / ReAct |
 | Lesson 1 课堂练习 | `reviews/week00-lesson01-class-exercise.md` | 已完成 | 课中 Harness / Loop / ReAct 诊断，不与课后作业混用 |
-| Lesson 1 课后作业 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 题目与提交记录保留在仓库中；不作为课后回看中心主入口 |
 | Lesson 1 完整批改 | `reviews/week00-lesson01-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| Lesson 2 讲义 | `lessons/week00-lesson02-real-project-selection.md` | 已生成，进行中 | 真实项目选择方法：项目分类、评分框架、GitHub 阅读 SOP、复刻层级 |
-| Lesson 2 课后作业 | `assignments/week00-lesson02-homework.md` | 已生成，未提交 | 项目候选清单、10 维评分、最小复刻闭环与面试表达 |
+| Lesson 2 讲义 | `lessons/week00-lesson02-real-project-selection.md` | 已完成 | 真实项目选择方法：项目分类、评分框架、GitHub 阅读 SOP、复刻层级 |
+| Lesson 2 课程记录 | `reviews/week00-lesson02-class-note.md` | 已完成 | 本节无课堂练习，记录核心结论与后续安排 |
+| Lesson 2 作业豁免记录 | `reviews/week00-lesson02-homework-review.md` | 已完成 | 用户确认本节不做课后习题，已记录豁免 |
+| Lesson 3 讲义 | `lessons/week01-lesson03-llm-api-basics.md` | 已生成，进行中 | LLM API 第一课：messages / token / model / temperature |
+| Lesson 3 代码 | `code/llm-api-basics/` | 已生成 | 最小 LLM Client，支持 mock、OpenAI-compatible、GLM、腾讯混元配置切换 |
+| Lesson 3 Python 语法补充 | `code/llm-api-basics/PYTHON_NOTES.md` | 已生成 | 解释 dataclass、Pydantic、环境变量、httpx、model_dump 等语法点 |
+| Lesson 3 课堂练习 | `reviews/week01-lesson03-class-exercise.md` | 历史留存 | 本次已发生，后续同类题不再与课后作业重复设置 |
+| Lesson 3 完整批改 | `reviews/week01-lesson03-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
 
 ---
 

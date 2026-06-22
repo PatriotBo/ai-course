@@ -257,3 +257,28 @@ Thought → Action → Observation → Thought → Action → ...
 - Agentic Workflow 也不是某个具体框架，LangGraph、Dify Workflow、LlamaIndex Workflow 都可以实现类似思想。
 
 **面试表达**：Agentic Workflow 的价值是把 LLM 的动态推理能力放进可控的工程流程里，让系统既能根据上下文灵活决策，又能通过状态、权限、checkpoint、trace 和 eval 保持生产可控。
+
+---
+
+## 20. Responses API
+
+> 今日新增术语：2026-06-22  
+> 选择理由：当前主流模型 API 正在从单次 chat completion 走向统一响应接口，Responses API 把多轮状态、工具调用、流式输出、上下文压缩和响应管理放进统一抽象中，适合作为 LLM API 基础课的补充概念。
+
+**一句话**：Responses API 是一种统一的模型响应接口，用于把文本生成、多轮状态续接、工具调用、流式输出和响应管理组织到同一套 API 形态里。
+
+**不要只背 API 名字**：不同厂商的字段和 SDK 会变，但背后的工程抽象更重要：输入、指令、上下文、模型参数、工具调用、流式事件、usage、trace 和错误治理。
+
+**关键能力**：
+- Stateful response：通过 response id 或上下文续接多轮交互；
+- Streaming：逐步返回增量输出；
+- Tool calling：让模型请求外部函数、Code Interpreter 或 MCP 工具；
+- Response management：检索、删除或压缩历史响应；
+- Guardrails：在输入和输出层面应用安全过滤。
+
+**容易混淆**：
+- Responses API 不等于 Agent；它只是更统一的模型响应接口；
+- Responses API 不会自动解决业务状态管理，生产系统仍需要自己的 LLM Gateway、日志、权限和 Eval；
+- 学习时不必死记某个 SDK 的写法，要掌握稳定抽象。
+
+**面试表达**：Responses API 体现了模型接口从单次补全向统一响应与工具执行入口演进。工程上我会把它封装在 LLM Gateway 后面，统一处理模型参数、上下文续接、streaming、tool calling、usage、trace 和错误治理。
