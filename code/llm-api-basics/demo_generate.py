@@ -27,6 +27,7 @@ def main() -> None:
         "model": result.model,
         "latency_ms": result.latency_ms,
         "usage": result.usage,
+        "log_path": client.log_path,
     }, ensure_ascii=False, indent=2))
 
 

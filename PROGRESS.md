@@ -10,7 +10,7 @@
 |---|---|
 | 当前阶段 | Phase 1：LLM API 基础 |
 | 当前周 | Week 1 |
-| 当前课 | Lesson 4（待开始） |
+| 当前课 | Lesson 4（进行中） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
 | 当前总进度 | 4 / 39 lessons |
@@ -71,6 +71,7 @@
 | L01 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson01-class-exercise.md`；作业批改：`reviews/week00-lesson01-homework-review.md` |
 | L02 | `assignments/week00-lesson02-homework.md` | 已豁免 | 用户确认本节为项目选择方法课，不做课后习题；豁免记录：`reviews/week00-lesson02-homework-review.md` |
 | L03 | `assignments/week01-lesson03-homework.md` | 已提交，已批改 | 课堂练习记录为历史留存；后续同类题合并到课后练习，完整批改：`reviews/week01-lesson03-homework-review.md` |
+| L04 | `assignments/week01-lesson04-homework.md` | 已生成，未提交 | 按新规则只设置一套课后练习；讲义：`lessons/week01-lesson04-streaming-backend-sse.md`；代码：`code/llm-api-streaming/` |
 
 ---
 
@@ -88,6 +89,7 @@
 - Lesson 3 课堂练习暴露的问题：结构化输出不能只靠低 temperature，必须补 schema、validation、retry/fallback；LLM 调用日志必须补 token usage、cost、provider、prompt_version、finish_reason、retry_count，并考虑 messages/output 的隐私脱敏。
 - Lesson 3 课后作业暴露的问题：参数选择题漏答复杂技术文章和高频改写场景；模型选择不能只从成本看，还要看质量、延迟、上下文、工具能力、合规和部署；`max_tokens` 与上下文窗口概念要区分；面试表达需要从“要求满分答案”升级到自己能组织 1 分钟回答。
 - 后续课程形态修正：课堂练习和课后习题默认合并成一套课后练习，避免重复出题；代码示例必须补充必要注释和 Python 语法说明；模型调用示例必须支持通过配置切换 GLM、腾讯混元等 OpenAI-compatible provider。
+- Lesson 4 需要重点掌握 Streaming 的工程边界：SSE 事件协议、首 token 感知延迟、后端统一封装、provider adapter、错误事件、代理缓冲、取消连接和结构化流式日志。
 
 ---
 
@@ -152,9 +154,9 @@
 
 | 类型 | 文件 | 状态 | 说明 |
 |---|---|---|---|
-| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L02 完成，L03 进行中 |
+| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L03 完成，L04 进行中 |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
-| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Responses API；已包含 Agentic Workflow、Agent Harness 等术语 |
+| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Server-Sent Events（SSE）；已包含 Responses API、Agentic Workflow、Agent Harness 等术语 |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
@@ -164,11 +166,15 @@
 | Lesson 2 讲义 | `lessons/week00-lesson02-real-project-selection.md` | 已完成 | 真实项目选择方法：项目分类、评分框架、GitHub 阅读 SOP、复刻层级 |
 | Lesson 2 课程记录 | `reviews/week00-lesson02-class-note.md` | 已完成 | 本节无课堂练习，记录核心结论与后续安排 |
 | Lesson 2 作业豁免记录 | `reviews/week00-lesson02-homework-review.md` | 已完成 | 用户确认本节不做课后习题，已记录豁免 |
-| Lesson 3 讲义 | `lessons/week01-lesson03-llm-api-basics.md` | 已生成，进行中 | LLM API 第一课：messages / token / model / temperature |
+| Lesson 3 讲义 | `lessons/week01-lesson03-llm-api-basics.md` | 已完成 | LLM API 第一课：messages / token / model / temperature |
 | Lesson 3 代码 | `code/llm-api-basics/` | 已生成 | 最小 LLM Client，支持 mock、OpenAI-compatible、GLM、腾讯混元配置切换 |
 | Lesson 3 Python 语法补充 | `code/llm-api-basics/PYTHON_NOTES.md` | 已生成 | 解释 dataclass、Pydantic、环境变量、httpx、model_dump 等语法点 |
 | Lesson 3 课堂练习 | `reviews/week01-lesson03-class-exercise.md` | 历史留存 | 本次已发生，后续同类题不再与课后作业重复设置 |
 | Lesson 3 完整批改 | `reviews/week01-lesson03-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
+| Lesson 4 讲义 | `lessons/week01-lesson04-streaming-backend-sse.md` | 已生成，进行中 | Streaming 与后端接口封装：SSE、provider stream、FastAPI endpoint、错误事件和日志 |
+| Lesson 4 代码 | `code/llm-api-streaming/` | 已生成 | FastAPI SSE endpoint、mock stream、OpenAI-compatible stream，支持 GLM/腾讯混元配置切换 |
+| Lesson 4 Python 语法补充 | `code/llm-api-streaming/PYTHON_NOTES.md` | 已生成 | 解释 generator/yield、Iterator、StreamingResponse、SSE event、httpx stream 等语法点 |
+| Lesson 4 作业 | `assignments/week01-lesson04-homework.md` | 已生成，未提交 | 按合并规则只设置一套课后练习/作业 |
 
 ---
 

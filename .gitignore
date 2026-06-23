@@ -3,3 +3,5 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+code/llm-api-basics/logs/
+code/llm-api-streaming/logs/

@@ -282,3 +282,28 @@ Thought → Action → Observation → Thought → Action → ...
 - 学习时不必死记某个 SDK 的写法，要掌握稳定抽象。
 
 **面试表达**：Responses API 体现了模型接口从单次补全向统一响应与工具执行入口演进。工程上我会把它封装在 LLM Gateway 后面，统一处理模型参数、上下文续接、streaming、tool calling、usage、trace 和错误治理。
+
+---
+
+## 21. Server-Sent Events（SSE）
+
+> 今日新增术语：2026-06-23
+> 选择理由：LLM 应用中流式输出已经成为标准交互形态，近期工程文章持续讨论 SSE、WebSocket 和 HTTP chunked streaming 的取舍；本节课正好进入 Streaming 与后端接口封装。
+
+**一句话**：SSE 是一种基于 HTTP 的服务端单向事件推送协议，常用于把 LLM 的增量文本输出实时推给浏览器。
+
+**不要强行类比**：SSE 不是消息队列，也不是 WebSocket 的简化版。它更像一种浏览器友好的流式响应协议：客户端发起请求，服务端持续推送事件，直到完成或出错。
+
+**关键组成**：
+- `event`：事件类型，例如 `meta`、`delta`、`done`、`error`；
+- `data`：事件数据，通常是 JSON 字符串；
+- 空行：表示一个事件结束；
+- `text/event-stream`：HTTP 响应类型；
+- 长连接：服务端持续写入，客户端持续消费。
+
+**容易混淆**：
+- SSE 主要是服务端到客户端的单向推送；如果需要强双向实时交互，WebSocket 更合适；
+- Streaming 改善的是首 token 可见时间和用户感知延迟，不一定减少完整生成总耗时；
+- 中途失败时 HTTP status 通常已经发出，只能通过 `error` event 通知前端。
+
+**面试表达**：LLM streaming 接口可以用 SSE 封装，后端把供应商增量输出转换为统一的 `meta/delta/done/error` 事件。这样前端不依赖具体模型供应商协议，后端也能统一做鉴权、日志、错误处理、限流和可观测。

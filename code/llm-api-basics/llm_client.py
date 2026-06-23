@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import json
 import os
 import time
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Literal
 
 import httpx
@@ -27,6 +30,8 @@ DEFAULT_BASE_URLS = {
     "glm": "https://open.bigmodel.cn/api/paas/v4/",
     "hunyuan": "https://api.hunyuan.cloud.tencent.com/v1",
 }
+
+DEFAULT_LOG_PATH = Path(__file__).with_name("logs") / "llm_calls.jsonl"
 
 
 def env_first(*names: str, default: str | None = None) -> str | None:
@@ -101,6 +106,7 @@ class LLMClient:
     )
     base_url: str | None = field(default_factory=lambda: env_first("LLM_BASE_URL", "OPENAI_BASE_URL"))
     timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "30")))
+    log_path: str = field(default_factory=lambda: os.getenv("LLM_LOG_PATH", str(DEFAULT_LOG_PATH)))
 
     def __post_init__(self) -> None:
         self.provider = self.provider.lower().strip()
@@ -108,19 +114,92 @@ class LLMClient:
             self.base_url = DEFAULT_BASE_URLS.get(self.provider, DEFAULT_BASE_URLS["openai_compatible"])
 
     def generate(self, request: LLMRequest) -> LLMResult:
-        """生成一次模型回复。
+        """生成一次模型回复，并把调用过程追加写入结构化日志。
 
         started 用单调时钟记录耗时，避免系统时间调整影响 latency 计算。
+        这里记录的是学习用明文日志；生产环境应对 messages/output 做脱敏或采样。
         """
         started = time.perf_counter()
 
-        if self.provider == "mock":
-            return self._mock_generate(request, started)
+        try:
+            if self.provider == "mock":
+                result = self._mock_generate(request, started)
+            else:
+                result = self._openai_compatible_generate(request, started)
+        except Exception as exc:
+            latency_ms = int((time.perf_counter() - started) * 1000)
+            self._write_call_log(self._build_error_log(request, latency_ms, exc))
+            raise
 
-        if self.provider in OPENAI_COMPATIBLE_PROVIDERS:
-            return self._openai_compatible_generate(request, started)
+        self._write_call_log(self._build_success_log(request, result))
+        return result
 
-        raise ValueError(f"Unsupported LLM_PROVIDER: {self.provider}")
+    def _write_call_log(self, entry: dict[str, Any]) -> None:
+        """以 JSON Lines 格式追加模型调用日志。
+
+        JSONL 的特点是一行一个 JSON 对象，方便 tail、grep，也方便后续导入日志系统。
+        """
+        log_file = Path(self.log_path).expanduser()
+        log_file.parent.mkdir(parents=True, exist_ok=True)
+        with log_file.open("a", encoding="utf-8") as file:
+            file.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
+
+    def _base_log_entry(self, request: LLMRequest, latency_ms: int) -> dict[str, Any]:
+        """构造成功/失败日志的公共字段。不要记录 api_key。"""
+        return {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "request_id": request.request_id,
+            "provider": self.provider,
+            "model": request.model,
+            "base_url": self.base_url,
+            "parameters": {
+                "temperature": request.temperature,
+                "max_tokens": request.max_tokens,
+                "timeout_seconds": self.timeout_seconds,
+            },
+            "input": {
+                "messages": [message.model_dump() for message in request.messages],
+            },
+            "latency_ms": latency_ms,
+        }
+
+    def _build_success_log(self, request: LLMRequest, result: LLMResult) -> dict[str, Any]:
+        """构造一次成功模型调用的结构化日志。"""
+        entry = self._base_log_entry(request, result.latency_ms)
+        entry.update({
+            "status": "success",
+            "output": {
+                "text": result.text,
+                "usage": result.usage,
+                "finish_reason": self._extract_finish_reason(result.raw),
+            },
+            "error": None,
+        })
+        return entry
+
+    def _build_error_log(self, request: LLMRequest, latency_ms: int, exc: Exception) -> dict[str, Any]:
+        """构造一次失败模型调用的结构化日志。"""
+        entry = self._base_log_entry(request, latency_ms)
+        entry.update({
+            "status": "error",
+            "output": None,
+            "error": {
+                "type": exc.__class__.__name__,
+                "message": str(exc),
+            },
+        })
+        return entry
+
+    @staticmethod
+    def _extract_finish_reason(raw: dict[str, Any]) -> str | None:
+        """从 OpenAI-compatible 原始响应里提取结束原因。mock 响应可能没有该字段。"""
+        choices = raw.get("choices")
+        if not choices:
+            return None
+        first_choice = choices[0]
+        if isinstance(first_choice, dict):
+            return first_choice.get("finish_reason")
+        return None
 
     def _mock_generate(self, request: LLMRequest, started: float) -> LLMResult:
         """本地 mock provider。
@@ -176,7 +255,7 @@ class LLMClient:
             data = response.json()
 
         latency_ms = int((time.perf_counter() - started) * 1000)
-        text = data["choices"][0]["message"]["content"]
+        text = data["choices"][0]["message"]["reasoning_content"]
         usage = data.get("usage", {})
 
         return LLMResult(

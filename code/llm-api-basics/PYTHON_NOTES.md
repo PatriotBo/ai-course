@@ -208,7 +208,49 @@ https://api.example.com/v1/chat/completions
 
 ---
 
-## 12. 本节你最该掌握的 Python 点
+## 12. JSON Lines 日志：一行一个 JSON 对象
+
+本节新增的调用日志使用 JSON Lines 格式：
+
+```text
+{"request_id": "...", "status": "success", ...}
+{"request_id": "...", "status": "error", ...}
+```
+
+和普通 JSON 数组不同，JSON Lines 的好处是：
+
+- 追加写入简单，不需要读取整个文件；
+- `tail -f` 可以实时观察；
+- 后续导入日志系统或数据分析工具也方便。
+
+代码里对应的是：
+
+```python
+file.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
+```
+
+---
+
+## 13. `Path(...).mkdir()` 和追加写入
+
+```python
+log_file = Path(self.log_path).expanduser()
+log_file.parent.mkdir(parents=True, exist_ok=True)
+with log_file.open("a", encoding="utf-8") as file:
+    file.write(...)
+```
+
+这里有几个点：
+
+- `Path` 是 Python 标准库 `pathlib` 里的路径对象，比手写字符串拼路径更稳；
+- `expanduser()` 会把 `~/xxx` 展开成用户目录；
+- `mkdir(parents=True, exist_ok=True)` 表示父目录不存在就创建，已经存在也不报错；
+- `open("a")` 是 append 追加模式，不会覆盖旧日志；
+- `encoding="utf-8"` 保证中文输入输出不会乱码。
+
+---
+
+## 14. 本节你最该掌握的 Python 点
 
 优先级从高到低：
 
@@ -216,4 +258,6 @@ https://api.example.com/v1/chat/completions
 2. 看懂 `dataclass` 如何保存 client 配置；
 3. 看懂环境变量如何控制 provider/model/base_url/api_key；
 4. 看懂 `httpx.Client.post()` 如何调用 OpenAI-compatible 接口；
-5. 看懂 `usage` / `latency_ms` 为什么要进入标准返回结果。
+5. 看懂 `usage` / `latency_ms` 为什么要进入标准返回结果；
+6. 看懂 JSON Lines 日志为什么适合模型调用记录；
+7. 看懂 `open("a")` 为什么是追加写入，不会覆盖已有日志。
