@@ -71,7 +71,7 @@
 | L01 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson01-class-exercise.md`；作业批改：`reviews/week00-lesson01-homework-review.md` |
 | L02 | `assignments/week00-lesson02-homework.md` | 已豁免 | 用户确认本节为项目选择方法课，不做课后习题；豁免记录：`reviews/week00-lesson02-homework-review.md` |
 | L03 | `assignments/week01-lesson03-homework.md` | 已提交，已批改 | 课堂练习记录为历史留存；后续同类题合并到课后练习，完整批改：`reviews/week01-lesson03-homework-review.md` |
-| L04 | `assignments/week01-lesson04-homework.md` | 已提供参考答案 | 用户选择不提交个人答案，直接查看参考答案；参考答案：`reviews/week01-lesson04-homework-reference.md` |
+| L04 | [课后练习](assignments/week01-lesson04-homework.md) | 已提供参考答案 | 用户选择不提交个人答案，直接查看参考答案；[参考答案](reviews/week01-lesson04-homework-reference.md) |
 
 ---
 
@@ -171,11 +171,11 @@
 | Lesson 3 Python 语法补充 | `code/llm-api-basics/PYTHON_NOTES.md` | 已生成 | 解释 dataclass、Pydantic、环境变量、httpx、model_dump 等语法点 |
 | Lesson 3 课堂练习 | `reviews/week01-lesson03-class-exercise.md` | 历史留存 | 本次已发生，后续同类题不再与课后作业重复设置 |
 | Lesson 3 完整批改 | `reviews/week01-lesson03-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| Lesson 4 讲义 | `lessons/week01-lesson04-streaming-backend-sse.md` | 已生成，进行中 | Streaming 与后端接口封装：SSE、provider stream、FastAPI endpoint、错误事件和日志 |
-| Lesson 4 代码 | `code/llm-api-streaming/` | 已生成 | FastAPI SSE endpoint、mock stream、OpenAI-compatible stream，支持 GLM/腾讯混元配置切换 |
-| Lesson 4 Python 语法补充 | `code/llm-api-streaming/PYTHON_NOTES.md` | 已生成 | 解释 generator/yield、Iterator、StreamingResponse、SSE event、httpx stream 等语法点 |
-| Lesson 4 作业 | `assignments/week01-lesson04-homework.md` | 已生成 | 按合并规则只设置一套课后练习/作业 |
-| Lesson 4 参考答案 | `reviews/week01-lesson04-homework-reference.md` | 已生成 | 用户选择不提交个人答案，本文件作为标准参考答案在线回看 |
+| Lesson 4 讲义 | [lessons/week01-lesson04-streaming-backend-sse.md](lessons/week01-lesson04-streaming-backend-sse.md) | 已生成，进行中 | Streaming 与后端接口封装：SSE、provider stream、FastAPI endpoint、错误事件和日志 |
+| Lesson 4 代码 | [code/llm-api-streaming/README.md](code/llm-api-streaming/README.md) | 已生成 | FastAPI SSE endpoint、OpenAI-compatible stream，支持 GLM/腾讯混元配置切换 |
+| Lesson 4 Python 语法补充 | [code/llm-api-streaming/PYTHON_NOTES.md](code/llm-api-streaming/PYTHON_NOTES.md) | 已生成 | 解释 generator/yield、Iterator、StreamingResponse、SSE event、httpx stream 等语法点 |
+| Lesson 4 作业 | [assignments/week01-lesson04-homework.md](assignments/week01-lesson04-homework.md) | 已生成 | 按合并规则只设置一套课后练习/作业 |
+| Lesson 4 参考答案 | [reviews/week01-lesson04-homework-reference.md](reviews/week01-lesson04-homework-reference.md) | 已生成 | 用户选择不提交个人答案，本文件作为标准参考答案在线回看 |
 
 ---
 

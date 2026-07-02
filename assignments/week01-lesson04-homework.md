@@ -3,7 +3,7 @@
 > 主题：Streaming 与后端接口封装  
 > 预计耗时：45-60 分钟
 
-> 参考答案：`reviews/week01-lesson04-homework-reference.md`
+> 参考答案：[reviews/week01-lesson04-homework-reference.md](../reviews/week01-lesson04-homework-reference.md)
 
 ---
 
