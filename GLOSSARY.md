@@ -307,3 +307,29 @@ Thought → Action → Observation → Thought → Action → ...
 - 中途失败时 HTTP status 通常已经发出，只能通过 `error` event 通知前端。
 
 **面试表达**：LLM streaming 接口可以用 SSE 封装，后端把供应商增量输出转换为统一的 `meta/delta/done/error` 事件。这样前端不依赖具体模型供应商协议，后端也能统一做鉴权、日志、错误处理、限流和可观测。
+
+---
+
+## 22. Exponential Backoff with Jitter
+
+> 今日新增术语：2026-07-02
+> 选择理由：LLM API 生产环境里经常遇到 429 限流、网络抖动和 provider 5xx。官方文档和生产实践都推荐用指数退避处理可恢复错误，但不能无脑重试。
+
+**一句话**：Exponential Backoff with Jitter 是一种重试等待策略，每次失败后按指数增长等待时间，并加入随机扰动，避免大量请求同时重试造成雪崩。
+
+**不要强行类比**：它不是简单 sleep，也不是失败就重试。它是一种保护系统和下游 provider 的恢复策略，前提是先判断错误是否可重试。
+
+**关键组成**：
+- Retryable Error：只对 timeout、429、5xx 等短暂性错误重试；
+- Max Attempts：限制最大尝试次数；
+- Exponential Delay：等待时间按 1、2、4、8 秒增长；
+- Max Delay：设置等待上限；
+- Jitter：加入随机扰动，打散重试洪峰；
+- Structured Log：记录 attempt、error_type、http_status、latency。
+
+**容易混淆**：
+- API key 错误、参数错误、余额不足、上下文超限不应该原样重试；
+- 重试失败请求也可能消耗 rate limit；
+- 加 retry 不等于系统可靠，必须配合 timeout、限流、fallback 和日志。
+
+**面试表达**：我会在 LLM Gateway 层对可恢复错误使用有限次数的 exponential backoff with jitter。这样能提高短暂性错误的成功率，同时避免所有请求在同一时间重试，把 provider 或自己的服务打爆。

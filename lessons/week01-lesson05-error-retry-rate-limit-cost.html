@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 1 Lesson 5 · 错误处理、超时、重试、限流与成本估算</title>
+  <link rel="stylesheet" href="../styles/markdown-reader.css">
+  <style>
+    .standalone-reader { width: min(1380px, calc(100% - 44px)); margin: 0 auto; padding: 18px 0 78px; position: relative; z-index: 2; }
+    .standalone-hero { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 38px; padding: clamp(28px, 4vw, 48px); margin-bottom: 24px; background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 84% -10%, rgba(232,184,91,0.18), transparent 34%), radial-gradient(circle at 10% 8%, rgba(255,106,61,0.16), transparent 36%), linear-gradient(120deg, rgba(117,233,255,0.08), transparent 38%); opacity: 0.9; }
+    .standalone-hero > * { position: relative; z-index: 2; }
+    .standalone-layout { display: grid; grid-template-columns: 292px minmax(0, 1fr); gap: 22px; align-items: start; }
+    .standalone-toc { position: sticky; top: 18px; border-radius: 28px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-toc-title { margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .standalone-toc a { display: block; border: 1px solid transparent; border-radius: 13px; padding: 8px 10px; color: var(--paper-soft); font-size: 14px; line-height: 1.45; transition: color 160ms ease, background 160ms ease, border-color 160ms ease, transform 160ms ease; text-decoration: none; }
+    .standalone-toc a:hover { color: var(--paper); border-color: rgba(117,233,255,0.20); background: rgba(117,233,255,0.08); text-decoration: none; transform: translateX(2px); }
+    .standalone-toc .toc-level-2 { margin-left: 10px; }
+    .standalone-toc .toc-level-3 { margin-left: 20px; color: var(--paper-muted) !important; }
+    .standalone-content { border-radius: 34px; padding: clamp(28px, 4vw, 58px); color: var(--paper-soft); line-height: 1.86; font-size: 17px; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-content h1, .standalone-content h2, .standalone-content h3, .standalone-content h4 { color: var(--paper); line-height: 1.24; letter-spacing: -0.02em; scroll-margin-top: 28px; text-wrap: balance; }
+    .standalone-content h1, .standalone-content h2 { font-family: var(--font-display); }
+    .standalone-content h1 { margin: 0 0 28px; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: clamp(32px, 4vw, 54px); }
+    .standalone-content h2 { margin: 46px 0 16px; padding-left: 16px; border-left: 4px solid var(--accent-red); font-size: clamp(28px, 3vw, 38px); }
+    .standalone-content h3 { margin: 32px 0 12px; color: #f8d89b; font-size: 23px; }
+    .standalone-content h4 { margin: 24px 0 10px; font-size: 19px; }
+    .standalone-content p { margin: 14px 0; }
+    .standalone-content strong { color: #fff4df; }
+    .standalone-content em { color: #dff8ff; }
+    .standalone-content a { color: var(--accent-cyan); text-decoration: underline; text-decoration-color: rgba(117,233,255,0.36); }
+    .standalone-content code { border: 1px solid rgba(117,233,255,0.22); border-radius: 8px; padding: 2px 6px; color: #c9f7ff; background: rgba(117,233,255,0.08); font-family: var(--font-mono); font-size: 0.92em; }
+    .standalone-content pre { position: relative; overflow: auto; border: 1px solid rgba(117,233,255,0.18); border-radius: 20px; margin: 22px 0; padding: 22px; background: linear-gradient(180deg, rgba(4,8,7,0.96), rgba(8,13,10,0.92)), radial-gradient(circle at top left, rgba(117,233,255,0.10), transparent 38%); box-shadow: inset 0 1px rgba(255,255,255,0.04); }
+    .standalone-content pre::before { content: attr(data-lang); display: block; margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .standalone-content pre code { border: 0; padding: 0; color: #dff8ff; background: transparent; font-size: 14px; line-height: 1.72; }
+    .standalone-content blockquote { margin: 24px 0; border-left: 4px solid var(--accent-amber); border-radius: 16px; padding: 14px 18px; color: #f2d8a8; background: rgba(232,184,91,0.08); }
+    .standalone-content ul, .standalone-content ol { margin: 14px 0 22px; padding-left: 26px; }
+    .standalone-content li { margin: 8px 0; }
+    .standalone-content hr { border: 0; height: 1px; margin: 36px 0; background: linear-gradient(90deg, transparent, rgba(255,106,61,0.42), rgba(117,233,255,0.28), transparent); }
+    .standalone-content .table-wrap { overflow: auto; margin: 22px 0; border: 1px solid var(--line); border-radius: 20px; background: rgba(7,8,6,0.32); }
+    .standalone-content table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    .standalone-content th, .standalone-content td { border-bottom: 1px solid var(--line); padding: 13px 15px; text-align: left; vertical-align: top; }
+    .standalone-content th { color: var(--paper); background: rgba(255,106,61,0.09); font-weight: 700; }
+    .standalone-content tr:last-child td { border-bottom: 0; }
+    .top-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 24px; }
+    .top-links a { border: 1px solid rgba(242,230,200,0.18); border-radius: 999px; padding: 10px 14px; color: var(--paper); background: rgba(242,230,200,0.07); box-shadow: inset 0 1px rgba(255,255,255,0.05); font-size: 14px; transition: transform 160ms ease, border-color 160ms ease, background 160ms ease; text-decoration: none; }
+    .top-links a:hover { border-color: rgba(117,233,255,0.42); background: rgba(117,233,255,0.10); text-decoration: none; transform: translateY(-1px); }
+    @media (max-width: 980px) { .standalone-layout { grid-template-columns: 1fr; } .standalone-toc { position: relative; top: 0; max-height: none; } }
+  </style>
+</head>
+<body>
+  <div class="standalone-reader">
+    <div class="standalone-hero">
+      <a class="back-link" href="../course-showcase.html">← 返回 AI Course Ops Deck</a>
+      <p class="eyebrow">Week 1 · LLM API basics · Local HTML</p>
+      <h1>Lesson 5：错误处理、超时、重试、限流与成本估算</h1>
+      <p class="doc-summary">本课件由 Markdown 讲义生成为独立 HTML，使用与课程中心统一的视觉风格，可直接本地打开学习。</p>
+      <div class="top-links">
+        <a href="../code/llm-api-reliability/README.md">代码 README</a>
+        <a href="../assignments/week01-lesson05-homework.md">课后练习</a>
+        <a href="../reviews/week01-lesson05-homework-reference.md">参考答案</a>
+        <a href="../GLOSSARY.md">术语表</a>
+      </div>
+    </div>
+    <div class="standalone-layout">
+      <aside class="standalone-toc">
+        <div class="standalone-toc-title">目录</div>
+        <nav><a class="toc-level-1" href="#week-1-lesson-5错误处理、超时、重试、限流与成本估算">Week 1 Lesson 5：错误处理、超时、重试、限流与成本估算</a><a class="toc-level-2" href="#0-本节课为什么重要">0. 本节课为什么重要</a><a class="toc-level-2" href="#1-llm-api-的失败不是异常情况而是常态">1. LLM API 的失败不是异常情况，而是常态</a><a class="toc-level-2" href="#2-生产级-llm-client-的最小可靠性职责">2. 生产级 LLM Client 的最小可靠性职责</a><a class="toc-level-2" href="#3-timeout不要让模型调用无限挂住">3. Timeout：不要让模型调用无限挂住</a><a class="toc-level-2" href="#4-retry重试是药不是饭">4. Retry：重试是药，不是饭</a><a class="toc-level-2" href="#5-exponential-backoff指数退避">5. Exponential Backoff：指数退避</a><a class="toc-level-2" href="#6-哪些错误可以重试">6. 哪些错误可以重试？</a><a class="toc-level-2" href="#7-rate-limitrpm-tpm-rpd">7. Rate Limit：RPM / TPM / RPD</a><a class="toc-level-2" href="#8-成本估算先粗略再精确">8. 成本估算：先粗略，再精确</a><a class="toc-level-2" href="#9-结构化日志字段">9. 结构化日志字段</a><a class="toc-level-2" href="#10-fallback什么时候降级">10. Fallback：什么时候降级？</a><a class="toc-level-2" href="#11-本节代码目录">11. 本节代码目录</a><a class="toc-level-2" href="#12-本节课后练习">12. 本节课后练习</a><a class="toc-level-2" href="#13-面试表达">13. 面试表达</a><a class="toc-level-2" href="#14-本节你必须记住的-5-句话">14. 本节你必须记住的 5 句话</a></nav>
+      </aside>
+      <article class="standalone-content markdown-body">
+        <h1 id="week-1-lesson-5错误处理、超时、重试、限流与成本估算">Week 1 Lesson 5：错误处理、超时、重试、限流与成本估算</h1>
+<blockquote>状态：今日正式开课</blockquote>
+<blockquote>预计时长：60-75 分钟</blockquote>
+<blockquote>本节类型：工程可靠性 + 生产治理 + LLM Gateway 基础设施</blockquote>
+<blockquote>代码目录：<code>code/llm-api-reliability/</code></blockquote>
+<hr>
+<h2 id="0-本节课为什么重要">0. 本节课为什么重要</h2>
+<p>前两节我们已经建立了 LLM API 的两个基础能力：</p>
+<pre data-lang="text"><code>Lesson 3：普通模型调用 + messages / token / model / temperature
+Lesson 4：streaming + SSE 后端接口封装</code></pre>
+<p>但这些还只是“能调用”。生产系统真正难的是：</p>
+<pre data-lang="text"><code>模型调用失败怎么办？
+接口超时怎么办？
+429 限流怎么办？
+调用成本怎么记录？
+哪些错误可以重试，哪些错误绝对不能重试？
+如何避免重试把系统打爆？</code></pre>
+<p>这节课的目标是把 LLM API 从“能跑”提升为“能治理”。</p>
+<p>一句话：</p>
+<pre data-lang="text"><code>LLM API 是外部不稳定依赖，必须像治理数据库、RPC、消息队列一样治理它。</code></pre>
+<hr>
+<h2 id="1-llm-api-的失败不是异常情况而是常态">1. LLM API 的失败不是异常情况，而是常态</h2>
+<p>传统后端调用数据库、Redis、RPC 时，我们默认会遇到：</p>
+<ul><li>网络抖动；</li><li>超时；</li><li>连接池耗尽；</li><li>下游 5xx；</li><li>限流；</li><li>参数错误；</li><li>权限错误。</li></ul>
+<p>LLM API 也一样，而且更复杂。</p>
+<p>常见失败包括：</p>
+<div class="table-wrap"><table><thead><tr><th>类型</th><th>表现</th><th>是否适合重试</th></tr></thead><tbody><tr><td>Timeout</td><td>请求超时、连接断开</td><td>可以有限重试</td></tr><tr><td>Rate Limit</td><td>HTTP 429</td><td>可以退避重试，但不能无脑重试</td></tr><tr><td>5xx</td><td>provider 服务异常</td><td>可以有限重试</td></tr><tr><td>Auth Error</td><td>API key 错误、权限不足</td><td>不应重试</td></tr><tr><td>Invalid Request</td><td>参数错误、上下文超限</td><td>不应原样重试</td></tr><tr><td>Quota Exhausted</td><td>余额不足、额度用完</td><td>不应重试，应告警或降级</td></tr><tr><td>Content Filter</td><td>内容被安全策略拦截</td><td>不应直接重试，应改变输入或兜底</td></tr></tbody></table></div>
+<p>你要建立一个基本判断：</p>
+<pre data-lang="text"><code>不是所有错误都该 retry。</code></pre>
+<p>错误处理的第一步不是重试，而是分类。</p>
+<hr>
+<h2 id="2-生产级-llm-client-的最小可靠性职责">2. 生产级 LLM Client 的最小可靠性职责</h2>
+<p>一个生产级 LLM Client / Gateway 至少要做这些事：</p>
+<pre data-lang="text"><code>业务层
+  ↓
+Prompt Builder / Context Builder
+  ↓
+Reliable LLM Client
+  ├── timeout
+  ├── retry policy
+  ├── rate limit awareness
+  ├── error classification
+  ├── fallback hook
+  ├── usage / cost estimate
+  └── structured log
+  ↓
+Provider Adapter
+  ↓
+GLM / Hunyuan / OpenAI-compatible provider</code></pre>
+<p>注意这里的顺序。</p>
+<p>不要把 retry 写成一个孤立装饰器就结束了。生产里你要知道：</p>
+<ul><li>为什么失败；</li><li>第几次失败；</li><li>本次是否还值得重试；</li><li>重试等待多久；</li><li>最终成功还是失败；</li><li>花了多少 token；</li><li>估算成本多少；</li><li>是否需要降级模型；</li><li>是否需要告警。</li></ul>
+<hr>
+<h2 id="3-timeout不要让模型调用无限挂住">3. Timeout：不要让模型调用无限挂住</h2>
+<p>LLM 调用可能因为 provider 抖动、网络问题、响应过长而卡住。</p>
+<p>如果没有 timeout，后端请求会一直占着资源：</p>
+<pre data-lang="text"><code>HTTP worker 被占用
+连接被占用
+用户一直等待
+上游请求堆积
+最终拖垮服务</code></pre>
+<p>所以所有 LLM 调用都必须设置 timeout。</p>
+<p>常见策略：</p>
+<div class="table-wrap"><table><thead><tr><th>场景</th><th>timeout 建议</th></tr></thead><tbody><tr><td>短分类 / 标签</td><td>3-10 秒</td></tr><tr><td>普通问答</td><td>15-30 秒</td></tr><tr><td>长文生成</td><td>60 秒左右</td></tr><tr><td>后台批处理</td><td>可以更长，但应异步化</td></tr><tr><td>streaming</td><td>需要区分连接 timeout 和读超时</td></tr></tbody></table></div>
+<p>本节代码用：</p>
+<pre data-lang="text"><code>LLM_TIMEOUT_SECONDS</code></pre>
+<p>统一控制超时时间。</p>
+<hr>
+<h2 id="4-retry重试是药不是饭">4. Retry：重试是药，不是饭</h2>
+<p>重试能提升成功率，但也可能放大故障。</p>
+<p>错误做法：</p>
+<pre data-lang="text"><code>失败就立刻重试
+重试次数很大
+所有错误都重试
+所有用户同时重试
+没有日志
+没有退避</code></pre>
+<p>这会导致典型问题：</p>
+<pre data-lang="text"><code>provider 已经限流
+  ↓
+你的系统疯狂重试
+  ↓
+失败请求也计入限流
+  ↓
+限流更严重
+  ↓
+系统雪崩</code></pre>
+<p>正确做法：</p>
+<pre data-lang="text"><code>只对可恢复错误重试
+有限次数
+指数退避
+加入 jitter
+记录 attempt
+最终失败要可观测</code></pre>
+<hr>
+<h2 id="5-exponential-backoff指数退避">5. Exponential Backoff：指数退避</h2>
+<p>今日新增术语是：<strong>Exponential Backoff with Jitter</strong>。</p>
+<p>指数退避的意思是：</p>
+<pre data-lang="text"><code>第 1 次失败：等 1 秒
+第 2 次失败：等 2 秒
+第 3 次失败：等 4 秒
+第 4 次失败：等 8 秒</code></pre>
+<p>jitter 是随机扰动：</p>
+<pre data-lang="text"><code>实际等待 = 基础等待时间 + 一点随机偏移</code></pre>
+<p>为什么要 jitter？</p>
+<p>因为如果很多请求同时失败，又同时按固定 1、2、4 秒重试，会形成“重试洪峰”。jitter 可以把这些请求打散。</p>
+<p>官方文档也强调：处理 429 / rate limit 时应使用指数退避；失败请求本身也会消耗限流额度，所以不能持续重复发送同一请求。</p>
+<p>本节代码不用第三方 retry 库，而是手写一个小的 retry loop，方便你看清楚底层逻辑。</p>
+<hr>
+<h2 id="6-哪些错误可以重试">6. 哪些错误可以重试？</h2>
+<p>可以重试的通常是短暂性错误：</p>
+<pre data-lang="text"><code>Timeout
+网络连接失败
+HTTP 429 rate limit
+HTTP 500 / 502 / 503 / 504</code></pre>
+<p>不该重试的通常是确定性错误：</p>
+<pre data-lang="text"><code>API key 错误
+权限不足
+余额不足
+参数非法
+上下文超限
+模型不存在
+内容安全拦截</code></pre>
+<p>判断标准：</p>
+<pre data-lang="text"><code>重试同一个请求，有没有合理概率变成功？</code></pre>
+<p>如果答案是没有，就不要重试。</p>
+<p>例如：</p>
+<pre data-lang="text"><code>API key 错了，重试 100 次也还是错。
+上下文超限，原样重试 100 次也还是超限。
+余额不足，重试只会浪费时间。</code></pre>
+<hr>
+<h2 id="7-rate-limitrpm-tpm-rpd">7. Rate Limit：RPM / TPM / RPD</h2>
+<p>LLM provider 常见限流维度：</p>
+<div class="table-wrap"><table><thead><tr><th>缩写</th><th>含义</th></tr></thead><tbody><tr><td>RPM</td><td>Requests Per Minute，每分钟请求数</td></tr><tr><td>TPM</td><td>Tokens Per Minute，每分钟 token 数</td></tr><tr><td>RPD</td><td>Requests Per Day，每天请求数</td></tr></tbody></table></div>
+<p>429 不一定只是请求太多，也可能是 token 太多。</p>
+<p>例如：</p>
+<pre data-lang="text"><code>每分钟最多 60 次请求
+每分钟最多 100000 tokens</code></pre>
+<p>你请求次数不多，但每次都塞很长上下文，也可能触发 TPM 限制。</p>
+<p>所以治理 rate limit 不能只看请求数，还要看：</p>
+<pre data-lang="text"><code>input_tokens
+output_tokens
+total_tokens
+max_tokens
+并发数
+重试次数</code></pre>
+<hr>
+<h2 id="8-成本估算先粗略再精确">8. 成本估算：先粗略，再精确</h2>
+<p>生产系统不能等账单来了才知道花了多少钱。</p>
+<p>每次模型调用应该记录：</p>
+<pre data-lang="text"><code>provider
+model
+input_tokens
+output_tokens
+total_tokens
+estimated_cost</code></pre>
+<p>成本估算公式通常是：</p>
+<pre data-lang="text"><code>input_cost = input_tokens / 1_000_000 * input_price_per_1m
+output_cost = output_tokens / 1_000_000 * output_price_per_1m
+total_cost = input_cost + output_cost</code></pre>
+<p>注意：不同 provider 的 usage 字段名可能不同。</p>
+<p>OpenAI-compatible 常见：</p>
+<pre data-lang="json"><code>{
+  &quot;usage&quot;: {
+    &quot;prompt_tokens&quot;: 100,
+    &quot;completion_tokens&quot;: 50,
+    &quot;total_tokens&quot;: 150
+  }
+}</code></pre>
+<p>课程代码会统一转换成：</p>
+<pre data-lang="text"><code>input_tokens
+output_tokens
+total_tokens
+estimated_cost</code></pre>
+<hr>
+<h2 id="9-结构化日志字段">9. 结构化日志字段</h2>
+<p>本节继续使用结构化日志，但不重复讲 JSONL 的基础好处。你只需要关注这次新增的可靠性字段：</p>
+<pre data-lang="text"><code>request_id
+provider
+model
+base_url
+status
+attempt_count
+retryable
+error_type
+error_message
+http_status
+latency_ms
+timeout_seconds
+input_tokens
+output_tokens
+total_tokens
+estimated_cost</code></pre>
+<p>关键是：日志要能回答这些问题：</p>
+<pre data-lang="text"><code>这次调用成功了吗？
+失败原因是什么？
+重试了几次？
+每次等待多久？
+是否命中了限流？
+最终花了多少 token？
+成本大概多少？</code></pre>
+<hr>
+<h2 id="10-fallback什么时候降级">10. Fallback：什么时候降级？</h2>
+<p>Fallback 不是本节代码的重点，但你要先建立意识。</p>
+<p>当主模型失败时，可以有几种降级：</p>
+<div class="table-wrap"><table><thead><tr><th>降级方式</th><th>适合场景</th></tr></thead><tbody><tr><td>切备用模型</td><td>主模型 5xx / 429</td></tr><tr><td>切小模型</td><td>成本压力大或任务简单</td></tr><tr><td>返回安全兜底回答</td><td>高风险或内容过滤</td></tr><tr><td>转异步任务</td><td>长任务超时</td></tr><tr><td>人工处理</td><td>高价值失败请求</td></tr></tbody></table></div>
+<p>但 fallback 也有风险：</p>
+<pre data-lang="text"><code>备用模型质量可能更差
+输出风格可能不同
+工具能力可能不一致
+模型可能共享同一限流池</code></pre>
+<p>所以 fallback 不能偷偷发生，必须记录到日志里。</p>
+<hr>
+<h2 id="11-本节代码目录">11. 本节代码目录</h2>
+<pre data-lang="text"><code>code/llm-api-reliability/
+  README.md
+  PYTHON_NOTES.md
+  requirements.txt
+  .env.example
+  reliable_client.py
+  demo_generate.py</code></pre>
+<p>这次遵守最新课程规则：</p>
+<pre data-lang="text"><code>不默认生成 mock provider
+不把 mock 作为默认路径
+默认使用真实 OpenAI-compatible provider 配置</code></pre>
+<p>代码支持：</p>
+<pre data-lang="text"><code>LLM_PROVIDER
+LLM_MODEL
+LLM_BASE_URL
+LLM_API_KEY</code></pre>
+<p>可切换：</p>
+<pre data-lang="text"><code>glm
+hunyuan
+openai_compatible
+openai</code></pre>
+<hr>
+<h2 id="12-本节课后练习">12. 本节课后练习</h2>
+<p>本节只保留一套课后练习，不再单独出课堂练习。</p>
+<p>文件：</p>
+<pre data-lang="text"><code>assignments/week01-lesson05-homework.md</code></pre>
+<p>重点训练：</p>
+<p>1. 错误分类； 2. 哪些错误可以重试； 3. 指数退避和 jitter； 4. rate limit 的 RPM / TPM； 5. 成本估算字段； 6. 生产级 LLM Client 的面试表达。</p>
+<hr>
+<h2 id="13-面试表达">13. 面试表达</h2>
+<p>如果面试官问：</p>
+<blockquote>你如何把 LLM API 调用做成生产可用？</blockquote>
+<p>不要只说：</p>
+<pre data-lang="text"><code>加个 retry。</code></pre>
+<p>更好的表达：</p>
+<pre data-lang="text"><code>我会把 LLM API 当作不稳定的外部推理依赖来治理。首先在 LLM Gateway 层统一封装 provider adapter、timeout、错误分类、retry policy、rate limit 处理、usage/cost 记录和结构化日志。
+
+重试方面，我不会对所有错误无脑重试，而是只对 timeout、429、5xx 这类短暂性错误做有限重试，并使用 exponential backoff with jitter，避免重试风暴。对 API key 错误、参数错误、quota exhausted、上下文超限等确定性错误不做原样重试。
+
+同时每次调用要记录 request_id、provider、model、attempt_count、latency、usage、estimated_cost、error_type、http_status 和 fallback 信息。这样后续才能排查质量、成本、限流和稳定性问题。</code></pre>
+<hr>
+<h2 id="14-本节你必须记住的-5-句话">14. 本节你必须记住的 5 句话</h2>
+<p>1. LLM API 失败是常态，不是异常情况。 2. 错误处理的第一步是分类，不是重试。 3. 只对可恢复错误做有限重试，并使用指数退避和 jitter。 4. rate limit 不只看请求数，也要看 token 数。 5. 没有 usage / cost / attempt 日志，就谈不上生产级 LLM Gateway。</p>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

@@ -36,7 +36,7 @@
         <div class="hero-actions">
           <a class="btn" href="#archive">进入历史课程回看中心 →</a>
           <a class="btn secondary" href="reader.html?file=PROGRESS.md">查看学习进度 →</a>
-          <a class="btn secondary" href="reader.html?file=lessons%2Fweek01-lesson04-streaming-backend-sse.md">打开 Lesson 4 讲义 →</a>
+          <a class="btn secondary" href="lessons/week01-lesson05-error-retry-rate-limit-cost.html">打开 Lesson 5 HTML 课件 →</a>
         </div>
         <div class="stat-strip" aria-label="课程关键指标">
           <div class="stat"><strong>12</strong><span>周系统训练</span></div>
@@ -52,16 +52,16 @@
             <span class="badge available" id="courseStatusBadge">IN PROGRESS</span>
             <span class="badge blue" id="sourceSyncBadge">同步自 PROGRESS.md</span>
           </div>
-            <div class="progress-ring" aria-label="当前课程总进度 4/39">
+            <div class="progress-ring" aria-label="当前课程总进度 5/39">
             <div class="progress-ring-inner">
-              <div><strong>4/39</strong><span>Lessons Done</span></div>
+              <div><strong>5/39</strong><span>Lessons Done</span></div>
             </div>
           </div>
 
           <div class="cockpit-list">
             <div class="cockpit-item"><label>当前阶段</label><b id="currentPhase">Phase 1：LLM API 基础</b></div>
-            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 1</span> · <span id="currentLesson">Lesson 4（进行中）</span></b></div>
-            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 1 Lesson 4：Streaming 与后端接口封装</b></div>
+            <div class="cockpit-item"><label>当前位置</label><b><span id="currentWeek">Week 1</span> · <span id="currentLesson">Lesson 5（进行中）</span></b></div>
+            <div class="cockpit-item"><label>下一步</label><b id="nextLesson">Week 1 Lesson 5：错误处理、超时、重试、限流、成本估算</b></div>
             <div class="cockpit-item"><label>当前项目</label><b id="currentProject">Project 1：LLM API Backend Service（启动中）</b></div>
             <div class="cockpit-item"><label>数据来源</label><b><a href="reader.html?file=PROGRESS.md">PROGRESS.md</a> / <a href="reader.html?file=COURSE_PLAN.md">COURSE_PLAN.md</a></b></div>
           </div>
@@ -77,7 +77,7 @@
             <h2 class="section-title">12 周学习路径</h2>
             <p class="section-copy">从能力地图起步，逐步把传统后端技能迁移到 AI 应用系统：模型调用、检索、工具、Agent、协议、工程化和面试表达。</p>
           </div>
-          <span class="badge available">Lesson 4 进行中</span>
+          <span class="badge available">Lesson 5 进行中</span>
         </div>
         <div class="panel">
           <div class="path-grid" id="pathGrid"></div>
@@ -96,7 +96,7 @@
             <h2 class="section-title">Week 1 详细课表</h2>
             <p class="section-copy">第一周的目标不是“能调通模型”这么简单，而是建立一个后端工程师能接受的 LLM 调用基础：参数、流式输出、超时、重试、限流和成本。</p>
           </div>
-          <span class="badge available">Lesson 4 进行中</span>
+          <span class="badge available">Lesson 5 进行中</span>
         </div>
         <div class="grid-3" id="weekOneGrid"></div>
       </section>
@@ -120,7 +120,7 @@
             <h2 class="section-title">历史课程回看中心</h2>
             <p class="section-copy">这里只展示已经完成的课程，不展示未开始或未生成的课程，并按完成时间倒序排列，最新完成的课程在最上面。默认“全部”视图按课程分组展示真实资料；后续课堂练习与课后习题合并为课后练习，避免重复出题。</p>
           </div>
-          <span class="badge available" id="historyCountBadge">历史课程 4</span>
+          <span class="badge available" id="historyCountBadge">历史课程 5</span>
         </div>
         <div class="panel">
           <div class="archive-toolbar">
@@ -167,17 +167,18 @@
     const courseState = {
       currentPhase: "Phase 1：LLM API 基础",
       currentWeek: "Week 1",
-      currentLesson: "Lesson 4（进行中）",
+      currentLesson: "Lesson 5（进行中）",
       totalLessons: 39,
-      completedLessons: 4,
+      completedLessons: 5,
       currentProject: "Project 1：LLM API Backend Service（启动中）",
-      nextLesson: "Week 1 Lesson 4：Streaming 与后端接口封装",
+      nextLesson: "Week 1 Lesson 5：错误处理、超时、重试、限流、成本估算",
       started: true,
       completedLessonRows: [
         { done: true, code: "L00", title: "后端工程师的 AI 能力地图" },
         { done: true, code: "L01", title: "AI 圈黑话课 1：harness / loop / hermes / ReAct" },
         { done: true, code: "L02", title: "真实项目选择方法" },
-        { done: true, code: "L03", title: "LLM API 第一课" }
+        { done: true, code: "L03", title: "LLM API 第一课" },
+        { done: true, code: "L04", title: "Streaming 与后端接口封装" }
       ]
     };
 
@@ -263,12 +264,24 @@
           summary: "建立 LLM API 工程边界：Gateway、messages、token、model、temperature、usage、trace 和结构化输出治理。",
           resources: [
             { type: "lesson", status: "done", title: "课程讲义", desc: "LLM API 第一课，讲解 messages、token、model、temperature 与 LLM Gateway 生产化封装。", href: "lessons/week01-lesson03-llm-api-basics.md", label: "回看讲义" },
-            { type: "code", status: "done", title: "代码/资料", desc: "最小 LLM Client 示例与 Python 语法补充，支持 mock、OpenAI-compatible、GLM 和腾讯混元配置切换。", href: "code/llm-api-basics/README.md", label: "查看代码资料" },
+            { type: "code", status: "done", title: "代码/资料", desc: "最小 LLM Client 示例与 Python 语法补充，支持 OpenAI-compatible、GLM 和腾讯混元配置切换。", href: "code/llm-api-basics/README.md", label: "查看代码资料" },
             { type: "assignment", status: "done", title: "课后作业", desc: "完整批改记录：基础概念、参数选择、代码阅读、LLM Gateway 日志表和面试表达。", href: "reviews/week01-lesson03-homework-review.md", label: "完整批改" }
+          ]
+        },
+        {
+          code: "L04",
+          title: "Streaming 与后端接口封装",
+          date: "2026-07-02",
+          summary: "建立 LLM streaming 后端封装能力：SSE、provider adapter、error event、日志和协议边界。",
+          resources: [
+            { type: "lesson", status: "done", title: "课程讲义", desc: "Streaming 与后端接口封装，覆盖 SSE、WebSocket/Chunked 对比、后端统一事件协议和生产风险。", href: "lessons/week01-lesson04-streaming-backend-sse.md", label: "回看讲义" },
+            { type: "code", status: "done", title: "代码/资料", desc: "FastAPI SSE endpoint 与 OpenAI-compatible streaming client，支持 GLM 和腾讯混元配置切换。", href: "code/llm-api-streaming/README.md", label: "查看代码资料" },
+            { type: "assignment", status: "done", title: "课后作业", desc: "用户选择直接查看标准参考答案，覆盖基础概念、SSE 协议、接口设计和面试表达。", href: "reviews/week01-lesson04-homework-reference.md", label: "参考答案" }
           ]
         }
       ],
       terms: [
+        { title: "Exponential Backoff with Jitter", tag: "今日新增", desc: "失败后按指数增长等待时间，并加入随机扰动，避免重试洪峰。", detail: "在 LLM API 中，timeout、429、5xx 等短暂性错误可以有限重试，但 API key 错误、参数错误、余额不足、上下文超限不应原样重试。指数退避让等待时间逐次变长，jitter 用随机扰动打散大量请求的同时重试。", backend: "类似下游 RPC 调用失败后的有限退避重试策略，但要特别注意失败请求也可能消耗 provider 的 rate limit。", interview: "我会在 LLM Gateway 对可恢复错误使用有限次数的 exponential backoff with jitter，并记录 attempt、error_type、http_status 和 latency，避免无脑重试造成雪崩。" },
         { title: "Server-Sent Events（SSE）", tag: "今日新增", desc: "基于 HTTP 的服务端单向事件推送协议，适合把 LLM 增量文本输出实时推给浏览器。", detail: "SSE 用 text/event-stream 返回事件流，常见事件包括 meta、delta、done、error。它改善的是首 token 可见时间和用户感知延迟，不一定减少完整生成总耗时。", backend: "不强行类比消息队列。它更像浏览器友好的流式响应协议：客户端发起请求，服务端持续推送事件，后端负责统一事件格式、错误处理和日志。", interview: "LLM streaming 接口可以用 SSE 封装，后端把供应商增量输出转换为统一的 meta/delta/done/error 事件，让前端不依赖具体 provider 协议。" },
         { title: "Responses API", tag: "今日新增", desc: "统一模型响应接口，把多轮状态、工具调用、流式输出和响应管理放进同一 API 形态。", detail: "Responses API 体现了模型接口从单次聊天补全走向统一响应入口的趋势。它可以承载有状态多轮响应、streaming、tool calling、响应检索/删除和上下文压缩等能力。学习时不要死记 SDK，而要抓住输入、上下文、参数、输出、usage、trace 和错误治理这些稳定抽象。", backend: "不强行等同某个后端组件。更合适的理解是：它是模型供应商提供的统一响应入口；在你的系统里仍应被封装在 LLM Gateway 后面。", interview: "Responses API 的意义是把文本生成、多轮状态、工具调用和流式事件统一到模型响应层。生产中我会用 LLM Gateway 封装它，统一处理参数、上下文、usage、trace 和错误治理。" },
         { title: "Agentic Workflow", tag: "今日新增", desc: "由 LLM 参与局部决策的任务工作流，把模型推理、工具调用、状态、审批、恢复和评估组织成可运行系统。", detail: "Agentic Workflow 不是纯聊天，也不是传统固定流程。它把 LLM 的动态决策能力放进有状态、有权限、有 checkpoint、有 trace、有 eval 的工作流里，让系统既能根据上下文灵活推进任务，又能保持生产可控。", backend: "这里不强行等同传统后端。它和固定状态机相似的一点是有边界和状态；不同点是某些节点由模型根据上下文动态决定下一步。", interview: "Agentic Workflow 的价值是把 LLM 的动态推理能力放进可控工程流程，用状态、权限、checkpoint、trace 和 eval 管住不确定性。" },
@@ -309,6 +322,10 @@
 
     function markdownHref(path) {
       return `reader.html?file=${encodeURIComponent(path)}`;
+    }
+
+    function resourceHref(path) {
+      return /\.html?$/i.test(path) ? path : markdownHref(path);
     }
 
     async function fetchText(path) {
@@ -404,7 +421,7 @@
             <div class="week-index"><span>${escapeHtml(item.week)}</span><span>${escapeHtml(item.phase)}</span></div>
             <span class="badge ${statusClass}">${statusText}</span>
             <h3>${escapeHtml(item.title)}</h3>
-            <p>${isCurrent ? "当前处于 Week 1：LLM API 基础，Lesson 3 已完成，当前进入 Lesson 4：Streaming 与后端接口封装。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
+            <p>${isCurrent ? "当前处于 Week 1：LLM API 基础，Lesson 4 已完成，当前进入 Lesson 5：错误处理、超时、重试、限流、成本估算。" : "计划来自 COURSE_PLAN.md；对应讲义和作业生成后才会出现在回看中心。"}</p>
             <div class="deliverable">OUTPUT · ${escapeHtml(item.output)}</div>
           </article>
         `;
@@ -425,8 +442,15 @@
           lesson: "lessons/week01-lesson04-streaming-backend-sse.md",
           code: "code/llm-api-streaming/README.md",
           notes: "code/llm-api-streaming/PYTHON_NOTES.md",
-          homework: "assignments/week01-lesson04-homework.md",
-          reference: "reviews/week01-lesson04-homework-reference.md",
+          homework: "reviews/week01-lesson04-homework-reference.md",
+          badge: "已完成"
+        },
+        L05: {
+          lesson: "lessons/week01-lesson05-error-retry-rate-limit-cost.html",
+          code: "code/llm-api-reliability/README.md",
+          notes: "code/llm-api-reliability/PYTHON_NOTES.md",
+          homework: "assignments/week01-lesson05-homework.md",
+          reference: "reviews/week01-lesson05-homework-reference.md",
           badge: "进行中"
         }
       };
@@ -445,10 +469,10 @@
             </ul>
             ${isGenerated ? `
               <div class="module-actions">
-                <a class="text-link" href="${escapeHtml(markdownHref(generated.lesson))}">打开讲义 →</a>
+                <a class="text-link" href="${escapeHtml(resourceHref(generated.lesson))}">打开 HTML 课件 →</a>
                 <a class="text-link" href="${escapeHtml(markdownHref(generated.code))}">查看代码 →</a>
                 <a class="text-link" href="${escapeHtml(markdownHref(generated.notes))}">Python 语法补充 →</a>
-                <a class="text-link" href="${escapeHtml(markdownHref(generated.homework))}">${item.code === "L04" ? "查看课后练习" : "完整批改"} →</a>
+                <a class="text-link" href="${escapeHtml(markdownHref(generated.homework))}">${item.code === "L03" || item.code === "L04" ? "完整批改" : "查看课后练习"} →</a>
                 ${generated.reference ? `<a class="text-link" href="${escapeHtml(markdownHref(generated.reference))}">参考答案 →</a>` : ""}
               </div>
             ` : `

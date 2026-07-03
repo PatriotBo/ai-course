@@ -10,12 +10,12 @@
 |---|---|
 | 当前阶段 | Phase 1：LLM API 基础 |
 | 当前周 | Week 1 |
-| 当前课 | Lesson 4（进行中） |
+| 当前课 | Lesson 5（进行中） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
-| 当前总进度 | 4 / 39 lessons |
+| 当前总进度 | 5 / 39 lessons |
 | 当前项目 | Project 1：LLM API Backend Service（启动中） |
-| 下节课 | Week 1 Lesson 4：Streaming 与后端接口封装 |
+| 下节课 | Week 1 Lesson 5：错误处理、超时、重试、限流、成本估算 |
 
 ---
 
@@ -25,7 +25,7 @@
 - [x] L01 AI 圈黑话课 1：harness / loop / hermes / ReAct
 - [x] L02 真实项目选择方法
 - [x] L03 LLM API 第一课
-- [ ] L04 Streaming 与后端接口封装
+- [x] L04 Streaming 与后端接口封装
 - [ ] L05 错误处理：超时、重试、限流、成本估算
 - [ ] L06 Prompt 设计原则
 - [ ] L07 结构化输出
@@ -71,7 +71,8 @@
 | L01 | `assignments/week00-lesson01-homework.md` | 已提交，已批改 | 课堂练习：`reviews/week00-lesson01-class-exercise.md`；作业批改：`reviews/week00-lesson01-homework-review.md` |
 | L02 | `assignments/week00-lesson02-homework.md` | 已豁免 | 用户确认本节为项目选择方法课，不做课后习题；豁免记录：`reviews/week00-lesson02-homework-review.md` |
 | L03 | `assignments/week01-lesson03-homework.md` | 已提交，已批改 | 课堂练习记录为历史留存；后续同类题合并到课后练习，完整批改：`reviews/week01-lesson03-homework-review.md` |
-| L04 | [课后练习](assignments/week01-lesson04-homework.md) | 已提供参考答案 | 用户选择不提交个人答案，直接查看参考答案；[参考答案](reviews/week01-lesson04-homework-reference.md) |
+| L04 | [课后练习](assignments/week01-lesson04-homework.md) | 已提供参考答案，本节完成 | 用户选择不提交个人答案，直接查看参考答案；[参考答案](reviews/week01-lesson04-homework-reference.md) |
+| L05 | [课后练习](assignments/week01-lesson05-homework.md) | 已生成参考答案 | 讲义：[Lesson 5 HTML](lessons/week01-lesson05-error-retry-rate-limit-cost.html)；代码：[llm-api-reliability](code/llm-api-reliability/README.md)；[参考答案](reviews/week01-lesson05-homework-reference.md) |
 
 ---
 
@@ -90,6 +91,7 @@
 - Lesson 3 课后作业暴露的问题：参数选择题漏答复杂技术文章和高频改写场景；模型选择不能只从成本看，还要看质量、延迟、上下文、工具能力、合规和部署；`max_tokens` 与上下文窗口概念要区分；面试表达需要从“要求满分答案”升级到自己能组织 1 分钟回答。
 - 后续课程形态修正：课堂练习和课后习题默认合并成一套课后练习，避免重复出题；代码示例必须补充必要注释和 Python 语法说明；模型调用示例必须支持通过配置切换 GLM、腾讯混元等 OpenAI-compatible provider。
 - Lesson 4 需要重点掌握 Streaming 的工程边界：SSE 事件协议、首 token 感知延迟、后端统一封装、provider adapter、错误事件、代理缓冲、取消连接和结构化流式日志。
+- Lesson 5 需要重点掌握 LLM API 可靠性治理：timeout、错误分类、可重试/不可重试错误、exponential backoff with jitter、rate limit、usage/cost、attempt 日志和 fallback 边界。
 
 ---
 
@@ -148,15 +150,25 @@
 - 薄弱点：结构化输出治理、生产级日志字段、隐私脱敏、prompt_version、finish_reason、retry_count、参数选择完整性和面试表达仍需加强。
 - 下节课：Week 1 Lesson 4：Streaming 与后端接口封装。
 
+### 2026-07-02 Lesson 4 课后记录
+
+- 今日主题：Streaming 与后端接口封装。
+- 关键概念：Streaming 主要改善首 token 可见时间和用户感知延迟，不一定缩短完整生成耗时；后端应将 provider 原始 stream 转换为统一 SSE 事件协议，而不是直接透传供应商协议。
+- 完成代码：已生成 `code/llm-api-streaming/`，包含 FastAPI SSE endpoint、OpenAI-compatible streaming client、结构化流式日志、GLM/腾讯混元配置示例和 Python 语法补充文档。
+- 作业：用户选择不提交个人答案，直接查看参考答案，记录见 `reviews/week01-lesson04-homework-reference.md`。
+- 掌握情况：已完成讲义、代码、作业、参考答案和课程中心入口；已修正 Python Notes 重复说明、mock 默认生成和课程中心链接问题。
+- 薄弱点：后续仍需在真实 provider 调用中巩固 SSE error event、取消连接、代理缓冲、日志脱敏和 provider adapter 边界。
+- 下节课：Week 1 Lesson 5：错误处理、超时、重试、限流、成本估算。
+
 ---
 
 ## 7. 已生成资料索引
 
 | 类型 | 文件 | 状态 | 说明 |
 |---|---|---|---|
-| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L03 完成，L04 进行中 |
+| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L04 完成，L05 进行中 |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
-| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Server-Sent Events（SSE）；已包含 Responses API、Agentic Workflow、Agent Harness 等术语 |
+| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Exponential Backoff with Jitter；已包含 SSE、Responses API、Agentic Workflow 等术语 |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
@@ -171,11 +183,17 @@
 | Lesson 3 Python 语法补充 | `code/llm-api-basics/PYTHON_NOTES.md` | 已生成 | 解释 dataclass、Pydantic、环境变量、httpx、model_dump 等语法点 |
 | Lesson 3 课堂练习 | `reviews/week01-lesson03-class-exercise.md` | 历史留存 | 本次已发生，后续同类题不再与课后作业重复设置 |
 | Lesson 3 完整批改 | `reviews/week01-lesson03-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
-| Lesson 4 讲义 | [lessons/week01-lesson04-streaming-backend-sse.md](lessons/week01-lesson04-streaming-backend-sse.md) | 已生成，进行中 | Streaming 与后端接口封装：SSE、provider stream、FastAPI endpoint、错误事件和日志 |
+| Lesson 4 讲义 | [lessons/week01-lesson04-streaming-backend-sse.md](lessons/week01-lesson04-streaming-backend-sse.md) | 已完成 | Streaming 与后端接口封装：SSE、provider stream、FastAPI endpoint、错误事件和日志 |
 | Lesson 4 代码 | [code/llm-api-streaming/README.md](code/llm-api-streaming/README.md) | 已生成 | FastAPI SSE endpoint、OpenAI-compatible stream，支持 GLM/腾讯混元配置切换 |
 | Lesson 4 Python 语法补充 | [code/llm-api-streaming/PYTHON_NOTES.md](code/llm-api-streaming/PYTHON_NOTES.md) | 已生成 | 解释 generator/yield、Iterator、StreamingResponse、SSE event、httpx stream 等语法点 |
 | Lesson 4 作业 | [assignments/week01-lesson04-homework.md](assignments/week01-lesson04-homework.md) | 已生成 | 按合并规则只设置一套课后练习/作业 |
 | Lesson 4 参考答案 | [reviews/week01-lesson04-homework-reference.md](reviews/week01-lesson04-homework-reference.md) | 已生成 | 用户选择不提交个人答案，本文件作为标准参考答案在线回看 |
+| Lesson 5 HTML 课件 | [lessons/week01-lesson05-error-retry-rate-limit-cost.html](lessons/week01-lesson05-error-retry-rate-limit-cost.html) | 已生成，进行中 | 可直接本地打开学习和检查的 HTML 课件 |
+| Lesson 5 讲义 Markdown | [lessons/week01-lesson05-error-retry-rate-limit-cost.md](lessons/week01-lesson05-error-retry-rate-limit-cost.md) | 已生成 | 错误处理、超时、重试、限流与成本估算 |
+| Lesson 5 代码 | [code/llm-api-reliability/README.md](code/llm-api-reliability/README.md) | 已生成 | 真实 provider 可靠性 LLM Client：timeout、retry、cost、日志 |
+| Lesson 5 Python 语法补充 | [code/llm-api-reliability/PYTHON_NOTES.md](code/llm-api-reliability/PYTHON_NOTES.md) | 已生成 | 解释 ProviderError、RetryPolicy、Decimal、raise from、指数退避等新增语法点 |
+| Lesson 5 作业 | [assignments/week01-lesson05-homework.md](assignments/week01-lesson05-homework.md) | 已生成 | 按合并规则只设置一套课后练习/作业 |
+| Lesson 5 参考答案 | [reviews/week01-lesson05-homework-reference.md](reviews/week01-lesson05-homework-reference.md) | 已生成 | 覆盖错误分类、retry policy、成本估算、Gateway 日志和面试表达 |
 
 ---
 
