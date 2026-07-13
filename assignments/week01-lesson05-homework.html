@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 5：课后练习</title>
+  <link rel="stylesheet" href="../styles/markdown-reader.css">
+  <style>
+    .standalone-reader { width: min(1380px, calc(100% - 44px)); margin: 0 auto; padding: 18px 0 78px; position: relative; z-index: 2; }
+    .standalone-hero { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 38px; padding: clamp(28px, 4vw, 48px); margin-bottom: 24px; background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 84% -10%, rgba(232,184,91,0.18), transparent 34%), radial-gradient(circle at 10% 8%, rgba(255,106,61,0.16), transparent 36%), linear-gradient(120deg, rgba(117,233,255,0.08), transparent 38%); opacity: 0.9; }
+    .standalone-hero > * { position: relative; z-index: 2; }
+    .standalone-layout { display: grid; grid-template-columns: 292px minmax(0, 1fr); gap: 22px; align-items: start; }
+    .standalone-toc { position: sticky; top: 18px; border-radius: 28px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-toc-title { margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .standalone-toc a { display: block; border: 1px solid transparent; border-radius: 13px; padding: 8px 10px; color: var(--paper-soft); font-size: 14px; line-height: 1.45; text-decoration: none; }
+    .standalone-toc a:hover { color: var(--paper); border-color: rgba(117,233,255,0.20); background: rgba(117,233,255,0.08); text-decoration: none; transform: translateX(2px); }
+    .standalone-toc .toc-level-2 { margin-left: 10px; } .standalone-toc .toc-level-3 { margin-left: 20px; color: var(--paper-muted) !important; }
+    .standalone-content { border-radius: 34px; padding: clamp(28px, 4vw, 58px); color: var(--paper-soft); line-height: 1.86; font-size: 17px; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-content h1, .standalone-content h2, .standalone-content h3, .standalone-content h4 { color: var(--paper); line-height: 1.24; letter-spacing: -0.02em; scroll-margin-top: 28px; }
+    .standalone-content h1, .standalone-content h2 { font-family: var(--font-display); } .standalone-content h1 { margin: 0 0 28px; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: clamp(32px, 4vw, 54px); }
+    .standalone-content h2 { margin: 46px 0 16px; padding-left: 16px; border-left: 4px solid var(--accent-red); font-size: clamp(28px, 3vw, 38px); } .standalone-content h3 { margin: 32px 0 12px; color: #f8d89b; font-size: 23px; }
+    .standalone-content p { margin: 14px 0; } .standalone-content strong { color: #fff4df; } .standalone-content em { color: #dff8ff; }
+    .standalone-content a { color: var(--accent-cyan); text-decoration: underline; text-decoration-color: rgba(117,233,255,0.36); }
+    .standalone-content code { border: 1px solid rgba(117,233,255,0.22); border-radius: 8px; padding: 2px 6px; color: #c9f7ff; background: rgba(117,233,255,0.08); font-family: var(--font-mono); font-size: 0.92em; }
+    .standalone-content pre { position: relative; overflow: auto; border: 1px solid rgba(117,233,255,0.18); border-radius: 20px; margin: 22px 0; padding: 22px; background: linear-gradient(180deg, rgba(4,8,7,0.96), rgba(8,13,10,0.92)), radial-gradient(circle at top left, rgba(117,233,255,0.10), transparent 38%); }
+    .standalone-content pre::before { content: attr(data-lang); display: block; margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .standalone-content pre code { border: 0; padding: 0; color: #dff8ff; background: transparent; font-size: 14px; line-height: 1.72; }
+    .standalone-content blockquote { margin: 24px 0; border-left: 4px solid var(--accent-amber); border-radius: 16px; padding: 14px 18px; color: #f2d8a8; background: rgba(232,184,91,0.08); }
+    .standalone-content ul { margin: 14px 0 22px; padding-left: 26px; } .standalone-content li { margin: 8px 0; } .standalone-content hr { border: 0; height: 1px; margin: 36px 0; background: linear-gradient(90deg, transparent, rgba(255,106,61,0.42), rgba(117,233,255,0.28), transparent); }
+    .standalone-content .table-wrap { overflow: auto; margin: 22px 0; border: 1px solid var(--line); border-radius: 20px; background: rgba(7,8,6,0.32); } .standalone-content table { width: 100%; border-collapse: collapse; min-width: 720px; } .standalone-content th, .standalone-content td { border-bottom: 1px solid var(--line); padding: 13px 15px; text-align: left; vertical-align: top; } .standalone-content th { color: var(--paper); background: rgba(255,106,61,0.09); font-weight: 700; } .standalone-content tr:last-child td { border-bottom: 0; }
+    .top-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 24px; } .top-links a { border: 1px solid rgba(242,230,200,0.18); border-radius: 999px; padding: 10px 14px; color: var(--paper); background: rgba(242,230,200,0.07); box-shadow: inset 0 1px rgba(255,255,255,0.05); font-size: 14px; text-decoration: none; }
+    .top-links a:hover { border-color: rgba(117,233,255,0.42); background: rgba(117,233,255,0.10); text-decoration: none; transform: translateY(-1px); }
+    @media (max-width: 980px) { .standalone-layout { grid-template-columns: 1fr; } .standalone-toc { position: relative; top: 0; max-height: none; } }
+  </style>
+</head>
+<body>
+  <div class="standalone-reader">
+    <div class="standalone-hero">
+      <a class="back-link" href="../course-showcase.html">← 返回 AI Course Ops Deck</a>
+      <p class="eyebrow">Week 1 · LLM API basics · Local HTML</p>
+      <h1>Lesson 5：课后练习</h1>
+      <p class="doc-summary">本页面是 Lesson 5 的课后练习 HTML 版，避免从课件跳转到原始 Markdown。</p>
+      <div class="top-links"><a href="../lessons/week01-lesson05-error-retry-rate-limit-cost.html">返回 Lesson 5 课件</a><a href="../reviews/week01-lesson05-homework-reference.html">参考答案</a><a href="../course-showcase.html">课程中心</a></div>
+    </div>
+    <div class="standalone-layout">
+      <aside class="standalone-toc"><div class="standalone-toc-title">目录</div><nav><a class="toc-level-1" href="#homeworkweek-1-lesson-5">Homework：Week 1 Lesson 5</a><a class="toc-level-2" href="#1-基础概念题">1. 基础概念题</a><a class="toc-level-2" href="#2-错误分类题">2. 错误分类题</a><a class="toc-level-2" href="#3-retry-policy-设计题">3. Retry Policy 设计题</a><a class="toc-level-2" href="#4-代码阅读题">4. 代码阅读题</a><a class="toc-level-2" href="#5-成本估算题">5. 成本估算题</a><a class="toc-level-2" href="#6-接口设计题">6. 接口设计题</a><a class="toc-level-2" href="#7-面试题">7. 面试题</a><a class="toc-level-2" href="#8-提交方式">8. 提交方式</a></nav></aside>
+      <article class="standalone-content markdown-body"><h1 id="homeworkweek-1-lesson-5">Homework：Week 1 Lesson 5</h1>
+<blockquote>主题：错误处理、超时、重试、限流与成本估算</blockquote>
+<blockquote>预计耗时：45-60 分钟</blockquote>
+<blockquote>代码目录：<code>code/llm-api-reliability/</code></blockquote>
+<blockquote>参考答案：<a href="../reviews/week01-lesson05-homework-reference.md">reviews/week01-lesson05-homework-reference.md</a></blockquote>
+<hr>
+<h2 id="1-基础概念题">1. 基础概念题</h2>
+<p>请用自己的话回答：</p>
+<ul><li>为什么说 LLM API 失败是常态，而不是偶发异常？</li><li>为什么错误处理的第一步是“分类”，而不是直接重试？</li><li><code>timeout</code> 对后端服务有什么意义？如果没有 timeout 会发生什么？</li><li>什么是 exponential backoff with jitter？为什么要加 jitter？</li><li>RPM、TPM、RPD 分别是什么意思？为什么只看请求数不够？</li></ul>
+<hr>
+<h2 id="2-错误分类题">2. 错误分类题</h2>
+<p>判断下面错误是否应该原样重试，并说明原因：</p>
+<div class="table-wrap"><table><thead><tr><th>错误</th><th>是否重试</th><th>原因</th></tr></thead><tbody><tr><td>HTTP 429 Rate Limit</td><td></td><td></td></tr><tr><td>HTTP 500 Provider Error</td><td></td><td></td></tr><tr><td>API key 无效</td><td></td><td></td></tr><tr><td>请求上下文超限</td><td></td><td></td></tr><tr><td>网络连接超时</td><td></td><td></td></tr><tr><td>余额不足 / quota exhausted</td><td></td><td></td></tr><tr><td>模型不存在</td><td></td><td></td></tr><tr><td>HTTP 503 Service Unavailable</td><td></td><td></td></tr></tbody></table></div>
+<hr>
+<h2 id="3-retry-policy-设计题">3. Retry Policy 设计题</h2>
+<p>请设计一个 LLM API 的最小 retry policy，要求包含：</p>
+<ul><li>最大重试次数；</li><li>哪些错误可以重试；</li><li>哪些错误不能重试；</li><li>每次重试等待时间如何计算；</li><li>如何避免大量请求同时重试；</li><li>最终失败后如何返回给业务层。</li></ul>
+<hr>
+<h2 id="4-代码阅读题">4. 代码阅读题</h2>
+<p>阅读：</p>
+<pre data-lang="text"><code>code/llm-api-reliability/reliable_client.py
+code/llm-api-reliability/demo_generate.py</code></pre>
+<p>回答：</p>
+<ul><li><code>ProviderError</code> 为什么要区分 <code>retryable</code>？</li><li><code>RetryPolicy</code> 里每个字段分别控制什么？</li><li><code>_classify_http_error()</code> 如何判断哪些 HTTP 状态码可以重试？</li><li><code>_sleep_before_retry()</code> 为什么要加入 jitter？</li><li>成本估算是如何从 usage 字段计算出来的？</li><li>结构化日志里哪些字段最适合用于排查 429 和成本异常？</li></ul>
+<hr>
+<h2 id="5-成本估算题">5. 成本估算题</h2>
+<p>假设某模型价格如下：</p>
+<pre data-lang="text"><code>input_price_per_1m = 2.00 元
+output_price_per_1m = 8.00 元</code></pre>
+<p>一次调用 usage：</p>
+<pre data-lang="text"><code>input_tokens = 3000
+output_tokens = 800
+total_tokens = 3800</code></pre>
+<p>请计算：</p>
+<ul><li>input 成本；</li><li>output 成本；</li><li>总成本；</li><li>如果一天调用 10000 次，成本约多少；</li><li>如果输出 token 减少 30%，一天能节省多少。</li></ul>
+<hr>
+<h2 id="6-接口设计题">6. 接口设计题</h2>
+<p>假设你要给“吵架帮手”接入生产级 LLM Gateway，请设计调用日志字段。</p>
+<p>至少包含：</p>
+<ul><li>request_id；</li><li>user_id_hash；</li><li>scenario_id；</li><li>provider / model；</li><li>prompt_version；</li><li>retry / attempt；</li><li>latency；</li><li>usage / cost；</li><li>error；</li><li>fallback；</li><li>guardrails。</li></ul>
+<p>要求：</p>
+<ul><li>字段不能只罗列，要说明排查价值；</li><li>说明哪些字段需要脱敏；</li><li>说明如何通过日志判断成本异常；</li><li>说明如何通过日志判断 provider 不稳定。</li></ul>
+<hr>
+<h2 id="7-面试题">7. 面试题</h2>
+<p>准备 1 分钟回答：</p>
+<blockquote>你会如何把 LLM API 调用做成生产可用？</blockquote>
+<p>要求必须包含：</p>
+<ul><li>LLM Gateway；</li><li>timeout；</li><li>错误分类；</li><li>retry policy；</li><li>exponential backoff with jitter；</li><li>rate limit；</li><li>usage / cost；</li><li>structured log；</li><li>fallback。</li></ul>
+<hr>
+<h2 id="8-提交方式">8. 提交方式</h2>
+<p>把答案直接发给我即可。我会按以下维度批改：</p>
+<ul><li>是否理解错误分类；</li><li>是否知道哪些错误不能重试；</li><li>是否能解释指数退避和 jitter；</li><li>是否能设计生产级日志字段；</li><li>是否能计算 token 成本；</li><li>面试表达是否像后端工程师。</li></ul></article>
+    </div>
+  </div>
+</body>
+</html>

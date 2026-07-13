@@ -449,8 +449,8 @@
           lesson: "lessons/week01-lesson05-error-retry-rate-limit-cost.html",
           code: "code/llm-api-reliability/README.md",
           notes: "code/llm-api-reliability/PYTHON_NOTES.md",
-          homework: "assignments/week01-lesson05-homework.md",
-          reference: "reviews/week01-lesson05-homework-reference.md",
+          homework: "assignments/week01-lesson05-homework.html",
+          reference: "reviews/week01-lesson05-homework-reference.html",
           badge: "进行中"
         }
       };
@@ -472,8 +472,8 @@
                 <a class="text-link" href="${escapeHtml(resourceHref(generated.lesson))}">打开 HTML 课件 →</a>
                 <a class="text-link" href="${escapeHtml(markdownHref(generated.code))}">查看代码 →</a>
                 <a class="text-link" href="${escapeHtml(markdownHref(generated.notes))}">Python 语法补充 →</a>
-                <a class="text-link" href="${escapeHtml(markdownHref(generated.homework))}">${item.code === "L03" || item.code === "L04" ? "完整批改" : "查看课后练习"} →</a>
-                ${generated.reference ? `<a class="text-link" href="${escapeHtml(markdownHref(generated.reference))}">参考答案 →</a>` : ""}
+                <a class="text-link" href="${escapeHtml(resourceHref(generated.homework))}">${item.code === "L03" || item.code === "L04" ? "完整批改" : "查看课后练习"} →</a>
+                ${generated.reference ? `<a class="text-link" href="${escapeHtml(resourceHref(generated.reference))}">参考答案 →</a>` : ""}
               </div>
             ` : `
               <button class="text-link unavailable-trigger" type="button" data-message="${escapeHtml(`${item.code} 的课程文件还没有生成。当前不会跳到 mock 页面，正式进入对应课程后再关联真实讲义、代码和作业。`)}">为什么不能打开？ →</button>

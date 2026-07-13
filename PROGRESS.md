@@ -72,7 +72,7 @@
 | L02 | `assignments/week00-lesson02-homework.md` | 已豁免 | 用户确认本节为项目选择方法课，不做课后习题；豁免记录：`reviews/week00-lesson02-homework-review.md` |
 | L03 | `assignments/week01-lesson03-homework.md` | 已提交，已批改 | 课堂练习记录为历史留存；后续同类题合并到课后练习，完整批改：`reviews/week01-lesson03-homework-review.md` |
 | L04 | [课后练习](assignments/week01-lesson04-homework.md) | 已提供参考答案，本节完成 | 用户选择不提交个人答案，直接查看参考答案；[参考答案](reviews/week01-lesson04-homework-reference.md) |
-| L05 | [课后练习](assignments/week01-lesson05-homework.md) | 已生成参考答案 | 讲义：[Lesson 5 HTML](lessons/week01-lesson05-error-retry-rate-limit-cost.html)；代码：[llm-api-reliability](code/llm-api-reliability/README.md)；[参考答案](reviews/week01-lesson05-homework-reference.md) |
+| L05 | [课后练习 HTML](assignments/week01-lesson05-homework.html) | 已生成参考答案 | 讲义：[Lesson 5 HTML](lessons/week01-lesson05-error-retry-rate-limit-cost.html)；代码：[llm-api-reliability](code/llm-api-reliability/README.md)；[参考答案 HTML](reviews/week01-lesson05-homework-reference.html) |
 
 ---
 
@@ -192,8 +192,10 @@
 | Lesson 5 讲义 Markdown | [lessons/week01-lesson05-error-retry-rate-limit-cost.md](lessons/week01-lesson05-error-retry-rate-limit-cost.md) | 已生成 | 错误处理、超时、重试、限流与成本估算 |
 | Lesson 5 代码 | [code/llm-api-reliability/README.md](code/llm-api-reliability/README.md) | 已生成 | 真实 provider 可靠性 LLM Client：timeout、retry、cost、日志 |
 | Lesson 5 Python 语法补充 | [code/llm-api-reliability/PYTHON_NOTES.md](code/llm-api-reliability/PYTHON_NOTES.md) | 已生成 | 解释 ProviderError、RetryPolicy、Decimal、raise from、指数退避等新增语法点 |
-| Lesson 5 作业 | [assignments/week01-lesson05-homework.md](assignments/week01-lesson05-homework.md) | 已生成 | 按合并规则只设置一套课后练习/作业 |
-| Lesson 5 参考答案 | [reviews/week01-lesson05-homework-reference.md](reviews/week01-lesson05-homework-reference.md) | 已生成 | 覆盖错误分类、retry policy、成本估算、Gateway 日志和面试表达 |
+| Lesson 5 作业 HTML | [assignments/week01-lesson05-homework.html](assignments/week01-lesson05-homework.html) | 已生成 | 课件页面“课后练习”入口指向此 HTML 页面 |
+| Lesson 5 作业 Markdown | [assignments/week01-lesson05-homework.md](assignments/week01-lesson05-homework.md) | 已生成 | 按合并规则只设置一套课后练习/作业 |
+| Lesson 5 参考答案 HTML | [reviews/week01-lesson05-homework-reference.html](reviews/week01-lesson05-homework-reference.html) | 已生成 | 课件页面“参考答案”入口指向此 HTML 页面 |
+| Lesson 5 参考答案 Markdown | [reviews/week01-lesson05-homework-reference.md](reviews/week01-lesson05-homework-reference.md) | 已生成 | 覆盖错误分类、retry policy、成本估算、Gateway 日志和面试表达 |
 
 ---
 
