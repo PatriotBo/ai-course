@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Engineering Glossary · 术语表</title>
+  <link rel="stylesheet" href="styles/markdown-reader.css">
+  <style>
+    .standalone-reader { width: min(1380px, calc(100% - 44px)); margin: 0 auto; padding: 18px 0 78px; position: relative; z-index: 2; }
+    .standalone-hero { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 38px; padding: clamp(28px, 4vw, 48px); margin-bottom: 24px; background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 84% -10%, rgba(232,184,91,0.18), transparent 34%), radial-gradient(circle at 10% 8%, rgba(255,106,61,0.16), transparent 36%), linear-gradient(120deg, rgba(117,233,255,0.08), transparent 38%); opacity: 0.9; }
+    .standalone-hero > * { position: relative; z-index: 2; }
+    .standalone-layout { display: grid; grid-template-columns: 292px minmax(0, 1fr); gap: 22px; align-items: start; }
+    .standalone-toc { position: sticky; top: 18px; border-radius: 28px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-toc-title { margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .standalone-toc a { display: block; border: 1px solid transparent; border-radius: 13px; padding: 8px 10px; color: var(--paper-soft); font-size: 14px; line-height: 1.45; text-decoration: none; }
+    .standalone-toc a:hover { color: var(--paper); border-color: rgba(117,233,255,0.20); background: rgba(117,233,255,0.08); text-decoration: none; transform: translateX(2px); }
+    .standalone-toc .toc-level-2 { margin-left: 10px; } .standalone-toc .toc-level-3 { margin-left: 20px; color: var(--paper-muted) !important; }
+    .standalone-content { border-radius: 34px; padding: clamp(28px, 4vw, 58px); color: var(--paper-soft); line-height: 1.86; font-size: 17px; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
+    .standalone-content h1, .standalone-content h2, .standalone-content h3, .standalone-content h4 { color: var(--paper); line-height: 1.24; letter-spacing: -0.02em; scroll-margin-top: 28px; }
+    .standalone-content h1, .standalone-content h2 { font-family: var(--font-display); } .standalone-content h1 { margin: 0 0 28px; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: clamp(32px, 4vw, 54px); }
+    .standalone-content h2 { margin: 46px 0 16px; padding-left: 16px; border-left: 4px solid var(--accent-red); font-size: clamp(28px, 3vw, 38px); } .standalone-content h3 { margin: 32px 0 12px; color: #f8d89b; font-size: 23px; }
+    .standalone-content p { margin: 14px 0; } .standalone-content strong { color: #fff4df; } .standalone-content em { color: #dff8ff; }
+    .standalone-content a { color: var(--accent-cyan); text-decoration: underline; text-decoration-color: rgba(117,233,255,0.36); }
+    .standalone-content code { border: 1px solid rgba(117,233,255,0.22); border-radius: 8px; padding: 2px 6px; color: #c9f7ff; background: rgba(117,233,255,0.08); font-family: var(--font-mono); font-size: 0.92em; }
+    .standalone-content pre { position: relative; overflow: auto; border: 1px solid rgba(117,233,255,0.18); border-radius: 20px; margin: 22px 0; padding: 22px; background: linear-gradient(180deg, rgba(4,8,7,0.96), rgba(8,13,10,0.92)), radial-gradient(circle at top left, rgba(117,233,255,0.10), transparent 38%); }
+    .standalone-content pre::before { content: attr(data-lang); display: block; margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .standalone-content pre code { border: 0; padding: 0; color: #dff8ff; background: transparent; font-size: 14px; line-height: 1.72; }
+    .standalone-content blockquote { margin: 24px 0; border-left: 4px solid var(--accent-amber); border-radius: 16px; padding: 14px 18px; color: #f2d8a8; background: rgba(232,184,91,0.08); }
+    .standalone-content ul { margin: 14px 0 22px; padding-left: 26px; } .standalone-content li { margin: 8px 0; } .standalone-content hr { border: 0; height: 1px; margin: 36px 0; background: linear-gradient(90deg, transparent, rgba(255,106,61,0.42), rgba(117,233,255,0.28), transparent); }
+    .standalone-content .table-wrap { overflow: auto; margin: 22px 0; border: 1px solid var(--line); border-radius: 20px; background: rgba(7,8,6,0.32); } .standalone-content table { width: 100%; border-collapse: collapse; min-width: 720px; } .standalone-content th, .standalone-content td { border-bottom: 1px solid var(--line); padding: 13px 15px; text-align: left; vertical-align: top; } .standalone-content th { color: var(--paper); background: rgba(255,106,61,0.09); font-weight: 700; } .standalone-content tr:last-child td { border-bottom: 0; }
+    .top-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 24px; } .top-links a { border: 1px solid rgba(242,230,200,0.18); border-radius: 999px; padding: 10px 14px; color: var(--paper); background: rgba(242,230,200,0.07); box-shadow: inset 0 1px rgba(255,255,255,0.05); font-size: 14px; text-decoration: none; }
+    .top-links a:hover { border-color: rgba(117,233,255,0.42); background: rgba(117,233,255,0.10); text-decoration: none; transform: translateY(-1px); }
+    @media (max-width: 980px) { .standalone-layout { grid-template-columns: 1fr; } .standalone-toc { position: relative; top: 0; max-height: none; } }
+  </style>
+</head>
+<body>
+  <div class="standalone-reader">
+    <div class="standalone-hero">
+      <a class="back-link" href="course-showcase.html">← 返回 AI Course Ops Deck</a>
+      <p class="eyebrow">AI Course · Glossary · HTML</p>
+      <h1>AI Engineering Glossary</h1>
+      <p class="doc-summary">课程术语表 HTML 版。所有课程页和课程中心应优先跳转到本页面，而不是原始 Markdown。</p>
+      <div class="top-links"><a href="course-showcase.html">课程中心</a><a href="lessons/week01-lesson05-error-retry-rate-limit-cost.html">Lesson 5 课件</a><a href="reader.html?file=PROGRESS.md">学习进度</a></div>
+    </div>
+    <div class="standalone-layout">
+      <aside class="standalone-toc"><div class="standalone-toc-title">术语目录</div><nav><a class="toc-level-1" href="#ai-engineering-glossary">AI Engineering Glossary</a><a class="toc-level-2" href="#1-agent-loop">1. Agent Loop</a><a class="toc-level-2" href="#2-harness">2. Harness</a><a class="toc-level-2" href="#3-hermes">3. Hermes</a><a class="toc-level-2" href="#4-react">4. ReAct</a><a class="toc-level-2" href="#5-tool-use-tool-calling">5. Tool Use / Tool Calling</a><a class="toc-level-2" href="#6-function-calling">6. Function Calling</a><a class="toc-level-2" href="#7-rag">7. RAG</a><a class="toc-level-2" href="#8-embedding">8. Embedding</a><a class="toc-level-2" href="#9-context-engineering">9. Context Engineering</a><a class="toc-level-2" href="#10-memory">10. Memory</a><a class="toc-level-2" href="#11-eval">11. Eval</a><a class="toc-level-2" href="#12-mcp">12. MCP</a><a class="toc-level-2" href="#13-workflow-vs-agent">13. Workflow vs Agent</a><a class="toc-level-2" href="#14-checkpoint">14. Checkpoint</a><a class="toc-level-2" href="#15-human-in-the-loop">15. Human-in-the-loop</a><a class="toc-level-2" href="#16-guardrails">16. Guardrails</a><a class="toc-level-2" href="#17-agentic-ai">17. Agentic AI</a><a class="toc-level-2" href="#18-agent-harness">18. Agent Harness</a><a class="toc-level-2" href="#19-agentic-workflow">19. Agentic Workflow</a><a class="toc-level-2" href="#20-responses-api">20. Responses API</a><a class="toc-level-2" href="#21-server-sent-events（sse）">21. Server-Sent Events（SSE）</a><a class="toc-level-2" href="#22-exponential-backoff-with-jitter">22. Exponential Backoff with Jitter</a></nav></aside>
+      <article class="standalone-content markdown-body"><h1 id="ai-engineering-glossary">AI Engineering Glossary</h1>
+<blockquote>AI 圈术语表。每周持续更新。</blockquote>
+<blockquote>解释格式：一句话解释 → 后端类比 → 真实项目位置 → 面试表达。</blockquote>
+<hr>
+<h2 id="1-agent-loop">1. Agent Loop</h2>
+<p><strong>一句话</strong>：Agent 不是只调用一次模型，而是循环执行“观察 → 思考 → 行动 → 反馈 → 再思考”。</p>
+<pre data-lang="text"><code>Observe → Think → Act → Observe → ...</code></pre>
+<p><strong>后端类比</strong>：类似一个消费任务的 worker，不断从任务状态中读取上下文，执行下一步，并把结果写回状态。</p>
+<p><strong>真实项目位置</strong>：LangGraph、OpenHands、SWE-agent、AutoGPT 类项目。</p>
+<p><strong>面试表达</strong>：Agent Loop 是让 LLM 从单轮回答升级为多步骤任务执行器的核心机制。</p>
+<hr>
+<h2 id="2-harness">2. Harness</h2>
+<p><strong>一句话</strong>：Harness 是用来运行、测试、评估模型或 Agent 的“外层框架”。</p>
+<p><strong>后端类比</strong>：类似测试框架 + 任务运行器 + 监控脚手架。</p>
+<p>例子：</p>
+<ul><li>Prompt harness：批量跑 prompt 测试集；</li><li>Eval harness：自动评估回答质量；</li><li>Agent harness：管理 Agent 的工具、状态、日志和结果。</li></ul>
+<p><strong>面试表达</strong>：Harness 不是模型能力本身，而是让模型能力可测试、可复现、可迭代的工程外壳。</p>
+<hr>
+<h2 id="3-hermes">3. Hermes</h2>
+<p><strong>一句话</strong>：Hermes 不是一个固定概念，常见上下文包括 Nous Hermes 模型系列、Agent 消息通信或工具调用相关命名。</p>
+<p><strong>后端类比</strong>：Hermes 在希腊神话里是信使，所以很多项目用它命名“通信层 / 消息层 / 指令模型”。</p>
+<p><strong>学习注意</strong>：遇到 Hermes 必须看具体上下文，不要以为它一定指同一个技术。</p>
+<hr>
+<h2 id="4-react">4. ReAct</h2>
+<p><strong>一句话</strong>：Reasoning + Acting，让模型一边推理，一边调用工具行动。</p>
+<pre data-lang="text"><code>Thought → Action → Observation → Thought → Action → ...</code></pre>
+<p><strong>后端类比</strong>：类似“决策逻辑 + 外部服务调用 + 结果回填”的循环。</p>
+<hr>
+<h2 id="5-tool-use-tool-calling">5. Tool Use / Tool Calling</h2>
+<p><strong>一句话</strong>：让模型调用外部函数、API、数据库、搜索、文件系统等工具。</p>
+<p><strong>后端类比</strong>：LLM 是调度器，工具是后端 service / RPC。</p>
+<p>关键点：</p>
+<ul><li>Tool Schema；</li><li>参数校验；</li><li>权限控制；</li><li>超时重试；</li><li>执行日志。</li></ul>
+<hr>
+<h2 id="6-function-calling">6. Function Calling</h2>
+<p><strong>一句话</strong>：模型按结构化 schema 输出函数名和参数，由程序执行函数。</p>
+<p><strong>后端类比</strong>：类似让模型生成一段 RPC 调用请求，而不是自由文本。</p>
+<hr>
+<h2 id="7-rag">7. RAG</h2>
+<p><strong>一句话</strong>：Retrieval-Augmented Generation，先检索相关资料，再让模型基于资料回答。</p>
+<p><strong>后端类比</strong>：类似搜索系统 + 召回 + 排序 + 模板渲染，只是最后一步由 LLM 生成自然语言。</p>
+<hr>
+<h2 id="8-embedding">8. Embedding</h2>
+<p><strong>一句话</strong>：把文本转成向量，让语义相近的内容在向量空间里距离更近。</p>
+<p><strong>后端类比</strong>：类似给文本生成一个“语义索引 key”。</p>
+<hr>
+<h2 id="9-context-engineering">9. Context Engineering</h2>
+<p><strong>一句话</strong>：设计、筛选、压缩和组织传给模型的上下文。</p>
+<p><strong>后端类比</strong>：类似接口入参设计 + 缓存选择 + 查询聚合 + payload 控制。</p>
+<hr>
+<h2 id="10-memory">10. Memory</h2>
+<p><strong>一句话</strong>：让 Agent 能记住任务内或跨任务的信息。</p>
+<p>分类：</p>
+<ul><li>Short-term memory：当前任务/会话上下文；</li><li>Long-term memory：跨会话长期信息；</li><li>Episodic memory：过去经历；</li><li>Semantic memory：事实知识。</li></ul>
+<hr>
+<h2 id="11-eval">11. Eval</h2>
+<p><strong>一句话</strong>：评估 LLM / RAG / Agent 输出质量的方法和系统。</p>
+<p><strong>后端类比</strong>：单元测试 + 集成测试 + 回归测试 + 线上监控。</p>
+<hr>
+<h2 id="12-mcp">12. MCP</h2>
+<p><strong>一句话</strong>：Model Context Protocol，AI 应用连接外部工具、数据和工作流的标准协议。</p>
+<p>核心对象：</p>
+<ul><li>Server；</li><li>Client；</li><li>Tools；</li><li>Resources；</li><li>Prompts。</li></ul>
+<p><strong>后端类比</strong>：类似 AI 时代的标准 RPC / 插件协议。</p>
+<hr>
+<h2 id="13-workflow-vs-agent">13. Workflow vs Agent</h2>
+<p><strong>Workflow</strong>：流程固定，路径可预测。 <strong>Agent</strong>：由模型动态决定下一步，路径不完全固定。</p>
+<p><strong>后端类比</strong>：</p>
+<ul><li>Workflow = 编排好的状态机；</li><li>Agent = 带推理能力的任务 worker。</li></ul>
+<hr>
+<h2 id="14-checkpoint">14. Checkpoint</h2>
+<p><strong>一句话</strong>：保存 Agent 执行状态，失败后可以恢复。</p>
+<p><strong>后端类比</strong>：任务执行状态表 / Kafka offset / workflow checkpoint。</p>
+<hr>
+<h2 id="15-human-in-the-loop">15. Human-in-the-loop</h2>
+<p><strong>一句话</strong>：让人在关键节点审批、修改、拒绝或继续 Agent 的执行。</p>
+<p><strong>后端类比</strong>：审批流 / 高危操作二次确认。</p>
+<hr>
+<h2 id="16-guardrails">16. Guardrails</h2>
+<p><strong>一句话</strong>：AI 系统的安全边界和规则约束。</p>
+<p>包括：</p>
+<ul><li>输入过滤；</li><li>输出校验；</li><li>工具权限；</li><li>敏感操作审批；</li><li>合规策略。</li></ul>
+<hr>
+<h2 id="17-agentic-ai">17. Agentic AI</h2>
+<blockquote>今日新增术语：2026-06-17</blockquote>
+<blockquote>选择理由：近期 AI Agent、MCP、上下文工程相关讨论中，“Agentic AI”经常被用来描述从被动问答走向主动任务执行的 AI 系统。</blockquote>
+<p><strong>一句话</strong>：Agentic AI 指具备目标理解、规划、工具调用、状态管理和多步骤执行能力的 AI 系统，而不是只回答问题的普通聊天模型。</p>
+<p><strong>后端类比</strong>：普通 Chatbot 像一次 RPC 调用；Agentic AI 更像一个带状态的任务编排系统，能拆任务、调服务、处理失败、记录过程并持续推进目标。</p>
+<p><strong>关键组成</strong>：</p>
+<ul><li>Goal：明确任务目标；</li><li>Planning：拆分步骤和选择路径；</li><li>Tools：调用外部工具、API、数据库或文件系统；</li><li>Memory / State：保存任务上下文、用户偏好和执行状态；</li><li>Feedback Loop：根据执行结果继续调整；</li><li>Guardrails：限制高风险动作，保证安全边界。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>Agentic AI 不是单个模型名称；</li><li>Agentic AI 不等于“多 Agent”；</li><li>只有一次模型调用的 Chatbot 通常不能算完整 Agentic AI。</li></ul>
+<p><strong>面试表达</strong>：Agentic AI 的重点是把 LLM 从“回答器”升级为“任务执行系统”，工程上需要工具协议、状态存储、执行日志、失败恢复和评估闭环支撑。</p>
+<hr>
+<h2 id="18-agent-harness">18. Agent Harness</h2>
+<blockquote>今日新增术语：2026-06-18</blockquote>
+<blockquote>选择理由：近期 AI Agent 工程讨论里，“Agent Harness”经常被用来描述模型之外真正决定 Agent 能否落地的执行框架，尤其适合和本节课的 harness / loop / ReAct 一起学习。</blockquote>
+<p><strong>一句话</strong>：Agent Harness 是包在 LLM 外面的 Agent 运行框架，负责把模型能力接入工具、状态、记忆、权限、日志、评估和失败恢复。</p>
+<p><strong>后端类比</strong>：如果 LLM 是一个推理函数，Agent Harness 就像服务框架 + 任务调度器 + RPC 客户端 + 状态存储 + 日志系统 + 测试框架 + 安全沙箱。</p>
+<p><strong>关键组成</strong>：</p>
+<ul><li>Tool Registry：注册工具及其 schema；</li><li>Executor：执行工具调用，并处理超时、重试、错误；</li><li>State / Memory：保存任务状态、上下文和长期记忆；</li><li>Permission / Guardrails：限制高风险动作；</li><li>Trace / Logs：记录模型调用、工具调用和 token 成本；</li><li>Eval：评估 Agent 是否真的完成目标；</li><li>Checkpoint：支持中断恢复和问题复盘。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>Agent Harness 不是 LLM 本身；</li><li>Agent Harness 不等于单个 prompt；</li><li>Agent Harness 也不只是工具调用，它还包括状态、权限、日志、评估和恢复。</li></ul>
+<p><strong>面试表达</strong>：生产级 Agent 的稳定性不只取决于模型本身，还取决于 Agent Harness 是否能把工具、状态、权限、Trace、Eval 和失败恢复管理好。</p>
+<hr>
+<h2 id="19-agentic-workflow">19. Agentic Workflow</h2>
+<blockquote>今日新增术语：2026-06-18</blockquote>
+<blockquote>选择理由：近期 Agent 工程讨论中，越来越多资料强调企业级 AI 应用不是“更强模型 + 几个函数”，而是把模型放进可恢复、可观测、可治理、可扩展的工作流系统里；Agentic Workflow 正是描述这种从对话走向任务执行的关键概念。</blockquote>
+<p><strong>一句话</strong>：Agentic Workflow 是由 LLM 参与决策的任务工作流，它把模型推理、工具调用、状态管理、人工审批、错误恢复和评估闭环组织成一个可运行的系统。</p>
+<p><strong>不要强行类比</strong>：它和传统固定工作流不完全一样。传统工作流的路径通常由代码预先写死；Agentic Workflow 中某些节点可以由模型根据上下文动态选择下一步，因此它既有 workflow 的可控性，也有 agent 的动态性。</p>
+<p><strong>关键组成</strong>：</p>
+<ul><li>Goal：任务目标和完成标准；</li><li>State：当前任务状态、上下文和中间结果；</li><li>Model Decision：由模型判断下一步或生成结构化决策；</li><li>Tools：执行搜索、数据库、文件、API 等外部操作；</li><li>Human Gate：高风险节点由人审批；</li><li>Checkpoint：关键状态可恢复；</li><li>Trace / Eval：记录执行过程并评估结果质量。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>Agentic Workflow 不等于纯 Agent Loop；它通常更强调可控的流程边界；</li><li>Agentic Workflow 不等于传统 Workflow；它允许模型参与局部决策；</li><li>Agentic Workflow 也不是某个具体框架，LangGraph、Dify Workflow、LlamaIndex Workflow 都可以实现类似思想。</li></ul>
+<p><strong>面试表达</strong>：Agentic Workflow 的价值是把 LLM 的动态推理能力放进可控的工程流程里，让系统既能根据上下文灵活决策，又能通过状态、权限、checkpoint、trace 和 eval 保持生产可控。</p>
+<hr>
+<h2 id="20-responses-api">20. Responses API</h2>
+<blockquote>今日新增术语：2026-06-22</blockquote>
+<blockquote>选择理由：当前主流模型 API 正在从单次 chat completion 走向统一响应接口，Responses API 把多轮状态、工具调用、流式输出、上下文压缩和响应管理放进统一抽象中，适合作为 LLM API 基础课的补充概念。</blockquote>
+<p><strong>一句话</strong>：Responses API 是一种统一的模型响应接口，用于把文本生成、多轮状态续接、工具调用、流式输出和响应管理组织到同一套 API 形态里。</p>
+<p><strong>不要只背 API 名字</strong>：不同厂商的字段和 SDK 会变，但背后的工程抽象更重要：输入、指令、上下文、模型参数、工具调用、流式事件、usage、trace 和错误治理。</p>
+<p><strong>关键能力</strong>：</p>
+<ul><li>Stateful response：通过 response id 或上下文续接多轮交互；</li><li>Streaming：逐步返回增量输出；</li><li>Tool calling：让模型请求外部函数、Code Interpreter 或 MCP 工具；</li><li>Response management：检索、删除或压缩历史响应；</li><li>Guardrails：在输入和输出层面应用安全过滤。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>Responses API 不等于 Agent；它只是更统一的模型响应接口；</li><li>Responses API 不会自动解决业务状态管理，生产系统仍需要自己的 LLM Gateway、日志、权限和 Eval；</li><li>学习时不必死记某个 SDK 的写法，要掌握稳定抽象。</li></ul>
+<p><strong>面试表达</strong>：Responses API 体现了模型接口从单次补全向统一响应与工具执行入口演进。工程上我会把它封装在 LLM Gateway 后面，统一处理模型参数、上下文续接、streaming、tool calling、usage、trace 和错误治理。</p>
+<hr>
+<h2 id="21-server-sent-events（sse）">21. Server-Sent Events（SSE）</h2>
+<blockquote>今日新增术语：2026-06-23</blockquote>
+<blockquote>选择理由：LLM 应用中流式输出已经成为标准交互形态，近期工程文章持续讨论 SSE、WebSocket 和 HTTP chunked streaming 的取舍；本节课正好进入 Streaming 与后端接口封装。</blockquote>
+<p><strong>一句话</strong>：SSE 是一种基于 HTTP 的服务端单向事件推送协议，常用于把 LLM 的增量文本输出实时推给浏览器。</p>
+<p><strong>不要强行类比</strong>：SSE 不是消息队列，也不是 WebSocket 的简化版。它更像一种浏览器友好的流式响应协议：客户端发起请求，服务端持续推送事件，直到完成或出错。</p>
+<p><strong>关键组成</strong>：</p>
+<ul><li><code>event</code>：事件类型，例如 <code>meta</code>、<code>delta</code>、<code>done</code>、<code>error</code>；</li><li><code>data</code>：事件数据，通常是 JSON 字符串；</li><li>空行：表示一个事件结束；</li><li><code>text/event-stream</code>：HTTP 响应类型；</li><li>长连接：服务端持续写入，客户端持续消费。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>SSE 主要是服务端到客户端的单向推送；如果需要强双向实时交互，WebSocket 更合适；</li><li>Streaming 改善的是首 token 可见时间和用户感知延迟，不一定减少完整生成总耗时；</li><li>中途失败时 HTTP status 通常已经发出，只能通过 <code>error</code> event 通知前端。</li></ul>
+<p><strong>面试表达</strong>：LLM streaming 接口可以用 SSE 封装，后端把供应商增量输出转换为统一的 <code>meta/delta/done/error</code> 事件。这样前端不依赖具体模型供应商协议，后端也能统一做鉴权、日志、错误处理、限流和可观测。</p>
+<hr>
+<h2 id="22-exponential-backoff-with-jitter">22. Exponential Backoff with Jitter</h2>
+<blockquote>今日新增术语：2026-07-02</blockquote>
+<blockquote>选择理由：LLM API 生产环境里经常遇到 429 限流、网络抖动和 provider 5xx。官方文档和生产实践都推荐用指数退避处理可恢复错误，但不能无脑重试。</blockquote>
+<p><strong>一句话</strong>：Exponential Backoff with Jitter 是一种重试等待策略，每次失败后按指数增长等待时间，并加入随机扰动，避免大量请求同时重试造成雪崩。</p>
+<p><strong>不要强行类比</strong>：它不是简单 sleep，也不是失败就重试。它是一种保护系统和下游 provider 的恢复策略，前提是先判断错误是否可重试。</p>
+<p><strong>关键组成</strong>：</p>
+<ul><li>Retryable Error：只对 timeout、429、5xx 等短暂性错误重试；</li><li>Max Attempts：限制最大尝试次数；</li><li>Exponential Delay：等待时间按 1、2、4、8 秒增长；</li><li>Max Delay：设置等待上限；</li><li>Jitter：加入随机扰动，打散重试洪峰；</li><li>Structured Log：记录 attempt、error_type、http_status、latency。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>API key 错误、参数错误、余额不足、上下文超限不应该原样重试；</li><li>重试失败请求也可能消耗 rate limit；</li><li>加 retry 不等于系统可靠，必须配合 timeout、限流、fallback 和日志。</li></ul>
+<p><strong>面试表达</strong>：我会在 LLM Gateway 层对可恢复错误使用有限次数的 exponential backoff with jitter。这样能提高短暂性错误的成功率，同时避免所有请求在同一时间重试，把 provider 或自己的服务打爆。</p></article>
+    </div>
+  </div>
+</body>
+</html>

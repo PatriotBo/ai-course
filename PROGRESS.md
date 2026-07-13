@@ -168,7 +168,7 @@
 |---|---|---|---|
 | 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L04 完成，L05 进行中 |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
-| 术语表 | `GLOSSARY.md` | 持续更新 | 今日新增：Exponential Backoff with Jitter；已包含 SSE、Responses API、Agentic Workflow 等术语 |
+| 术语表 | [GLOSSARY.html](GLOSSARY.html) / [GLOSSARY.md](GLOSSARY.md) | 持续更新 | 今日新增：Exponential Backoff with Jitter；已包含 SSE、Responses API、Agentic Workflow 等术语；课程入口优先使用 HTML 页面 |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
