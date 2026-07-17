@@ -1,51 +1,27 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Engineering Glossary · 术语表</title>
-  <link rel="stylesheet" href="styles/markdown-reader.css">
-  <style>
-    .standalone-reader { width: min(1380px, calc(100% - 44px)); margin: 0 auto; padding: 18px 0 78px; position: relative; z-index: 2; }
-    .standalone-hero { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 38px; padding: clamp(28px, 4vw, 48px); margin-bottom: 24px; background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
-    .standalone-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 84% -10%, rgba(232,184,91,0.18), transparent 34%), radial-gradient(circle at 10% 8%, rgba(255,106,61,0.16), transparent 36%), linear-gradient(120deg, rgba(117,233,255,0.08), transparent 38%); opacity: 0.9; }
-    .standalone-hero > * { position: relative; z-index: 2; }
-    .standalone-layout { display: grid; grid-template-columns: 292px minmax(0, 1fr); gap: 22px; align-items: start; }
-    .standalone-toc { position: sticky; top: 18px; border-radius: 28px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
-    .standalone-toc-title { margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
-    .standalone-toc a { display: block; border: 1px solid transparent; border-radius: 13px; padding: 8px 10px; color: var(--paper-soft); font-size: 14px; line-height: 1.45; text-decoration: none; }
-    .standalone-toc a:hover { color: var(--paper); border-color: rgba(117,233,255,0.20); background: rgba(117,233,255,0.08); text-decoration: none; transform: translateX(2px); }
-    .standalone-toc .toc-level-2 { margin-left: 10px; } .standalone-toc .toc-level-3 { margin-left: 20px; color: var(--paper-muted) !important; }
-    .standalone-content { border-radius: 34px; padding: clamp(28px, 4vw, 58px); color: var(--paper-soft); line-height: 1.86; font-size: 17px; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(245,235,210,0.105), rgba(245,235,210,0.045)), linear-gradient(180deg, rgba(16,22,17,0.94), rgba(6,8,6,0.90)); box-shadow: var(--shadow-deep), inset 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(18px) saturate(1.08); }
-    .standalone-content h1, .standalone-content h2, .standalone-content h3, .standalone-content h4 { color: var(--paper); line-height: 1.24; letter-spacing: -0.02em; scroll-margin-top: 28px; }
-    .standalone-content h1, .standalone-content h2 { font-family: var(--font-display); } .standalone-content h1 { margin: 0 0 28px; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: clamp(32px, 4vw, 54px); }
-    .standalone-content h2 { margin: 46px 0 16px; padding-left: 16px; border-left: 4px solid var(--accent-red); font-size: clamp(28px, 3vw, 38px); } .standalone-content h3 { margin: 32px 0 12px; color: #f8d89b; font-size: 23px; }
-    .standalone-content p { margin: 14px 0; } .standalone-content strong { color: #fff4df; } .standalone-content em { color: #dff8ff; }
-    .standalone-content a { color: var(--accent-cyan); text-decoration: underline; text-decoration-color: rgba(117,233,255,0.36); }
-    .standalone-content code { border: 1px solid rgba(117,233,255,0.22); border-radius: 8px; padding: 2px 6px; color: #c9f7ff; background: rgba(117,233,255,0.08); font-family: var(--font-mono); font-size: 0.92em; }
-    .standalone-content pre { position: relative; overflow: auto; border: 1px solid rgba(117,233,255,0.18); border-radius: 20px; margin: 22px 0; padding: 22px; background: linear-gradient(180deg, rgba(4,8,7,0.96), rgba(8,13,10,0.92)), radial-gradient(circle at top left, rgba(117,233,255,0.10), transparent 38%); }
-    .standalone-content pre::before { content: attr(data-lang); display: block; margin-bottom: 12px; color: var(--accent-amber); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
-    .standalone-content pre code { border: 0; padding: 0; color: #dff8ff; background: transparent; font-size: 14px; line-height: 1.72; }
-    .standalone-content blockquote { margin: 24px 0; border-left: 4px solid var(--accent-amber); border-radius: 16px; padding: 14px 18px; color: #f2d8a8; background: rgba(232,184,91,0.08); }
-    .standalone-content ul { margin: 14px 0 22px; padding-left: 26px; } .standalone-content li { margin: 8px 0; } .standalone-content hr { border: 0; height: 1px; margin: 36px 0; background: linear-gradient(90deg, transparent, rgba(255,106,61,0.42), rgba(117,233,255,0.28), transparent); }
-    .standalone-content .table-wrap { overflow: auto; margin: 22px 0; border: 1px solid var(--line); border-radius: 20px; background: rgba(7,8,6,0.32); } .standalone-content table { width: 100%; border-collapse: collapse; min-width: 720px; } .standalone-content th, .standalone-content td { border-bottom: 1px solid var(--line); padding: 13px 15px; text-align: left; vertical-align: top; } .standalone-content th { color: var(--paper); background: rgba(255,106,61,0.09); font-weight: 700; } .standalone-content tr:last-child td { border-bottom: 0; }
-    .top-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 24px; } .top-links a { border: 1px solid rgba(242,230,200,0.18); border-radius: 999px; padding: 10px 14px; color: var(--paper); background: rgba(242,230,200,0.07); box-shadow: inset 0 1px rgba(255,255,255,0.05); font-size: 14px; text-decoration: none; }
-    .top-links a:hover { border-color: rgba(117,233,255,0.42); background: rgba(117,233,255,0.10); text-decoration: none; transform: translateY(-1px); }
-    @media (max-width: 980px) { .standalone-layout { grid-template-columns: 1fr; } .standalone-toc { position: relative; top: 0; max-height: none; } }
-  </style>
-</head>
-<body>
-  <div class="standalone-reader">
-    <div class="standalone-hero">
-      <a class="back-link" href="course-showcase.html">← 返回 AI Course Ops Deck</a>
-      <p class="eyebrow">AI Course · Glossary · HTML</p>
-      <h1>AI Engineering Glossary</h1>
-      <p class="doc-summary">课程术语表 HTML 版。所有课程页和课程中心应优先跳转到本页面，而不是原始 Markdown。</p>
-      <div class="top-links"><a href="course-showcase.html">课程中心</a><a href="lessons/week01-lesson05-error-retry-rate-limit-cost.html">Lesson 5 课件</a><a href="reader.html?file=PROGRESS.md">学习进度</a></div>
-    </div>
-    <div class="standalone-layout">
-      <aside class="standalone-toc"><div class="standalone-toc-title">术语目录</div><nav><a class="toc-level-1" href="#ai-engineering-glossary">AI Engineering Glossary</a><a class="toc-level-2" href="#1-agent-loop">1. Agent Loop</a><a class="toc-level-2" href="#2-harness">2. Harness</a><a class="toc-level-2" href="#3-hermes">3. Hermes</a><a class="toc-level-2" href="#4-react">4. ReAct</a><a class="toc-level-2" href="#5-tool-use-tool-calling">5. Tool Use / Tool Calling</a><a class="toc-level-2" href="#6-function-calling">6. Function Calling</a><a class="toc-level-2" href="#7-rag">7. RAG</a><a class="toc-level-2" href="#8-embedding">8. Embedding</a><a class="toc-level-2" href="#9-context-engineering">9. Context Engineering</a><a class="toc-level-2" href="#10-memory">10. Memory</a><a class="toc-level-2" href="#11-eval">11. Eval</a><a class="toc-level-2" href="#12-mcp">12. MCP</a><a class="toc-level-2" href="#13-workflow-vs-agent">13. Workflow vs Agent</a><a class="toc-level-2" href="#14-checkpoint">14. Checkpoint</a><a class="toc-level-2" href="#15-human-in-the-loop">15. Human-in-the-loop</a><a class="toc-level-2" href="#16-guardrails">16. Guardrails</a><a class="toc-level-2" href="#17-agentic-ai">17. Agentic AI</a><a class="toc-level-2" href="#18-agent-harness">18. Agent Harness</a><a class="toc-level-2" href="#19-agentic-workflow">19. Agentic Workflow</a><a class="toc-level-2" href="#20-responses-api">20. Responses API</a><a class="toc-level-2" href="#21-server-sent-events（sse）">21. Server-Sent Events（SSE）</a><a class="toc-level-2" href="#22-exponential-backoff-with-jitter">22. Exponential Backoff with Jitter</a></nav></aside>
-      <article class="standalone-content markdown-body"><h1 id="ai-engineering-glossary">AI Engineering Glossary</h1>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Engineering Glossary</title><link rel="stylesheet" href="styles/markdown-reader.css">
+<style>
+.standalone-reader{width:min(1380px,calc(100% - 44px));margin:0 auto;padding:18px 0 78px;position:relative;z-index:2}
+.standalone-hero,.standalone-toc,.standalone-content{border:1px solid var(--line);background:linear-gradient(145deg,rgba(245,235,210,.105),rgba(245,235,210,.045)),linear-gradient(180deg,rgba(16,22,17,.94),rgba(6,8,6,.90));box-shadow:var(--shadow-deep),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(18px) saturate(1.08)}
+.standalone-hero{position:relative;overflow:hidden;border-radius:38px;padding:clamp(28px,4vw,48px);margin-bottom:24px}
+.standalone-layout{display:grid;grid-template-columns:292px minmax(0,1fr);gap:22px;align-items:start}
+.standalone-toc{position:sticky;top:18px;border-radius:28px;padding:20px;max-height:calc(100vh - 36px);overflow:auto}
+.standalone-toc-title{margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.standalone-toc a{display:block;border:1px solid transparent;border-radius:13px;padding:8px 10px;color:var(--paper-soft);font-size:14px;line-height:1.45;text-decoration:none}
+.standalone-toc a:hover{color:var(--paper);border-color:rgba(117,233,255,.20);background:rgba(117,233,255,.08);transform:translateX(2px)}
+.standalone-toc .toc-level-2{margin-left:10px}.standalone-toc .toc-level-3{margin-left:20px;color:var(--paper-muted)!important}
+.standalone-content{border-radius:34px;padding:clamp(28px,4vw,58px);color:var(--paper-soft);line-height:1.86;font-size:17px}
+.standalone-content h1,.standalone-content h2,.standalone-content h3,.standalone-content h4{color:var(--paper);line-height:1.24;letter-spacing:-.02em;scroll-margin-top:28px}
+.standalone-content h1,.standalone-content h2{font-family:var(--font-display)}.standalone-content h1{margin:0 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line);font-size:clamp(32px,4vw,54px)}
+.standalone-content h2{margin:46px 0 16px;padding-left:16px;border-left:4px solid var(--accent-red);font-size:clamp(28px,3vw,38px)}.standalone-content h3{margin:32px 0 12px;color:#f8d89b;font-size:23px}
+.standalone-content strong{color:#fff4df}.standalone-content a{color:var(--accent-cyan)}.standalone-content code{border:1px solid rgba(117,233,255,.22);border-radius:8px;padding:2px 6px;color:#c9f7ff;background:rgba(117,233,255,.08);font-family:var(--font-mono)}
+.standalone-content pre{overflow:auto;border:1px solid rgba(117,233,255,.18);border-radius:20px;margin:22px 0;padding:22px;background:rgba(4,8,7,.96)}.standalone-content pre::before{content:attr(data-lang);display:block;margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;text-transform:uppercase}.standalone-content pre code{border:0;padding:0;background:transparent}
+.standalone-content blockquote{margin:24px 0;border-left:4px solid var(--accent-amber);border-radius:16px;padding:14px 18px;color:#f2d8a8;background:rgba(232,184,91,.08)}
+.standalone-content .table-wrap{overflow:auto;margin:22px 0;border:1px solid var(--line);border-radius:20px}.standalone-content table{width:100%;border-collapse:collapse;min-width:720px}.standalone-content th,.standalone-content td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top}.standalone-content th{color:var(--paper);background:rgba(255,106,61,.09)}
+.top-links{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px}.top-links a{border:1px solid rgba(242,230,200,.18);border-radius:999px;padding:10px 14px;color:var(--paper);background:rgba(242,230,200,.07);text-decoration:none}
+@media(max-width:980px){.standalone-layout{grid-template-columns:1fr}.standalone-toc{position:relative;top:0;max-height:none}}
+</style></head><body><div class="standalone-reader"><div class="standalone-hero"><a class="back-link" href="course-showcase.html">← 返回课程中心</a><p class="eyebrow">AI Course · HTML</p><h1>AI Engineering Glossary</h1><p class="doc-summary">课程术语表 HTML 版，持续维护 AI 应用与 Agent 工程高频概念。</p><div class="top-links"><a href="course-showcase.html">课程中心</a><a href="lessons/week02-lesson06-prompt-design-principles.html">Lesson 6 课件</a><a href="reader.html?file=PROGRESS.md">学习进度</a></div></div><div class="standalone-layout"><aside class="standalone-toc"><div class="standalone-toc-title">目录</div><nav><a class="toc-level-1" href="#ai-engineering-glossary">AI Engineering Glossary</a><a class="toc-level-2" href="#1-agent-loop">1. Agent Loop</a><a class="toc-level-2" href="#2-harness">2. Harness</a><a class="toc-level-2" href="#3-hermes">3. Hermes</a><a class="toc-level-2" href="#4-react">4. ReAct</a><a class="toc-level-2" href="#5-tool-use-tool-calling">5. Tool Use / Tool Calling</a><a class="toc-level-2" href="#6-function-calling">6. Function Calling</a><a class="toc-level-2" href="#7-rag">7. RAG</a><a class="toc-level-2" href="#8-embedding">8. Embedding</a><a class="toc-level-2" href="#9-context-engineering">9. Context Engineering</a><a class="toc-level-2" href="#10-memory">10. Memory</a><a class="toc-level-2" href="#11-eval">11. Eval</a><a class="toc-level-2" href="#12-mcp">12. MCP</a><a class="toc-level-2" href="#13-workflow-vs-agent">13. Workflow vs Agent</a><a class="toc-level-2" href="#14-checkpoint">14. Checkpoint</a><a class="toc-level-2" href="#15-human-in-the-loop">15. Human-in-the-loop</a><a class="toc-level-2" href="#16-guardrails">16. Guardrails</a><a class="toc-level-2" href="#17-agentic-ai">17. Agentic AI</a><a class="toc-level-2" href="#18-agent-harness">18. Agent Harness</a><a class="toc-level-2" href="#19-agentic-workflow">19. Agentic Workflow</a><a class="toc-level-2" href="#20-responses-api">20. Responses API</a><a class="toc-level-2" href="#21-server-sent-events（sse）">21. Server-Sent Events（SSE）</a><a class="toc-level-2" href="#22-exponential-backoff-with-jitter">22. Exponential Backoff with Jitter</a><a class="toc-level-2" href="#23-prompt-contract">23. Prompt Contract</a></nav></aside><article class="standalone-content markdown-body"><h1 id="ai-engineering-glossary">AI Engineering Glossary</h1>
 <blockquote>AI 圈术语表。每周持续更新。</blockquote>
 <blockquote>解释格式：一句话解释 → 后端类比 → 真实项目位置 → 面试表达。</blockquote>
 <hr>
@@ -192,8 +168,15 @@
 <ul><li>Retryable Error：只对 timeout、429、5xx 等短暂性错误重试；</li><li>Max Attempts：限制最大尝试次数；</li><li>Exponential Delay：等待时间按 1、2、4、8 秒增长；</li><li>Max Delay：设置等待上限；</li><li>Jitter：加入随机扰动，打散重试洪峰；</li><li>Structured Log：记录 attempt、error_type、http_status、latency。</li></ul>
 <p><strong>容易混淆</strong>：</p>
 <ul><li>API key 错误、参数错误、余额不足、上下文超限不应该原样重试；</li><li>重试失败请求也可能消耗 rate limit；</li><li>加 retry 不等于系统可靠，必须配合 timeout、限流、fallback 和日志。</li></ul>
-<p><strong>面试表达</strong>：我会在 LLM Gateway 层对可恢复错误使用有限次数的 exponential backoff with jitter。这样能提高短暂性错误的成功率，同时避免所有请求在同一时间重试，把 provider 或自己的服务打爆。</p></article>
-    </div>
-  </div>
-</body>
-</html>
+<p><strong>面试表达</strong>：我会在 LLM Gateway 层对可恢复错误使用有限次数的 exponential backoff with jitter。这样能提高短暂性错误的成功率，同时避免所有请求在同一时间重试，把 provider 或自己的服务打爆。</p>
+<hr>
+<h2 id="23-prompt-contract">23. Prompt Contract</h2>
+<blockquote>今日新增术语：2026-07-16</blockquote>
+<blockquote>选择理由：Prompt Engineering 正从“技巧和咒语”转向可版本化、可测试的工程规格；本节课正好进入 Prompt 设计原则。</blockquote>
+<p><strong>一句话</strong>：Prompt Contract 是用明确、可测试的方式描述 Prompt 的输入、指令、约束、输出格式和失败行为，让模型调用像接口契约一样可管理。</p>
+<p><strong>关键组成</strong>：</p>
+<ul><li><code>prompt_key</code>：Prompt 的稳定业务标识；</li><li><code>prompt_version</code>：本次使用的 Prompt 版本；</li><li>Required Variables：调用方必须提供的输入变量；</li><li>Instruction：模型要执行的任务；</li><li>Context Boundary：规则与外部数据的边界；</li><li>Constraints：事实、长度、受众、安全和不确定性约束；</li><li>Output Contract：结果必须满足的结构；</li><li>Failure Behavior：信息不足或冲突时应该怎么处理。</li></ul>
+<p><strong>容易混淆</strong>：</p>
+<ul><li>Prompt Contract 不是某一家模型厂商的正式协议；</li><li>它不能替代 JSON Schema、后端校验、权限控制和 Eval；</li><li>Prompt 写得长不代表 Contract 更完整，关键是字段清楚且可验收。</li></ul>
+<p><strong>真实项目位置</strong>：客服分类、事故摘要、RAG 回答、Tool 选择、Agent 决策等所有需要稳定模型行为的业务链路。</p>
+<p><strong>面试表达</strong>：我会把 Prompt 当成可版本化、可测试的业务契约，明确 required variables、instruction、context、constraints、output contract 和 failure behavior，并记录 prompt_key/version，通过固定测试集做回归，而不是凭感觉调字符串。</p></article></div></div></body></html>

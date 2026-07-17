@@ -333,3 +333,31 @@ Thought → Action → Observation → Thought → Action → ...
 - 加 retry 不等于系统可靠，必须配合 timeout、限流、fallback 和日志。
 
 **面试表达**：我会在 LLM Gateway 层对可恢复错误使用有限次数的 exponential backoff with jitter。这样能提高短暂性错误的成功率，同时避免所有请求在同一时间重试，把 provider 或自己的服务打爆。
+
+---
+
+## 23. Prompt Contract
+
+> 今日新增术语：2026-07-16
+> 选择理由：Prompt Engineering 正从“技巧和咒语”转向可版本化、可测试的工程规格；本节课正好进入 Prompt 设计原则。
+
+**一句话**：Prompt Contract 是用明确、可测试的方式描述 Prompt 的输入、指令、约束、输出格式和失败行为，让模型调用像接口契约一样可管理。
+
+**关键组成**：
+- `prompt_key`：Prompt 的稳定业务标识；
+- `prompt_version`：本次使用的 Prompt 版本；
+- Required Variables：调用方必须提供的输入变量；
+- Instruction：模型要执行的任务；
+- Context Boundary：规则与外部数据的边界；
+- Constraints：事实、长度、受众、安全和不确定性约束；
+- Output Contract：结果必须满足的结构；
+- Failure Behavior：信息不足或冲突时应该怎么处理。
+
+**容易混淆**：
+- Prompt Contract 不是某一家模型厂商的正式协议；
+- 它不能替代 JSON Schema、后端校验、权限控制和 Eval；
+- Prompt 写得长不代表 Contract 更完整，关键是字段清楚且可验收。
+
+**真实项目位置**：客服分类、事故摘要、RAG 回答、Tool 选择、Agent 决策等所有需要稳定模型行为的业务链路。
+
+**面试表达**：我会把 Prompt 当成可版本化、可测试的业务契约，明确 required variables、instruction、context、constraints、output contract 和 failure behavior，并记录 prompt_key/version，通过固定测试集做回归，而不是凭感觉调字符串。

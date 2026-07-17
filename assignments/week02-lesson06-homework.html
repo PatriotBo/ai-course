@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 6：课后练习</title><link rel="stylesheet" href="../styles/markdown-reader.css">
+<style>
+.standalone-reader{width:min(1380px,calc(100% - 44px));margin:0 auto;padding:18px 0 78px;position:relative;z-index:2}
+.standalone-hero,.standalone-toc,.standalone-content{border:1px solid var(--line);background:linear-gradient(145deg,rgba(245,235,210,.105),rgba(245,235,210,.045)),linear-gradient(180deg,rgba(16,22,17,.94),rgba(6,8,6,.90));box-shadow:var(--shadow-deep),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(18px) saturate(1.08)}
+.standalone-hero{position:relative;overflow:hidden;border-radius:38px;padding:clamp(28px,4vw,48px);margin-bottom:24px}
+.standalone-layout{display:grid;grid-template-columns:292px minmax(0,1fr);gap:22px;align-items:start}
+.standalone-toc{position:sticky;top:18px;border-radius:28px;padding:20px;max-height:calc(100vh - 36px);overflow:auto}
+.standalone-toc-title{margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.standalone-toc a{display:block;border:1px solid transparent;border-radius:13px;padding:8px 10px;color:var(--paper-soft);font-size:14px;line-height:1.45;text-decoration:none}
+.standalone-toc a:hover{color:var(--paper);border-color:rgba(117,233,255,.20);background:rgba(117,233,255,.08);transform:translateX(2px)}
+.standalone-toc .toc-level-2{margin-left:10px}.standalone-toc .toc-level-3{margin-left:20px;color:var(--paper-muted)!important}
+.standalone-content{border-radius:34px;padding:clamp(28px,4vw,58px);color:var(--paper-soft);line-height:1.86;font-size:17px}
+.standalone-content h1,.standalone-content h2,.standalone-content h3,.standalone-content h4{color:var(--paper);line-height:1.24;letter-spacing:-.02em;scroll-margin-top:28px}
+.standalone-content h1,.standalone-content h2{font-family:var(--font-display)}.standalone-content h1{margin:0 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line);font-size:clamp(32px,4vw,54px)}
+.standalone-content h2{margin:46px 0 16px;padding-left:16px;border-left:4px solid var(--accent-red);font-size:clamp(28px,3vw,38px)}.standalone-content h3{margin:32px 0 12px;color:#f8d89b;font-size:23px}
+.standalone-content strong{color:#fff4df}.standalone-content a{color:var(--accent-cyan)}.standalone-content code{border:1px solid rgba(117,233,255,.22);border-radius:8px;padding:2px 6px;color:#c9f7ff;background:rgba(117,233,255,.08);font-family:var(--font-mono)}
+.standalone-content pre{overflow:auto;border:1px solid rgba(117,233,255,.18);border-radius:20px;margin:22px 0;padding:22px;background:rgba(4,8,7,.96)}.standalone-content pre::before{content:attr(data-lang);display:block;margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;text-transform:uppercase}.standalone-content pre code{border:0;padding:0;background:transparent}
+.standalone-content blockquote{margin:24px 0;border-left:4px solid var(--accent-amber);border-radius:16px;padding:14px 18px;color:#f2d8a8;background:rgba(232,184,91,.08)}
+.standalone-content .table-wrap{overflow:auto;margin:22px 0;border:1px solid var(--line);border-radius:20px}.standalone-content table{width:100%;border-collapse:collapse;min-width:720px}.standalone-content th,.standalone-content td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top}.standalone-content th{color:var(--paper);background:rgba(255,106,61,.09)}
+.top-links{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px}.top-links a{border:1px solid rgba(242,230,200,.18);border-radius:999px;padding:10px 14px;color:var(--paper);background:rgba(242,230,200,.07);text-decoration:none}
+@media(max-width:980px){.standalone-layout{grid-template-columns:1fr}.standalone-toc{position:relative;top:0;max-height:none}}
+</style></head><body><div class="standalone-reader"><div class="standalone-hero"><a class="back-link" href="../course-showcase.html">← 返回课程中心</a><p class="eyebrow">AI Course · HTML</p><h1>Lesson 6：课后练习</h1><p class="doc-summary">Prompt 设计原则的唯一一套课后练习，不与课堂练习重复。</p><div class="top-links"><a href="../course-showcase.html">课程中心</a><a href="../lessons/week02-lesson06-prompt-design-principles.html">返回课件</a><a href="../GLOSSARY.html">术语表</a><a href="../code/prompt-design/README.md">代码 README</a></div></div><div class="standalone-layout"><aside class="standalone-toc"><div class="standalone-toc-title">目录</div><nav><a class="toc-level-1" href="#week-2-lesson-6课后练习">Week 2 Lesson 6：课后练习</a><a class="toc-level-2" href="#1-基础概念题">1. 基础概念题</a><a class="toc-level-2" href="#2-prompt-拆解题">2. Prompt 拆解题</a><a class="toc-level-2" href="#3-prompt-改写题">3. Prompt 改写题</a><a class="toc-level-2" href="#4-failure-behavior-设计题">4. Failure Behavior 设计题</a><a class="toc-level-2" href="#5-代码阅读题">5. 代码阅读题</a><a class="toc-level-2" href="#6-prompt-review-题">6. Prompt Review 题</a><a class="toc-level-2" href="#7-面试题">7. 面试题</a><a class="toc-level-2" href="#8-提交方式">8. 提交方式</a></nav></aside><article class="standalone-content markdown-body"><h1 id="week-2-lesson-6课后练习">Week 2 Lesson 6：课后练习</h1>
+<blockquote>主题：Prompt 设计原则——Instruction / Context / Examples / Output Contract</blockquote>
+<blockquote>预计耗时：45-60 分钟</blockquote>
+<blockquote>代码目录：<code>code/prompt-design/</code></blockquote>
+<hr>
+<h2 id="1-基础概念题">1. 基础概念题</h2>
+<p>请用自己的话回答：</p>
+<ol><li>为什么说 Prompt Engineering 更接近“编写规格”，而不是寻找神奇咒语？</li><li>Instruction 和 Context 的区别是什么？为什么要分开？</li><li>Output Contract 应该解决什么问题？</li><li>Failure Behavior 为什么是生产 Prompt 的关键组成？</li><li>什么情况下适合加入 Few-shot examples？examples 有哪些风险？</li><li>为什么 system prompt 不能被当作真正的安全边界？</li></ol>
+<hr>
+<h2 id="2-prompt-拆解题">2. Prompt 拆解题</h2>
+<p>阅读下面 Prompt：</p>
+<pre data-lang="text"><code>你是一个客服助手。根据用户反馈判断问题并给出处理建议。回答要专业，不要胡说，尽量简洁。
+
+用户反馈：付款后订单仍显示未支付，已经等了两个小时。</code></pre>
+<p>请指出它缺少哪些部分：</p>
+<pre data-lang="text"><code>Role / Scope：
+Task / Instruction：
+Context：
+Constraints：
+Output Contract：
+Failure Behavior：
+Examples：是否需要？为什么？</code></pre>
+<hr>
+<h2 id="3-prompt-改写题">3. Prompt 改写题</h2>
+<p>把上面的客服 Prompt 改写为一个可执行的 Prompt Contract。</p>
+<p>要求：</p>
+<ul><li>只能使用用户提供的信息；</li><li>不能猜测订单真实状态；</li><li>输出必须包括 <code>issue_type</code>、<code>known_facts</code>、<code>unknowns</code>、<code>next_actions</code>；</li><li>缺失信息要明确标记；</li><li>指出是否需要人工客服或订单查询工具；</li><li>instruction 与用户输入必须使用分隔符隔开。</li></ul>
+<hr>
+<h2 id="4-failure-behavior-设计题">4. Failure Behavior 设计题</h2>
+<p>为下面三个场景分别设计 failure behavior：</p>
+<ol><li>事故复盘材料缺少明确根因；</li><li>用户要求模型根据不存在的数据预测销售额；</li><li>两份输入文档对同一事实描述冲突。</li></ol>
+<p>每个场景回答：</p>
+<pre data-lang="text"><code>模型不应该做什么：
+模型应该输出什么：
+后端是否需要额外处理：</code></pre>
+<hr>
+<h2 id="5-代码阅读题">5. 代码阅读题</h2>
+<p>阅读：</p>
+<pre data-lang="text"><code>code/prompt-design/prompt_template.py
+code/prompt-design/demo_generate.py</code></pre>
+<p>回答：</p>
+<ol><li><code>required_variables</code> 的作用是什么？为什么要在调用模型前校验？</li><li><code>PromptTemplate.render()</code> 返回了哪些信息？</li><li>为什么需要同时记录 <code>prompt_key</code> 和 <code>prompt_version</code>？</li><li><code>_extract_placeholders()</code> 为什么要解析模板变量？</li><li>如果要加入 Few-shot examples，你会放在哪一层？</li></ol>
+<hr>
+<h2 id="6-prompt-review-题">6. Prompt Review 题</h2>
+<p>请按照以下 10 个维度评审你在第 3 题写出的 Prompt，每项回答“通过 / 不通过 + 原因”：</p>
+<pre data-lang="text"><code>Goal
+Inputs
+Boundary
+Constraints
+Output
+Failure
+Examples
+Cost
+Safety
+Observability</code></pre>
+<hr>
+<h2 id="7-面试题">7. 面试题</h2>
+<p>准备 1 分钟回答：</p>
+<blockquote>你会如何设计、管理和迭代一个生产级 Prompt？</blockquote>
+<p>必须包含：</p>
+<ul><li>Prompt Builder；</li><li>instruction / context 分离；</li><li>output contract；</li><li>failure behavior；</li><li>prompt_key / prompt_version；</li><li>测试集和回归评估；</li><li>Prompt 不是安全边界。</li></ul>
+<hr>
+<h2 id="8-提交方式">8. 提交方式</h2>
+<p>把答案直接发给我。我会按以下维度批改：</p>
+<ol><li>是否真正理解 Prompt 是规格而不是文案；</li><li>是否能区分规则、数据和输出契约；</li><li>是否能设计缺失信息和冲突信息的处理；</li><li>是否能把 Prompt 放进工程链路；</li><li>面试表达是否系统、准确、可落地。</li></ol></article></div></div></body></html>
