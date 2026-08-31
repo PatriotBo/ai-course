@@ -361,3 +361,30 @@ Thought → Action → Observation → Thought → Action → ...
 **真实项目位置**：客服分类、事故摘要、RAG 回答、Tool 选择、Agent 决策等所有需要稳定模型行为的业务链路。
 
 **面试表达**：我会把 Prompt 当成可版本化、可测试的业务契约，明确 required variables、instruction、context、constraints、output contract 和 failure behavior，并记录 prompt_key/version，通过固定测试集做回归，而不是凭感觉调字符串。
+
+---
+
+## 24. Constrained Decoding
+
+> 今日新增术语：2026-08-31
+> 选择理由：主流模型 API 正在普及 JSON Schema、Grammar 和 Structured Outputs；理解 constrained decoding 有助于区分“生成时约束”和“输出后校验”。
+
+**一句话**：Constrained Decoding（约束解码）是在模型逐 token 生成时，根据 JSON Schema、Grammar 或允许值集合限制下一步可选 token，从源头减少不合法结构。
+
+**不要强行类比**：它不是 Pydantic 的替代品。Constrained Decoding 发生在生成阶段；Pydantic 发生在应用接收阶段。生产系统需要两道边界，因为 Provider 实现、Schema 支持程度和业务规则都会变化。
+
+**关键能力**：
+- Grammar Constraint：限制输出符合 JSON、SQL 或特定语法；
+- Enum Constraint：阻止生成枚举外值；
+- Schema Constraint：让对象字段、类型和必填项尽量符合 JSON Schema；
+- Reduced Repair Rate：降低格式修复率和解析失败率。
+
+**容易混淆**：
+- 格式合法不代表事实正确；
+- Schema 合法不代表跨字段业务一致；
+- 约束解码不能完成权限、合规或人工审批；
+- 不同 Provider 对 JSON Schema 子集支持不同，必须实测和回归。
+
+**真实项目位置**：结构化摘要、分类器、Tool Calling 参数、Agent 决策对象、RAG 引用结果等需要稳定机器解析的链路。
+
+**面试表达**：我会用 constrained decoding 提高生成阶段的 Schema 合规率，同时保留 Pydantic 接收校验和业务规则。生成约束、接收校验、业务校验是互补的三层，不应互相替代。

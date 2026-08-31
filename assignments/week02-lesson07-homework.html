@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 7：课后练习及答案</title><link rel="stylesheet" href="../styles/markdown-reader.css">
+<style>
+.standalone-reader{width:min(1380px,calc(100% - 44px));margin:0 auto;padding:18px 0 78px;position:relative;z-index:2}
+.standalone-hero,.standalone-toc,.standalone-content{border:1px solid var(--line);background:linear-gradient(145deg,rgba(245,235,210,.105),rgba(245,235,210,.045)),linear-gradient(180deg,rgba(16,22,17,.94),rgba(6,8,6,.90));box-shadow:var(--shadow-deep),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(18px) saturate(1.08)}
+.standalone-hero{position:relative;overflow:hidden;border-radius:38px;padding:clamp(28px,4vw,48px);margin-bottom:24px}
+.standalone-layout{display:grid;grid-template-columns:292px minmax(0,1fr);gap:22px;align-items:start}
+.standalone-toc{position:sticky;top:18px;border-radius:28px;padding:20px;max-height:calc(100vh - 36px);overflow:auto}
+.standalone-toc-title{margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.standalone-toc a{display:block;border:1px solid transparent;border-radius:13px;padding:8px 10px;color:var(--paper-soft);font-size:14px;line-height:1.45;text-decoration:none}
+.standalone-toc a:hover{color:var(--paper);border-color:rgba(117,233,255,.20);background:rgba(117,233,255,.08);transform:translateX(2px)}
+.standalone-toc .toc-level-2{margin-left:10px}.standalone-toc .toc-level-3{margin-left:20px;color:var(--paper-muted)!important}
+.standalone-content{border-radius:34px;padding:clamp(28px,4vw,58px);color:var(--paper-soft);line-height:1.86;font-size:17px}
+.standalone-content h1,.standalone-content h2,.standalone-content h3,.standalone-content h4{color:var(--paper);line-height:1.24;letter-spacing:-.02em;scroll-margin-top:28px}
+.standalone-content h1,.standalone-content h2{font-family:var(--font-display)}.standalone-content h1{margin:0 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line);font-size:clamp(32px,4vw,54px)}
+.standalone-content h2{margin:46px 0 16px;padding-left:16px;border-left:4px solid var(--accent-red);font-size:clamp(28px,3vw,38px)}.standalone-content h3{margin:32px 0 12px;color:#f8d89b;font-size:23px}
+.standalone-content strong{color:#fff4df}.standalone-content a{color:var(--accent-cyan)}.standalone-content code{border:1px solid rgba(117,233,255,.22);border-radius:8px;padding:2px 6px;color:#c9f7ff;background:rgba(117,233,255,.08);font-family:var(--font-mono)}
+.standalone-content pre{overflow:auto;border:1px solid rgba(117,233,255,.18);border-radius:20px;margin:22px 0;padding:22px;background:rgba(4,8,7,.96)}.standalone-content pre::before{content:attr(data-lang);display:block;margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;text-transform:uppercase}.standalone-content pre code{border:0;padding:0;background:transparent}
+.standalone-content blockquote{margin:24px 0;border-left:4px solid var(--accent-amber);border-radius:16px;padding:14px 18px;color:#f2d8a8;background:rgba(232,184,91,.08)}
+.standalone-content .table-wrap{overflow:auto;margin:22px 0;border:1px solid var(--line);border-radius:20px}.standalone-content table{width:100%;border-collapse:collapse;min-width:720px}.standalone-content th,.standalone-content td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top}.standalone-content th{color:var(--paper);background:rgba(255,106,61,.09)}
+.top-links{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px}.top-links a{border:1px solid rgba(242,230,200,.18);border-radius:999px;padding:10px 14px;color:var(--paper);background:rgba(242,230,200,.07);text-decoration:none}
+@media(max-width:980px){.standalone-layout{grid-template-columns:1fr}.standalone-toc{position:relative;top:0;max-height:none}}
+</style></head><body><div class="standalone-reader"><div class="standalone-hero"><a class="back-link" href="../course-showcase.html">← 返回课程中心</a><p class="eyebrow">AI Course · HTML</p><h1>Lesson 7：课后练习及答案</h1><p class="doc-summary">从 JSON 语法到 Pydantic、业务校验、Repair 与高风险 Fail Closed。</p><div class="top-links"><a href="../course-showcase.html">课程中心</a><a href="../lessons/week02-lesson07-structured-output-json-schema-pydantic.html">返回课件</a><a href="../GLOSSARY.html">术语表</a><a href="../code/structured-output/README.md">代码 README</a></div></div><div class="standalone-layout"><aside class="standalone-toc"><div class="standalone-toc-title">目录</div><nav><a class="toc-level-1" href="#week-2-lesson-7课后练习及答案">Week 2 Lesson 7：课后练习及答案</a><a class="toc-level-2" href="#1-基础概念题">1. 基础概念题</a><a class="toc-level-3" href="#11-为什么“输出合法-json”仍不足以直接进入业务系统">1.1 为什么“输出合法 JSON”仍不足以直接进入业务系统？</a><a class="toc-level-3" href="#12-json-schema、pydantic-和业务规则分别负责什么">1.2 JSON Schema、Pydantic 和业务规则分别负责什么？</a><a class="toc-level-3" href="#13-json-mode-与-constrained-decoding-有什么区别">1.3 JSON mode 与 constrained decoding 有什么区别？</a><a class="toc-level-3" href="#14-为什么应该设置-extra=forbid">1.4 为什么应该设置 `extra=&quot;forbid&quot;`？</a><a class="toc-level-2" href="#2-三层错误分类题">2. 三层错误分类题</a><a class="toc-level-3" href="#21-输出-a">2.1 输出 A</a><a class="toc-level-3" href="#22-输出-b">2.2 输出 B</a><a class="toc-level-3" href="#23-输出-c">2.3 输出 C</a><a class="toc-level-2" href="#3-schema-设计题">3. Schema 设计题</a><a class="toc-level-2" href="#4-repair-设计题">4. Repair 设计题</a><a class="toc-level-3" href="#41-为什么不建议无限-repair">4.1 为什么不建议无限 repair？</a><a class="toc-level-2" href="#5-代码阅读题">5. 代码阅读题</a><a class="toc-level-3" href="#51-extractjsonobject-为什么不用简单的-{}-正则">5.1 `extract_json_object()` 为什么不用简单的 `{.*}` 正则？</a><a class="toc-level-3" href="#52-为什么-validateoutput-要先-jsonloads-再-modelvalidate">5.2 为什么 `validate_output()` 要先 `json.loads()` 再 `model_validate()`？</a><a class="toc-level-3" href="#53-generatestructured-为什么接收-callable-provider">5.3 `generate_structured()` 为什么接收 callable provider？</a><a class="toc-level-3" href="#54-raw4000-的目的是什么">5.4 `raw[:4000]` 的目的是什么？</a><a class="toc-level-2" href="#6-工程设计题">6. 工程设计题</a><a class="toc-level-2" href="#7-可观测性题">7. 可观测性题</a><a class="toc-level-2" href="#8-面试题">8. 面试题</a><a class="toc-level-2" href="#9-自测清单">9. 自测清单</a></nav></aside><article class="standalone-content markdown-body"><h1 id="week-2-lesson-7课后练习及答案">Week 2 Lesson 7：课后练习及答案</h1>
+<blockquote>主题：结构化输出——JSON Schema / Pydantic / Validation / Repair</blockquote>
+<blockquote></blockquote>
+<blockquote>建议用法：每题先独立思考，再阅读紧随其后的参考答案。</blockquote>
+<blockquote></blockquote>
+<blockquote>代码目录：<code>code/structured-output/</code></blockquote>
+<hr>
+<h2 id="1-基础概念题">1. 基础概念题</h2>
+<h3 id="11-为什么“输出合法-json”仍不足以直接进入业务系统">1.1 为什么“输出合法 JSON”仍不足以直接进入业务系统？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>合法 JSON 只证明语法能被解析，不证明字段、类型、枚举、范围和业务关系正确。生产链路至少还需要：</p>
+<pre data-lang="text"><code>JSON parsing
+→ Schema validation
+→ Business validation
+→ Permission / safety check</code></pre>
+<p>例如 <code>{&quot;status&quot;:&quot;maybe&quot;}</code> 是合法 JSON，但枚举非法；<code>status=complete</code> 且 <code>root_cause=unknown</code> 可能通过类型校验，但业务上矛盾。</p>
+<h3 id="12-json-schema、pydantic-和业务规则分别负责什么">1.2 JSON Schema、Pydantic 和业务规则分别负责什么？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<ul><li>JSON Schema：描述 JSON 数据形状，可传给支持原生结构化输出的 Provider；</li><li>Pydantic：在 Python 运行时执行字段、类型、枚举、范围、长度和额外字段校验，并生成类型化对象；</li><li>业务规则：校验跨字段关系、业务状态、权限和风险边界。</li></ul>
+<p>Pydantic 可以生成 JSON Schema，但 Schema 不能覆盖全部业务语义。</p>
+<h3 id="13-json-mode-与-constrained-decoding-有什么区别">1.3 JSON mode 与 constrained decoding 有什么区别？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>JSON mode 通常只保证或提高输出为合法 JSON 的概率，不一定严格符合业务 Schema。Constrained decoding 在生成每个 token 时按语法或 Schema 限制允许的输出，格式约束更强。</p>
+<p>二者都不能验证事实真实性、权限和跨字段业务逻辑，所以后端仍要校验。</p>
+<h3 id="14-为什么应该设置-extra=forbid">1.4 为什么应该设置 <code>extra=&quot;forbid&quot;</code>？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>它让未声明字段直接失败，避免模型偷偷增加下游未约定字段，降低数据污染、Schema 漂移和敏感信息意外输出风险。若业务确实需要扩展字段，应显式升级模型与 Schema，而不是静默忽略。</p>
+<hr>
+<h2 id="2-三层错误分类题">2. 三层错误分类题</h2>
+<p>判断下列输出最先在哪一层失败。</p>
+<h3 id="21-输出-a">2.1 输出 A</h3>
+<pre data-lang="text"><code>{&quot;status&quot;: &quot;complete&quot;,}</code></pre>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>JSON Parse Error：尾随逗号不符合标准 JSON。</p>
+<h3 id="22-输出-b">2.2 输出 B</h3>
+<pre data-lang="json"><code>{
+  &quot;status&quot;: &quot;maybe&quot;,
+  &quot;confidence&quot;: 0.8
+}</code></pre>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>首先是 Schema Error：<code>status</code> 不在枚举内，而且缺少多个必填字段。</p>
+<h3 id="23-输出-c">2.3 输出 C</h3>
+<pre data-lang="json"><code>{
+  &quot;status&quot;: &quot;complete&quot;,
+  &quot;impact&quot;: &quot;影响未知&quot;,
+  &quot;timeline&quot;: [],
+  &quot;confirmed_root_cause&quot;: &quot;unknown&quot;,
+  &quot;unknowns&quot;: [],
+  &quot;actions&quot;: [],
+  &quot;confidence&quot;: 0.8
+}</code></pre>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>JSON 和字段类型可能通过，但 Business Rule Error：根因未知时不能把状态标为 <code>complete</code>。</p>
+<hr>
+<h2 id="3-schema-设计题">3. Schema 设计题</h2>
+<p>为“客服工单分类”设计 Pydantic 模型，要求：</p>
+<ul><li><code>category</code> 只能是 <code>payment</code>、<code>delivery</code>、<code>refund</code>、<code>other</code>；</li><li><code>priority</code> 只能是 1 到 5；</li><li><code>summary</code> 1 到 200 字；</li><li><code>needs_human</code> 是布尔值；</li><li>禁止额外字段；</li><li>当 category=other 时，needs_human 必须为 true。</li></ul>
+<blockquote><strong>参考答案</strong></blockquote>
+<pre data-lang="python"><code>from typing import Literal
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+class TicketClassification(BaseModel):
+    model_config = ConfigDict(extra=&quot;forbid&quot;, str_strip_whitespace=True)
+
+    category: Literal[&quot;payment&quot;, &quot;delivery&quot;, &quot;refund&quot;, &quot;other&quot;]
+    priority: int = Field(ge=1, le=5)
+    summary: str = Field(min_length=1, max_length=200)
+    needs_human: bool
+
+    @model_validator(mode=&quot;after&quot;)
+    def validate_other_category(self):
+        if self.category == &quot;other&quot; and not self.needs_human:
+            raise ValueError(&quot;other category must be routed to a human&quot;)
+        return self</code></pre>
+<p>字段约束由 Pydantic 执行；跨字段关系使用 model validator 或独立业务校验层。</p>
+<hr>
+<h2 id="4-repair-设计题">4. Repair 设计题</h2>
+<p>第一次模型输出缺少 <code>actions</code>，并把 confidence 写成 82。请写 repair 请求必须包含的四类信息。</p>
+<blockquote><strong>参考答案</strong></blockquote>
+<pre data-lang="text"><code>1. 明确前一次输出校验失败；
+2. 给出字段级错误：actions missing，confidence must be &lt;= 1；
+3. 附上当前 JSON Schema；
+4. 要求只返回一个修正后的 JSON object，不加 Markdown、不加解释、不新增事实。</code></pre>
+<p>不能让 repair “补一个合理负责人”，因为这会创造事实。负责人未知时应按 Schema 使用 <code>unknown</code> 或 null。</p>
+<h3 id="41-为什么不建议无限-repair">4.1 为什么不建议无限 repair？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>无限 repair 会累积成本和延迟，掩盖 Prompt/Schema/Provider 的系统性不兼容，并可能导致事实在多轮修复中漂移。应设置最大次数、总耗时和 token 预算，并记录 repair rate；超过预算走明确失败、备用模型或人工处理。</p>
+<hr>
+<h2 id="5-代码阅读题">5. 代码阅读题</h2>
+<p>阅读：</p>
+<pre data-lang="text"><code>code/structured-output/models.py
+code/structured-output/structured_output.py
+code/structured-output/provider.py</code></pre>
+<h3 id="51-extractjsonobject-为什么不用简单的-{}-正则">5.1 <code>extract_json_object()</code> 为什么不用简单的 <code>{.*}</code> 正则？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>简单贪婪正则无法正确处理字符串内花括号、多个对象和嵌套对象。当前实现逐字符跟踪字符串状态、转义字符和大括号深度，确保提取唯一且括号平衡的对象。</p>
+<h3 id="52-为什么-validateoutput-要先-jsonloads-再-modelvalidate">5.2 为什么 <code>validate_output()</code> 要先 <code>json.loads()</code> 再 <code>model_validate()</code>？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>为了把错误阶段分开：<code>json.loads()</code> 负责 JSON 语法，Pydantic 负责字段 Schema。日志和 repair 可以明确告诉模型是“第 4 行逗号错误”还是“status 枚举错误”，而不是统一报“解析失败”。</p>
+<h3 id="53-generatestructured-为什么接收-callable-provider">5.3 <code>generate_structured()</code> 为什么接收 callable provider？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>这是依赖反转。结构化输出逻辑只依赖“输入 messages，返回文本”的接口，不耦合 OpenAI SDK。生产传真实 provider 方法，单元测试传确定性函数，因此测试无需网络、API key 和真实费用。</p>
+<h3 id="54-raw4000-的目的是什么">5.4 <code>raw[:4000]</code> 的目的是什么？</h3>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>限制 repair 请求携带的失败输出长度，防止异常超长输出导致上下文膨胀、成本失控或二次超过上下文限制。真实系统还应做隐私脱敏和日志采样。</p>
+<hr>
+<h2 id="6-工程设计题">6. 工程设计题</h2>
+<p>场景：模型根据用户自然语言生成退款操作参数。你能否在 Pydantic 校验通过后直接退款？</p>
+<blockquote><strong>参考答案</strong></blockquote>
+<p>不能。Pydantic 只验证数据结构。退款属于高风险动作，还必须：</p>
+<pre data-lang="text"><code>鉴权：用户是否有权操作该订单；
+业务校验：订单是否可退、金额是否超限、是否重复退款；
+数据查询：订单与支付状态必须来自可信系统；
+Human Gate：高金额或异常场景人工审批；
+幂等：避免重复执行；
+审计：记录模型建议、实际参数、审批人和执行结果。</code></pre>
+<p>结构化输出让参数可解析，不代表参数已授权、真实或安全。</p>
+<hr>
+<h2 id="7-可观测性题">7. 可观测性题</h2>
+<p>设计结构化输出日志字段，至少覆盖调用、版本、校验和成本。</p>
+<blockquote><strong>参考答案</strong></blockquote>
+<pre data-lang="text"><code>request_id
+provider / model
+prompt_key / prompt_version
+schema_name / schema_version
+attempt / repair_count
+validation_stage
+validation_issue_types
+latency_ms
+input_tokens / output_tokens
+finish_reason
+fallback_used
+final_status</code></pre>
+<p>避免默认记录完整用户输入、完整模型输出和密钥。必要时脱敏、采样并设置保留期限。</p>
+<hr>
+<h2 id="8-面试题">8. 面试题</h2>
+<p>用 1 分钟回答：如何设计生产级 LLM 结构化输出链路？</p>
+<blockquote><strong>参考答案</strong></blockquote>
+<pre data-lang="text"><code>我会把结构化输出分成生成约束、接收校验和业务校验三层，而不是只在 Prompt 中写“输出 JSON”。
+
+首先用 Pydantic 定义单一事实源，包含必填字段、类型、枚举、范围和 extra=forbid，并从它生成 JSON Schema。如果 Provider 支持 JSON mode 或 constrained decoding，可以提高格式合规率，但这不是最终保证。
+
+模型返回后，先提取并解析唯一 JSON object，再做 Pydantic 校验，最后检查跨字段业务关系、权限和风险边界。失败时记录字段路径、错误类型、Prompt/Schema/模型版本与 repair 次数。
+
+对于纯格式或字段错误，可以附错误摘要和 Schema 做一次有限 repair；仍失败则显式报错或降级。高风险链路必须 fail closed，未通过校验的数据不能写库或触发工具。</code></pre>
+<hr>
+<h2 id="9-自测清单">9. 自测清单</h2>
+<ul><li>[ ] 我能区分 JSON 合法、Schema 合法与业务可用；</li><li>[ ] 我能用 Pydantic 定义必填、枚举、范围、长度和 extra forbid；</li><li>[ ] 我知道 JSON mode / constrained decoding 不能替代后端校验；</li><li>[ ] 我能设计字段级错误和一次 repair；</li><li>[ ] 我知道高风险场景必须 fail closed；</li><li>[ ] 我能说清结构化输出日志和版本字段。</li></ul>
+<p>下一课：Lesson 8 Prompt 版本管理、测试集与回归 Eval。</p></article></div></div></body></html>

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 7：结构化输出</title><link rel="stylesheet" href="../styles/markdown-reader.css">
+<style>
+.standalone-reader{width:min(1380px,calc(100% - 44px));margin:0 auto;padding:18px 0 78px;position:relative;z-index:2}
+.standalone-hero,.standalone-toc,.standalone-content{border:1px solid var(--line);background:linear-gradient(145deg,rgba(245,235,210,.105),rgba(245,235,210,.045)),linear-gradient(180deg,rgba(16,22,17,.94),rgba(6,8,6,.90));box-shadow:var(--shadow-deep),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(18px) saturate(1.08)}
+.standalone-hero{position:relative;overflow:hidden;border-radius:38px;padding:clamp(28px,4vw,48px);margin-bottom:24px}
+.standalone-layout{display:grid;grid-template-columns:292px minmax(0,1fr);gap:22px;align-items:start}
+.standalone-toc{position:sticky;top:18px;border-radius:28px;padding:20px;max-height:calc(100vh - 36px);overflow:auto}
+.standalone-toc-title{margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.standalone-toc a{display:block;border:1px solid transparent;border-radius:13px;padding:8px 10px;color:var(--paper-soft);font-size:14px;line-height:1.45;text-decoration:none}
+.standalone-toc a:hover{color:var(--paper);border-color:rgba(117,233,255,.20);background:rgba(117,233,255,.08);transform:translateX(2px)}
+.standalone-toc .toc-level-2{margin-left:10px}.standalone-toc .toc-level-3{margin-left:20px;color:var(--paper-muted)!important}
+.standalone-content{border-radius:34px;padding:clamp(28px,4vw,58px);color:var(--paper-soft);line-height:1.86;font-size:17px}
+.standalone-content h1,.standalone-content h2,.standalone-content h3,.standalone-content h4{color:var(--paper);line-height:1.24;letter-spacing:-.02em;scroll-margin-top:28px}
+.standalone-content h1,.standalone-content h2{font-family:var(--font-display)}.standalone-content h1{margin:0 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line);font-size:clamp(32px,4vw,54px)}
+.standalone-content h2{margin:46px 0 16px;padding-left:16px;border-left:4px solid var(--accent-red);font-size:clamp(28px,3vw,38px)}.standalone-content h3{margin:32px 0 12px;color:#f8d89b;font-size:23px}
+.standalone-content strong{color:#fff4df}.standalone-content a{color:var(--accent-cyan)}.standalone-content code{border:1px solid rgba(117,233,255,.22);border-radius:8px;padding:2px 6px;color:#c9f7ff;background:rgba(117,233,255,.08);font-family:var(--font-mono)}
+.standalone-content pre{overflow:auto;border:1px solid rgba(117,233,255,.18);border-radius:20px;margin:22px 0;padding:22px;background:rgba(4,8,7,.96)}.standalone-content pre::before{content:attr(data-lang);display:block;margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;text-transform:uppercase}.standalone-content pre code{border:0;padding:0;background:transparent}
+.standalone-content blockquote{margin:24px 0;border-left:4px solid var(--accent-amber);border-radius:16px;padding:14px 18px;color:#f2d8a8;background:rgba(232,184,91,.08)}
+.standalone-content .table-wrap{overflow:auto;margin:22px 0;border:1px solid var(--line);border-radius:20px}.standalone-content table{width:100%;border-collapse:collapse;min-width:720px}.standalone-content th,.standalone-content td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top}.standalone-content th{color:var(--paper);background:rgba(255,106,61,.09)}
+.top-links{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px}.top-links a{border:1px solid rgba(242,230,200,.18);border-radius:999px;padding:10px 14px;color:var(--paper);background:rgba(242,230,200,.07);text-decoration:none}
+@media(max-width:980px){.standalone-layout{grid-template-columns:1fr}.standalone-toc{position:relative;top:0;max-height:none}}
+</style></head><body><div class="standalone-reader"><div class="standalone-hero"><a class="back-link" href="../course-showcase.html">← 返回课程中心</a><p class="eyebrow">AI Course · HTML</p><h1>Lesson 7：结构化输出</h1><p class="doc-summary">把模型原始文本转成可解析、可验证、可治理的后端对象。</p><div class="top-links"><a href="../course-showcase.html">课程中心</a><a href="../assignments/week02-lesson07-homework.html">课后练习</a><a href="../GLOSSARY.html">术语表</a><a href="../code/structured-output/README.md">代码 README</a></div></div><div class="standalone-layout"><aside class="standalone-toc"><div class="standalone-toc-title">目录</div><nav><a class="toc-level-1" href="#week-2-lesson-7结构化输出——json-schema-pydantic-validation-repair">Week 2 Lesson 7：结构化输出——JSON Schema / Pydantic / Validation / Repair</a><a class="toc-level-2" href="#0-本节课为什么重要">0. 本节课为什么重要</a><a class="toc-level-2" href="#1-结构化输出在系统里的位置">1. 结构化输出在系统里的位置</a><a class="toc-level-2" href="#2-三层契约json-合法、schema-合法、业务可用">2. 三层契约：JSON 合法、Schema 合法、业务可用</a><a class="toc-level-3" href="#21-第一层json-语法合法">2.1 第一层：JSON 语法合法</a><a class="toc-level-3" href="#22-第二层schema-合法">2.2 第二层：Schema 合法</a><a class="toc-level-3" href="#23-第三层业务可用">2.3 第三层：业务可用</a><a class="toc-level-2" href="#3-json-schema-与-pydantic-的关系">3. JSON Schema 与 Pydantic 的关系</a><a class="toc-level-3" href="#31-严格模型">3.1 严格模型</a><a class="toc-level-3" href="#32-optional-不等于可以乱缺失">3.2 Optional 不等于可以乱缺失</a><a class="toc-level-2" href="#4-provider-原生结构化能力有用但不要误解">4. Provider 原生结构化能力：有用，但不要误解</a><a class="toc-level-2" href="#5-constrained-decoding今日新增术语">5. Constrained Decoding：今日新增术语</a><a class="toc-level-2" href="#6-错误分类先知道哪里坏了">6. 错误分类：先知道哪里坏了</a><a class="toc-level-3" href="#61-结构化日志至少记录">6.1 结构化日志至少记录</a><a class="toc-level-2" href="#7-repair什么时候修怎么修">7. Repair：什么时候修，怎么修</a><a class="toc-level-3" href="#71-推荐链路">7.1 推荐链路</a><a class="toc-level-3" href="#72-为什么最多一次">7.2 为什么最多一次</a><a class="toc-level-3" href="#73-不要用字符串魔法“修-json”">7.3 不要用字符串魔法“修 JSON”</a><a class="toc-level-2" href="#8-fallback修不好怎么办">8. Fallback：修不好怎么办</a><a class="toc-level-3" href="#低风险展示型场景">低风险展示型场景</a><a class="toc-level-3" href="#中风险自动化场景">中风险自动化场景</a><a class="toc-level-3" href="#高风险执行场景">高风险执行场景</a><a class="toc-level-2" href="#9-本节代码实现">9. 本节代码实现</a><a class="toc-level-3" href="#91-modelspy">9.1 `models.py`</a><a class="toc-level-3" href="#92-structuredoutputpy">9.2 `structured_output.py`</a><a class="toc-level-3" href="#93-providerpy">9.3 `provider.py`</a><a class="toc-level-3" href="#94-为什么测试不调用真实-provider">9.4 为什么测试不调用真实 Provider</a><a class="toc-level-2" href="#10-常见误区">10. 常见误区</a><a class="toc-level-3" href="#误区-1temperature=0-就一定输出稳定-json">误区 1：temperature=0 就一定输出稳定 JSON</a><a class="toc-level-3" href="#误区-2能-jsonloads-就能入库">误区 2：能 `json.loads()` 就能入库</a><a class="toc-level-3" href="#误区-3pydantic-会自动判断事实真假">误区 3：Pydantic 会自动判断事实真假</a><a class="toc-level-3" href="#误区-4所有字段都-optional成功率更高">误区 4：所有字段都 Optional，成功率更高</a><a class="toc-level-3" href="#误区-5repair-越多成功率越高">误区 5：Repair 越多成功率越高</a><a class="toc-level-3" href="#误区-6原生-structured-outputs-可以删除后端校验">误区 6：原生 Structured Outputs 可以删除后端校验</a><a class="toc-level-2" href="#11-如何设计一个好-schema">11. 如何设计一个好 Schema</a><a class="toc-level-2" href="#12-面试表达">12. 面试表达</a><a class="toc-level-2" href="#13-本节必须记住的-7-句话">13. 本节必须记住的 7 句话</a><a class="toc-level-2" href="#14-课后练习">14. 课后练习</a></nav></aside><article class="standalone-content markdown-body"><h1 id="week-2-lesson-7结构化输出——json-schema-pydantic-validation-repair">Week 2 Lesson 7：结构化输出——JSON Schema / Pydantic / Validation / Repair</h1>
+<blockquote>状态：今日正式开课</blockquote>
+<blockquote>预计时长：60-75 分钟</blockquote>
+<blockquote>本节类型：结构化输出 + 后端校验 + 真实 Provider 实战</blockquote>
+<blockquote>代码目录：<code>code/structured-output/</code></blockquote>
+<hr>
+<h2 id="0-本节课为什么重要">0. 本节课为什么重要</h2>
+<p>Lesson 6 把 Prompt 当成可执行规格，定义了 Output Contract。但“Prompt 中要求输出 JSON”不代表后端真的拿到了可用对象。</p>
+<p>模型可能返回：</p>
+<pre data-lang="text"><code>1. 合法 JSON，但字段名错误；
+2. 合法 JSON，但枚举值不在允许范围；
+3. 字段类型正确，但业务语义互相矛盾；
+4. JSON 外多一段解释或 Markdown 代码块；
+5. 缺少字段，或者偷偷增加未约定字段；
+6. 第一次格式错误，第二次可以修好；
+7. 连续失败，必须停止而不是把脏数据送进业务。</code></pre>
+<p>所以本节的核心不是“让模型输出大括号”，而是建立一条后端可以信任的链路：</p>
+<pre data-lang="text"><code>Prompt Contract
+  ↓
+Model Output
+  ↓
+JSON Parse
+  ↓
+Schema Validation
+  ↓
+Business Validation
+  ↓
+Typed Object / Explicit Failure</code></pre>
+<blockquote>结构化输出不是一种 Prompt 风格，而是模型不确定性与确定性后端之间的协议适配层。</blockquote>
+<hr>
+<h2 id="1-结构化输出在系统里的位置">1. 结构化输出在系统里的位置</h2>
+<p>完整调用链路：</p>
+<pre data-lang="text"><code>业务请求
+  ↓
+Prompt Builder
+  ├── instruction
+  ├── context
+  └── JSON Schema
+  ↓
+LLM Gateway / Provider Adapter
+  ↓
+模型原始输出（不可信字符串）
+  ↓
+Output Parser
+  ├── 提取唯一 JSON object
+  └── json.loads
+  ↓
+Schema Validator（Pydantic）
+  ├── required fields
+  ├── types
+  ├── enum / range / length
+  └── extra fields
+  ↓
+Business Validator
+  ├── 跨字段一致性
+  ├── 权限 / 风险规则
+  └── 事实与状态边界
+  ↓
+业务对象 / Repair / Fallback</code></pre>
+<p>职责边界：</p>
+<div class="table-wrap"><table><thead><tr><th>组件</th><th>负责什么</th><th>不能假设什么</th></tr></thead><tbody><tr><td>Prompt</td><td>告诉模型目标、字段和失败行为</td><td>不能保证模型一定遵守</td></tr><tr><td>Provider JSON Mode</td><td>尽量限制输出为 JSON</td><td>不保证业务字段与事实正确</td></tr><tr><td>JSON Parser</td><td>确认语法可解析</td><td>不理解字段语义</td></tr><tr><td>Pydantic</td><td>校验结构、类型、枚举、范围</td><td>不自动理解全部业务关系</td></tr><tr><td>Business Validator</td><td>校验跨字段规则和系统约束</td><td>不负责修复模型事实错误</td></tr><tr><td>Repair</td><td>让模型按错误信息重新表达</td><td>不能把错误事实变成正确事实</td></tr></tbody></table></div>
+<hr>
+<h2 id="2-三层契约json-合法、schema-合法、业务可用">2. 三层契约：JSON 合法、Schema 合法、业务可用</h2>
+<h3 id="21-第一层json-语法合法">2.1 第一层：JSON 语法合法</h3>
+<p>下面是合法 JSON：</p>
+<pre data-lang="json"><code>{
+  &quot;status&quot;: &quot;maybe&quot;,
+  &quot;confidence&quot;: 99
+}</code></pre>
+<p>它能被 <code>json.loads()</code> 解析，但并不代表字段符合要求。</p>
+<p>常见 JSON 语法问题：</p>
+<ul><li>单引号代替双引号；</li><li>尾随逗号；</li><li>Markdown fence；</li><li>JSON 前后夹着解释；</li><li>生成中途截断；</li><li>同时返回两个对象。</li></ul>
+<p>本课的 <code>extract_json_object()</code> 只负责提取一个括号平衡的 JSON object，不使用粗暴的 <code>{.*}</code> 正则，也不偷偷修改内容。</p>
+<h3 id="22-第二层schema-合法">2.2 第二层：Schema 合法</h3>
+<p>Schema 定义数据形状：</p>
+<pre data-lang="python"><code>class IncidentSummary(BaseModel):
+    status: Literal[&quot;complete&quot;, &quot;insufficient_context&quot;]
+    impact: str = Field(min_length=1, max_length=300)
+    timeline: list[TimelineEvent] = Field(max_length=5)
+    confirmed_root_cause: str
+    unknowns: list[str] = Field(max_length=10)
+    actions: list[ActionItem] = Field(max_length=10)
+    confidence: float = Field(ge=0.0, le=1.0)</code></pre>
+<p>它能验证：</p>
+<ul><li><code>status</code> 只能取两个值；</li><li><code>confidence</code> 必须在 0 到 1；</li><li>timeline 最多 5 项；</li><li>必填字段不能缺失；</li><li><code>extra=&quot;forbid&quot;</code> 时未知字段直接失败。</li></ul>
+<h3 id="23-第三层业务可用">2.3 第三层：业务可用</h3>
+<p>下面对象可能通过 Schema：</p>
+<pre data-lang="json"><code>{
+  &quot;status&quot;: &quot;complete&quot;,
+  &quot;confirmed_root_cause&quot;: &quot;unknown&quot;
+}</code></pre>
+<p>但业务上矛盾：根因未知时不能说任务完整完成。</p>
+<p>所以还需要代码规则：</p>
+<pre data-lang="python"><code>if value.status == &quot;complete&quot; and value.confirmed_root_cause == &quot;unknown&quot;:
+    issues.append(&quot;status cannot be complete when root cause is unknown&quot;)</code></pre>
+<blockquote>类型正确不等于业务正确。Schema 是第一道硬边界，不是全部业务规则。</blockquote>
+<hr>
+<h2 id="3-json-schema-与-pydantic-的关系">3. JSON Schema 与 Pydantic 的关系</h2>
+<p>JSON Schema 是描述 JSON 结构的标准；Pydantic 是 Python 中定义、校验并转换数据模型的工具。</p>
+<p>二者关系：</p>
+<pre data-lang="text"><code>Python Pydantic Model
+  ├── 运行时校验模型输出
+  ├── 生成 Python 类型对象
+  └── model_json_schema()
+             ↓
+        JSON Schema
+  ├── 放入 Prompt
+  ├── 传给支持原生 schema 的 Provider
+  └── 用于文档和测试</code></pre>
+<p>单一事实源应是代码中的 Pydantic Model。不要在 Prompt、文档、前端和后端分别手写四套字段定义，否则它们迟早漂移。</p>
+<h3 id="31-严格模型">3.1 严格模型</h3>
+<pre data-lang="python"><code>class StrictModel(BaseModel):
+    model_config = ConfigDict(
+        extra=&quot;forbid&quot;,
+        str_strip_whitespace=True,
+    )</code></pre>
+<p>为什么拒绝额外字段：</p>
+<ul><li>防止下游误以为额外字段可信；</li><li>避免模型输出未授权信息；</li><li>让 Schema 变更必须显式升级；</li><li>便于评估格式合规率。</li></ul>
+<h3 id="32-optional-不等于可以乱缺失">3.2 Optional 不等于可以乱缺失</h3>
+<pre data-lang="python"><code>owner: str | None</code></pre>
+<p>表示值可以是字符串或 null，但字段是否必填取决于有没有默认值。</p>
+<pre data-lang="python"><code>owner: str | None = None</code></pre>
+<p>才表示字段缺失时默认 null。</p>
+<p>设计结构化输出时要先决定：</p>
+<ul><li>缺失字段应该失败；</li><li>使用 <code>null</code>；</li><li>使用字符串 <code>unknown</code>；</li><li>还是进入 <code>unknowns</code> 列表。</li></ul>
+<p>不要混用，否则下游会出现三种“未知”。</p>
+<hr>
+<h2 id="4-provider-原生结构化能力有用但不要误解">4. Provider 原生结构化能力：有用，但不要误解</h2>
+<p>常见能力分三档：</p>
+<div class="table-wrap"><table><thead><tr><th>能力</th><th>作用</th><th>仍需后端做什么</th></tr></thead><tbody><tr><td>Prompt 要求 JSON</td><td>软提示</td><td>全部解析和校验</td></tr><tr><td>JSON mode / <code>json_object</code></td><td>提高语法合法率</td><td>Schema 与业务校验</td></tr><tr><td>JSON Schema / constrained decoding</td><td>按 Schema 限制 token 生成</td><td>业务规则、事实性、权限、版本兼容</td></tr></tbody></table></div>
+<p>不同 OpenAI-compatible Provider 对 <code>response_format</code> 的支持并不完全一致。本课默认 <code>LLM_RESPONSE_MODE=text</code>，是为了兼容 GLM、腾讯混元和其他服务；只有确认 Provider 支持时才打开 <code>json_object</code>。</p>
+<p>即便 Provider 支持严格 Schema，也不能证明：</p>
+<ul><li>模型使用的事实正确；</li><li>跨字段业务关系合理；</li><li>用户有权限执行相应动作；</li><li>输出适合直接写数据库。</li></ul>
+<hr>
+<h2 id="5-constrained-decoding今日新增术语">5. Constrained Decoding：今日新增术语</h2>
+<p><strong>Constrained Decoding（约束解码）</strong>是在模型生成每个 token 时，根据语法或 Schema 限制“下一步允许生成什么”，从生成阶段减少非法格式。</p>
+<p>例如当前 Schema 要求：</p>
+<pre data-lang="json"><code>{&quot;status&quot;: &quot;complete&quot; | &quot;insufficient_context&quot;}</code></pre>
+<p>约束解码可以阻止模型生成 <code>&quot;status&quot;: &quot;maybe&quot;</code> 这样的枚举外值。</p>
+<p>但它不能保证：</p>
+<ul><li><code>complete</code> 在业务上真的成立；</li><li>事故根因是真实的；</li><li>输出没有越权内容；</li><li>Schema 本身设计正确。</li></ul>
+<p>因此工程链路仍然是：</p>
+<pre data-lang="text"><code>Constrained Decoding（生成约束）
+  + Pydantic（接收校验）
+  + Business Rules（业务校验）
+  + Eval（质量验证）</code></pre>
+<hr>
+<h2 id="6-错误分类先知道哪里坏了">6. 错误分类：先知道哪里坏了</h2>
+<p>不要把所有失败都叫“模型输出错误”。至少分为：</p>
+<div class="table-wrap"><table><thead><tr><th>错误类型</th><th>例子</th><th>处理</th></tr></thead><tbody><tr><td>Extraction Error</td><td>找不到唯一 JSON object</td><td>可 repair 一次</td></tr><tr><td>JSON Parse Error</td><td>截断、引号、逗号错误</td><td>可 repair 一次</td></tr><tr><td>Schema Error</td><td>缺字段、类型错、枚举错</td><td>带字段错误 repair</td></tr><tr><td>Business Rule Error</td><td>complete + unknown root cause</td><td>谨慎 repair 或直接失败</td></tr><tr><td>Safety / Permission Error</td><td>输出请求执行未授权动作</td><td>不 repair，直接拒绝/审批</td></tr><tr><td>Provider Error</td><td>timeout、429、5xx</td><td>交给 Gateway retry policy</td></tr></tbody></table></div>
+<p><code>Provider Error</code> 与 <code>Validation Error</code> 不能混在同一层。前者是调用可靠性，后者是输出契约。</p>
+<h3 id="61-结构化日志至少记录">6.1 结构化日志至少记录</h3>
+<pre data-lang="text"><code>request_id
+provider
+model
+prompt_key
+prompt_version
+schema_name
+schema_version
+attempt
+repair_count
+validation_stage
+validation_issue_types
+latency_ms
+input_tokens
+output_tokens
+finish_reason</code></pre>
+<p>不要默认把完整输入和完整模型输出写日志。生产中应考虑脱敏、采样和保留期限。</p>
+<hr>
+<h2 id="7-repair什么时候修怎么修">7. Repair：什么时候修，怎么修</h2>
+<h3 id="71-推荐链路">7.1 推荐链路</h3>
+<pre data-lang="text"><code>第一次输出
+  ↓
+Validation Failed
+  ↓
+生成字段级错误摘要
+  ↓
+附原输出（截断）+ JSON Schema
+  ↓
+要求只修结构，不新增事实
+  ↓
+第二次校验
+  ├── 通过
+  └── 失败 → Explicit Failure / Fallback</code></pre>
+<p>Repair Prompt 应包含：</p>
+<pre data-lang="text"><code>Your previous response failed validation.
+Return one corrected JSON object only.
+Do not add explanations or new facts.
+
+Validation errors:
+- status: expected complete or insufficient_context
+- confidence: must be &lt;= 1</code></pre>
+<h3 id="72-为什么最多一次">7.2 为什么最多一次</h3>
+<ul><li>每次 repair 都增加延迟和成本；</li><li>同一模型持续失败可能说明 Prompt/Schema 不兼容；</li><li>无限修复会掩盖线上质量问题；</li><li>repair 可能引入新的事实变化。</li></ul>
+<p>一次 repair 是教学示例中的默认值。生产值应通过测试集和指标决定，而不是拍脑袋。</p>
+<h3 id="73-不要用字符串魔法“修-json”">7.3 不要用字符串魔法“修 JSON”</h3>
+<p>危险做法：</p>
+<pre data-lang="text"><code>把单引号全换成双引号
+删除所有尾随逗号
+用正则抓取第一个大括号到最后一个大括号
+缺字段时填一个看起来合理的值</code></pre>
+<p>这会把非法输出伪装成合法输出，并可能改变文本事实。正确策略是：解析失败 → 明确错误 → 有限 repair → 再失败则结束。</p>
+<hr>
+<h2 id="8-fallback修不好怎么办">8. Fallback：修不好怎么办</h2>
+<p>Fallback 不是一句“请稍后再试”，要按业务风险设计。</p>
+<h3 id="低风险展示型场景">低风险展示型场景</h3>
+<ul><li>返回普通文本；</li><li>标记 <code>structured=false</code>；</li><li>前端不展示依赖结构化字段的按钮。</li></ul>
+<h3 id="中风险自动化场景">中风险自动化场景</h3>
+<ul><li>切换已验证的备用模型；</li><li>进入异步重试队列；</li><li>保存 trace，等待人工处理。</li></ul>
+<h3 id="高风险执行场景">高风险执行场景</h3>
+<ul><li>立即停止；</li><li>不执行工具、不写数据库、不发起交易；</li><li>转人工审批；</li><li>记录审计事件。</li></ul>
+<blockquote>Fail closed：结构化输出失败时，高风险系统应默认不执行。</blockquote>
+<hr>
+<h2 id="9-本节代码实现">9. 本节代码实现</h2>
+<p>代码目录：</p>
+<pre data-lang="text"><code>code/structured-output/
+├── models.py
+├── structured_output.py
+├── provider.py
+├── demo_generate.py
+├── test_structured_output.py
+├── README.md
+├── PYTHON_NOTES.md
+├── requirements.txt
+└── .env.example</code></pre>
+<h3 id="91-modelspy">9.1 <code>models.py</code></h3>
+<p>负责：</p>
+<ul><li>Pydantic 严格模型；</li><li><code>Literal</code> 枚举；</li><li>长度与数值范围；</li><li>禁止额外字段。</li></ul>
+<h3 id="92-structuredoutputpy">9.2 <code>structured_output.py</code></h3>
+<p>负责：</p>
+<pre data-lang="text"><code>extract_json_object()
+  ↓
+validate_output()
+  ├── json.loads
+  ├── IncidentSummary.model_validate
+  └── _check_business_rules
+  ↓
+generate_structured()
+  ├── provider(messages)
+  ├── validate
+  ├── repair once
+  └── StructuredOutputError</code></pre>
+<h3 id="93-providerpy">9.3 <code>provider.py</code></h3>
+<p>只处理真实 Provider：</p>
+<pre data-lang="text"><code>LLM_PROVIDER
+LLM_MODEL
+LLM_BASE_URL
+LLM_API_KEY
+LLM_RESPONSE_MODE</code></pre>
+<p>它不负责理解事故摘要的业务 Schema，也不负责 repair 策略。</p>
+<h3 id="94-为什么测试不调用真实-provider">9.4 为什么测试不调用真实 Provider</h3>
+<p>单元测试目标是验证确定性逻辑：提取、校验、业务规则、repair 次数。网络和真实模型会让测试慢、不稳定、收费且不可重复。</p>
+<p>测试通过 callable 注入指定输出，不等于在产品代码中增加 mock provider；真实 <code>demo_generate.py</code> 仍然只连接实际 Provider。</p>
+<hr>
+<h2 id="10-常见误区">10. 常见误区</h2>
+<h3 id="误区-1temperature=0-就一定输出稳定-json">误区 1：temperature=0 就一定输出稳定 JSON</h3>
+<p>错误。低温度降低随机性，不提供语法或 Schema 保证。</p>
+<h3 id="误区-2能-jsonloads-就能入库">误区 2：能 <code>json.loads()</code> 就能入库</h3>
+<p>错误。必须继续做 Schema、业务、权限和安全校验。</p>
+<h3 id="误区-3pydantic-会自动判断事实真假">误区 3：Pydantic 会自动判断事实真假</h3>
+<p>错误。Pydantic 验证“形状”，不会验证事故根因是否真实。</p>
+<h3 id="误区-4所有字段都-optional成功率更高">误区 4：所有字段都 Optional，成功率更高</h3>
+<p>这只是把错误推迟到下游。业务必需字段应该必填；真正允许缺失的字段才 Optional。</p>
+<h3 id="误区-5repair-越多成功率越高">误区 5：Repair 越多成功率越高</h3>
+<p>可能提高表面通过率，却增加成本、延迟和事实漂移。必须有预算和指标。</p>
+<h3 id="误区-6原生-structured-outputs-可以删除后端校验">误区 6：原生 Structured Outputs 可以删除后端校验</h3>
+<p>错误。生成约束与接收校验是两道独立边界，业务规则永远要由系统负责。</p>
+<hr>
+<h2 id="11-如何设计一个好-schema">11. 如何设计一个好 Schema</h2>
+<p>使用以下清单：</p>
+<div class="table-wrap"><table><thead><tr><th>维度</th><th>检查问题</th></tr></thead><tbody><tr><td>Purpose</td><td>下游为什么需要这个字段？</td></tr><tr><td>Required</td><td>缺失时应失败、null 还是 unknown？</td></tr><tr><td>Type</td><td>能否用明确类型代替自由字符串？</td></tr><tr><td>Enum</td><td>状态集合是否有限？</td></tr><tr><td>Range</td><td>数值是否有上下界？</td></tr><tr><td>Length</td><td>列表和文本是否需要上限？</td></tr><tr><td>Extra</td><td>是否拒绝未声明字段？</td></tr><tr><td>Consistency</td><td>哪些字段之间存在关系？</td></tr><tr><td>Version</td><td>Schema 如何升级与兼容？</td></tr><tr><td>Privacy</td><td>字段是否可能含敏感数据？</td></tr><tr><td>Actionability</td><td>校验失败后系统下一步是什么？</td></tr></tbody></table></div>
+<p>好的 Schema 不是越复杂越好，而是只表达业务真正需要的最小稳定结构。</p>
+<hr>
+<h2 id="12-面试表达">12. 面试表达</h2>
+<p>题目：</p>
+<blockquote>如何设计生产级 LLM 结构化输出链路？</blockquote>
+<p>参考回答：</p>
+<pre data-lang="text"><code>我不会只在 Prompt 里要求模型输出 JSON，而会把结构化输出分成生成约束、接收校验和业务校验三层。
+
+首先用 Pydantic 定义单一事实源，包含必填字段、类型、枚举、范围、长度和 extra=forbid，并从模型生成 JSON Schema。调用模型时，如果 Provider 支持 JSON mode 或 constrained decoding，可以用来提高格式合规率，但不会把它当成最终保证。
+
+模型返回后，我会先提取并解析唯一 JSON object，再做 Pydantic Schema 校验，最后做跨字段业务规则和权限校验。失败要分类记录字段路径、错误类型、prompt/schema/model 版本和 repair 次数。
+
+对于纯格式或字段错误，可以带着精简错误摘要做一次有限 repair；再次失败就显式失败或走降级。高风险场景必须 fail closed，绝不能把未通过校验的数据直接写数据库或触发工具。</code></pre>
+<hr>
+<h2 id="13-本节必须记住的-7-句话">13. 本节必须记住的 7 句话</h2>
+<pre data-lang="text"><code>1. 要求输出 JSON，不等于获得可靠结构化对象。
+2. JSON 合法、Schema 合法、业务可用是三件不同的事。
+3. Pydantic 是后端接收边界，不是事实验证器。
+4. Provider JSON mode 能提高合规率，不能替代校验。
+5. Repair 只修契约表达，不负责创造或纠正事实。
+6. 修复必须有次数、成本和延迟预算。
+7. 高风险链路校验失败必须 fail closed。</code></pre>
+<hr>
+<h2 id="14-课后练习">14. 课后练习</h2>
+<p>本节只保留一套题答合一课后练习：</p>
+<pre data-lang="text"><code>assignments/week02-lesson07-homework.html</code></pre>
+<p>完成后应能：</p>
+<ul><li>区分 JSON / Schema / Business Validation；</li><li>独立设计 Pydantic Schema；</li><li>阅读字段级 ValidationError；</li><li>设计一次 repair 与显式失败；</li><li>用 1 分钟说明生产级结构化输出链路。</li></ul>
+<p>下一节 Lesson 8 将把 Prompt、Schema 和测试用例纳入版本管理与回归 Eval。</p></article></div></div></body></html>

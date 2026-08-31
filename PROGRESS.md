@@ -10,12 +10,12 @@
 |---|---|
 | 当前阶段 | Phase 1：Prompt Engineering 与结构化输出 |
 | 当前周 | Week 2 |
-| 当前课 | Lesson 6（进行中） |
+| 当前课 | Lesson 7（进行中，课件与完整课程包已生成） |
 | 课程节奏 | 每周 3 天，每天 ≥ 60 分钟 |
 | 主语言 | Python 优先；工程化可用 Go |
-| 当前总进度 | 6 / 39 lessons |
-| 当前项目 | Project 1：LLM API Backend Service（Prompt 模板化阶段） |
-| 下节课 | Week 2 Lesson 7：结构化输出：JSON Schema / Pydantic |
+| 当前总进度 | 7 / 39 lessons |
+| 当前项目 | Project 1：LLM API Backend Service（结构化输出与校验阶段） |
+| 下节课 | Week 2 Lesson 8：Prompt 版本管理与测试集 |
 
 ---
 
@@ -27,8 +27,8 @@
 - [x] L03 LLM API 第一课
 - [x] L04 Streaming 与后端接口封装
 - [x] L05 错误处理：超时、重试、限流、成本估算
-- [ ] L06 Prompt 设计原则
-- [ ] L07 结构化输出
+- [x] L06 Prompt 设计原则
+- [ ] L07 结构化输出（进行中）
 - [ ] L08 Prompt 版本管理与测试集
 - [ ] L09 Embedding 直觉与向量检索
 - [ ] L10 Chunking / Metadata / Index
@@ -73,7 +73,8 @@
 | L03 | `assignments/week01-lesson03-homework.md` | 已提交，已批改 | 课堂练习记录为历史留存；后续同类题合并到课后练习，完整批改：`reviews/week01-lesson03-homework-review.md` |
 | L04 | [课后练习](assignments/week01-lesson04-homework.md) | 已提供参考答案，本节完成 | 用户选择不提交个人答案，直接查看参考答案；[参考答案](reviews/week01-lesson04-homework-reference.md) |
 | L05 | [课后练习 HTML](assignments/week01-lesson05-homework.html) | 已提供参考答案，本节完成 | 讲义：[Lesson 5 HTML](lessons/week01-lesson05-error-retry-rate-limit-cost.html)；代码：[llm-api-reliability](code/llm-api-reliability/README.md)；[参考答案 HTML](reviews/week01-lesson05-homework-reference.html) |
-| L06 | [课后练习 HTML](assignments/week02-lesson06-homework.html) | 已生成，未提交 | 讲义：[Lesson 6 HTML](lessons/week02-lesson06-prompt-design-principles.html)；代码：[prompt-design](code/prompt-design/README.md) |
+| L06 | [课后练习及答案 HTML](assignments/week02-lesson06-homework.html) | 已生成，本节完成 | 每道题紧跟标准答案；讲义：[Lesson 6 HTML](lessons/week02-lesson06-prompt-design-principles.html)；代码：[prompt-design](code/prompt-design/README.md) |
+| L07 | [课后练习及答案 HTML](assignments/week02-lesson07-homework.html) | 已生成，课程进行中 | 讲义：[Lesson 7 HTML](lessons/week02-lesson07-structured-output-json-schema-pydantic.html)；代码：[structured-output](code/structured-output/README.md)；等待正式学习完成后更新掌握情况 |
 
 ---
 
@@ -94,6 +95,7 @@
 - Lesson 4 需要重点掌握 Streaming 的工程边界：SSE 事件协议、首 token 感知延迟、后端统一封装、provider adapter、错误事件、代理缓冲、取消连接和结构化流式日志。
 - Lesson 5 需要重点掌握 LLM API 可靠性治理：timeout、错误分类、可重试/不可重试错误、exponential backoff with jitter、rate limit、usage/cost、attempt 日志和 fallback 边界；
 - Lesson 6 需要建立 Prompt 工程边界：Prompt 不是神奇咒语，而是包含 instruction、context、constraints、output contract、failure behavior 和版本信息的可测试规格；必须区分 Prompt 软约束与代码安全边界。
+- Lesson 7 需要重点掌握结构化输出三层边界：JSON 语法合法、Pydantic Schema 合法、业务规则可用；JSON mode / constrained decoding 不能替代后端校验，repair 必须有限次，高风险失败必须 fail closed。
 
 ---
 
@@ -101,7 +103,7 @@
 
 | 项目 | 状态 | 下一个动作 |
 |---|---|---|
-| Project 1：LLM API Backend Service | Prompt 模板化阶段 | Week 2 使用 `code/prompt-design/` 建立 Prompt Contract、变量校验和版本信息 |
+| Project 1：LLM API Backend Service | 结构化输出与校验阶段 | 使用 `code/structured-output/` 完成 JSON 提取、Pydantic Schema、业务校验和有限 repair |
 | Project 2：RAG Knowledge Assistant | 未开始 | Week 3 创建 |
 | Project 3：Tool-Using Agent | 未开始 | Week 5 创建 |
 | Project 4：Multi-Agent Research Assistant | 未开始 | Week 8 创建 |
@@ -178,9 +180,9 @@
 
 | 类型 | 文件 | 状态 | 说明 |
 |---|---|---|---|
-| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L05 完成，L06 进行中 |
+| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L06 完成，L07 进行中；首页行动入口直达 Lesson 7 HTML |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
-| 术语表 | [GLOSSARY.html](GLOSSARY.html) / [GLOSSARY.md](GLOSSARY.md) | 持续更新 | 今日新增：Prompt Contract；已包含 Exponential Backoff、SSE、Responses API 等术语；课程入口优先使用 HTML 页面 |
+| 术语表 | [GLOSSARY.html](GLOSSARY.html) / [GLOSSARY.md](GLOSSARY.md) | 持续更新 | 今日新增：Constrained Decoding；已包含 Prompt Contract、Exponential Backoff、SSE、Responses API 等术语；课程入口优先使用 HTML 页面 |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
@@ -208,12 +210,18 @@
 | Lesson 5 作业 Markdown | [assignments/week01-lesson05-homework.md](assignments/week01-lesson05-homework.md) | 已生成 | 按合并规则只设置一套课后练习/作业 |
 | Lesson 5 参考答案 HTML | [reviews/week01-lesson05-homework-reference.html](reviews/week01-lesson05-homework-reference.html) | 已生成 | 课件页面“参考答案”入口指向此 HTML 页面 |
 | Lesson 5 参考答案 Markdown | [reviews/week01-lesson05-homework-reference.md](reviews/week01-lesson05-homework-reference.md) | 已生成 | 覆盖错误分类、retry policy、成本估算、Gateway 日志和面试表达 |
-| Lesson 6 HTML 课件 | [lessons/week02-lesson06-prompt-design-principles.html](lessons/week02-lesson06-prompt-design-principles.html) | 已生成，进行中 | Prompt 设计原则：instruction、context、examples、output contract、failure behavior |
+| Lesson 6 HTML 课件 | [lessons/week02-lesson06-prompt-design-principles.html](lessons/week02-lesson06-prompt-design-principles.html) | 已生成，已完成 | Prompt 设计原则：instruction、context、examples、output contract、failure behavior |
 | Lesson 6 讲义 Markdown | [lessons/week02-lesson06-prompt-design-principles.md](lessons/week02-lesson06-prompt-design-principles.md) | 已生成 | 深度讲义原始文件 |
 | Lesson 6 代码 | [code/prompt-design/README.md](code/prompt-design/README.md) | 已生成 | PromptTemplate、变量校验、prompt key/version 与真实 provider 调用 |
 | Lesson 6 Python 语法补充 | [code/prompt-design/PYTHON_NOTES.md](code/prompt-design/PYTHON_NOTES.md) | 已生成 | 解释 Mapping、Formatter.parse、集合差集、format_map 和变量白名单 |
-| Lesson 6 作业 HTML | [assignments/week02-lesson06-homework.html](assignments/week02-lesson06-homework.html) | 已生成，未提交 | 本节唯一一套课后练习，HTML 页面可直接打开 |
-| Lesson 6 作业 Markdown | [assignments/week02-lesson06-homework.md](assignments/week02-lesson06-homework.md) | 已生成 | 课后练习原始文件 |
+| Lesson 6 课后练习及答案 HTML | [assignments/week02-lesson06-homework.html](assignments/week02-lesson06-homework.html) | 已生成 | 每道题紧跟标准答案，覆盖基础题、拆解题、改写题、Failure Behavior、代码阅读、10 维评审和面试题 |
+| Lesson 6 课后练习及答案 Markdown | [assignments/week02-lesson06-homework.md](assignments/week02-lesson06-homework.md) | 已生成 | HTML 页对应的题答合一源文件；不需要另开答案页 |
+| Lesson 7 HTML 课件 | [lessons/week02-lesson07-structured-output-json-schema-pydantic.html](lessons/week02-lesson07-structured-output-json-schema-pydantic.html) | 已生成，进行中 | JSON Schema、Pydantic、三层校验、有限 Repair、Fallback 与 Fail Closed |
+| Lesson 7 讲义 Markdown | [lessons/week02-lesson07-structured-output-json-schema-pydantic.md](lessons/week02-lesson07-structured-output-json-schema-pydantic.md) | 已生成 | 正式 60-75 分钟课程讲义源文件 |
+| Lesson 7 代码 | [code/structured-output/README.md](code/structured-output/README.md) | 已生成，测试通过 | 真实 Provider + JSON 提取 + Pydantic Schema + 业务校验 + 一次 repair |
+| Lesson 7 Python 语法补充 | [code/structured-output/PYTHON_NOTES.md](code/structured-output/PYTHON_NOTES.md) | 已生成 | Literal、Field、ConfigDict、ValidationError、Callable 注入等新增语法 |
+| Lesson 7 课后练习及答案 HTML | [assignments/week02-lesson07-homework.html](assignments/week02-lesson07-homework.html) | 已生成 | 题答合一，覆盖三层校验、Schema 设计、Repair、可观测性与面试表达 |
+| Lesson 7 课后练习及答案 Markdown | [assignments/week02-lesson07-homework.md](assignments/week02-lesson07-homework.md) | 已生成 | HTML 页对应源文件；不另开重复答案页 |
 
 ---
 
