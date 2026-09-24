@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L08 · 课后习题及参考答案</title><style>/*
+  AI Course Ops Deck · Markdown reader stylesheet
+  Unified visual system with the main course showcase page.
+*/
+
+:root {
+  --bg-ink: #070806;
+  --bg-graphite: #0e1210;
+  --bg-board: #151a16;
+  --bg-card: rgba(245, 235, 210, 0.075);
+  --bg-card-strong: rgba(245, 235, 210, 0.105);
+  --paper: #f2e6c8;
+  --paper-soft: #d9cab0;
+  --paper-muted: #a69b86;
+  --line: rgba(242, 230, 200, 0.16);
+  --line-strong: rgba(242, 230, 200, 0.28);
+  --accent-red: #ff6a3d;
+  --accent-amber: #e8b85b;
+  --accent-cyan: #75e9ff;
+  --accent-green: #79d99b;
+  --accent-blue: #8fb7ff;
+  --danger: #ff8f70;
+  --code: #0a0d0a;
+  --shadow-red: 0 0 36px rgba(255, 106, 61, 0.20);
+  --shadow-cyan: 0 0 34px rgba(117, 233, 255, 0.16);
+  --shadow-deep: 0 34px 100px rgba(0, 0, 0, 0.46);
+  --radius-xl: 34px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", "Times New Roman", serif;
+  --font-body: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "SFMono-Regular", "Cascadia Code", "Menlo", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--paper);
+  font-family: var(--font-body);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 106, 61, 0.18), transparent 30%),
+    radial-gradient(circle at 86% 8%, rgba(117, 233, 255, 0.13), transparent 28%),
+    linear-gradient(135deg, #050604 0%, #111611 48%, #070806 100%);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(242, 230, 200, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 230, 200, 0.045) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 0 48%, rgba(255, 106, 61, 0.055) 49% 51%, transparent 52% 100%);
+  background-size: 44px 44px, 44px 44px, 360px 360px;
+  mask-image: radial-gradient(circle at 50% 10%, black 0 58%, transparent 86%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23noise)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+a:hover {
+  color: #c9f7ff;
+  text-decoration: underline;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.reader-shell {
+  position: relative;
+  z-index: 2;
+  width: min(1380px, calc(100% - 44px));
+  margin: 0 auto;
+  padding: 18px 0 78px;
+}
+
+.reader-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+  gap: 22px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.reader-hero > div,
+.file-panel,
+.toc-card,
+.markdown-body {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(145deg, rgba(245, 235, 210, 0.105), rgba(245, 235, 210, 0.045)),
+    linear-gradient(180deg, rgba(16, 22, 17, 0.94), rgba(6, 8, 6, 0.90));
+  box-shadow: var(--shadow-deep), inset 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.reader-hero > div::before,
+.file-panel::before,
+.toc-card::before,
+.markdown-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 10% 4%, rgba(255, 106, 61, 0.13), transparent 30%),
+    linear-gradient(120deg, rgba(117, 233, 255, 0.08), transparent 34%, rgba(232, 184, 91, 0.08));
+  opacity: 0.9;
+}
+
+.reader-hero > div::after,
+.file-panel::after,
+.toc-card::after,
+.markdown-body::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 10px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(242, 230, 200, 0.42), transparent);
+  opacity: 0.5;
+}
+
+.reader-hero > div > *,
+.file-panel > *,
+.toc-card > *,
+.markdown-body > * {
+  position: relative;
+  z-index: 2;
+}
+
+.reader-hero > div {
+  border-radius: 38px;
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.reader-hero > div::before {
+  background:
+    radial-gradient(circle at 84% -10%, rgba(232, 184, 91, 0.18), transparent 34%),
+    radial-gradient(circle at 10% 8%, rgba(255, 106, 61, 0.16), transparent 36%),
+    linear-gradient(120deg, rgba(117, 233, 255, 0.08), transparent 38%);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(242, 230, 200, 0.18);
+  border-radius: 999px;
+  padding: 9px 13px;
+  color: var(--paper-soft);
+  background: rgba(7, 8, 6, 0.44);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+  transition: transform 160ms ease, color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.back-link:hover {
+  color: var(--paper);
+  border-color: rgba(255, 106, 61, 0.42);
+  background: rgba(255, 106, 61, 0.08);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent-red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  max-width: 900px;
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5.2vw, 70px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+  text-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.doc-summary {
+  max-width: 850px;
+  margin: 20px 0 0;
+  color: var(--paper-soft);
+  font-size: 17px;
+  line-height: 1.78;
+}
+
+.file-panel {
+  border-radius: 34px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.status-pill {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(232, 184, 91, 0.40);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--accent-amber);
+  background: rgba(232, 184, 91, 0.10);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  box-shadow: 0 0 22px rgba(232, 184, 91, 0.08);
+}
+
+.status-pill.ok {
+  color: var(--accent-green);
+  border-color: rgba(121, 217, 155, 0.38);
+  background: rgba(121, 217, 155, 0.10);
+}
+
+.status-pill.error {
+  color: var(--danger);
+  border-color: rgba(255, 143, 112, 0.42);
+  background: rgba(255, 143, 112, 0.10);
+}
+
+.file-path {
+  color: var(--paper-soft);
+  word-break: break-all;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.72;
+}
+
+.file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.file-actions a,
+.file-actions button {
+  appearance: none;
+  border: 1px solid rgba(242, 230, 200, 0.18);
+  border-radius: 999px;
+  padding: 10px 14px;
+  color: var(--paper);
+  background: rgba(242, 230, 200, 0.07);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.file-actions a:hover,
+.file-actions button:hover {
+  border-color: rgba(117, 233, 255, 0.42);
+  background: rgba(117, 233, 255, 0.10);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.reader-layout {
+  display: grid;
+  grid-template-columns: 292px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.toc-card {
+  position: sticky;
+  top: 18px;
+  border-radius: 28px;
+  padding: 20px;
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+}
+
+.toc-title {
+  margin-bottom: 12px;
+  color: var(--accent-amber);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+#tocList {
+  display: grid;
+  gap: 7px;
+}
+
+#tocList a {
+  display: block;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  padding: 8px 10px;
+  color: var(--paper-soft);
+  font-size: 14px;
+  line-height: 1.45;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+#tocList a:hover {
+  color: var(--paper);
+  border-color: rgba(117, 233, 255, 0.20);
+  background: rgba(117, 233, 255, 0.08);
+  text-decoration: none;
+  transform: translateX(2px);
+}
+
+.toc-level-2 {
+  margin-left: 10px;
+}
+
+.toc-level-3 {
+  margin-left: 20px;
+  color: var(--paper-muted) !important;
+}
+
+.toc-empty {
+  color: var(--paper-muted);
+}
+
+.markdown-body {
+  border-radius: 34px;
+  padding: clamp(28px, 4vw, 58px);
+  color: var(--paper-soft);
+  line-height: 1.86;
+  font-size: 17px;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  color: var(--paper);
+  line-height: 1.24;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 28px;
+  text-wrap: balance;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  font-family: var(--font-display);
+}
+
+.markdown-body h1 {
+  margin: 0 0 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(32px, 4vw, 54px);
+}
+
+.markdown-body h2 {
+  margin: 46px 0 16px;
+  padding-left: 16px;
+  border-left: 4px solid var(--accent-red);
+  font-size: clamp(28px, 3vw, 38px);
+}
+
+.markdown-body h3 {
+  margin: 32px 0 12px;
+  color: #f8d89b;
+  font-size: 23px;
+}
+
+.markdown-body h4 {
+  margin: 24px 0 10px;
+  font-size: 19px;
+}
+
+.markdown-body p {
+  margin: 14px 0;
+}
+
+.markdown-body strong {
+  color: #fff4df;
+}
+
+.markdown-body em {
+  color: #dff8ff;
+}
+
+.markdown-body a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-decoration-color: rgba(117, 233, 255, 0.36);
+}
+
+.markdown-body code {
+  border: 1px solid rgba(117, 233, 255, 0.22);
+  border-radius: 8px;
+  padding: 2px 6px;
+  color: #c9f7ff;
+  background: rgba(117, 233, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+.markdown-body pre {
+  position: relative;
+  overflow: auto;
+  border: 1px solid rgba(117, 233, 255, 0.18);
+  border-radius: 20px;
+  margin: 22px 0;
+  padding: 22px;
+  background:
+    linear-gradient(180deg, rgba(4, 8, 7, 0.96), rgba(8, 13, 10, 0.92)),
+    radial-gradient(circle at top left, rgba(117, 233, 255, 0.10), transparent 38%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.markdown-body pre::before {
+  content: attr(data-lang);
+  display: block;
+  margin-bottom: 12px;
+  color: var(--accent-amber);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.markdown-body pre code {
+  border: 0;
+  padding: 0;
+  color: #dff8ff;
+  background: transparent;
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.markdown-body blockquote {
+  margin: 24px 0;
+  border-left: 4px solid var(--accent-amber);
+  border-radius: 16px;
+  padding: 14px 18px;
+  color: #f2d8a8;
+  background: rgba(232, 184, 91, 0.08);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin: 14px 0 22px;
+  padding-left: 26px;
+}
+
+.markdown-body li {
+  margin: 8px 0;
+}
+
+.markdown-body input[type="checkbox"] {
+  accent-color: var(--accent-green);
+  transform: translateY(1px);
+}
+
+.table-wrap {
+  overflow: auto;
+  margin: 22px 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(7, 8, 6, 0.32);
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border-bottom: 1px solid var(--line);
+  padding: 13px 15px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdown-body th {
+  color: var(--paper);
+  background: rgba(255, 106, 61, 0.09);
+  font-weight: 700;
+}
+
+.markdown-body tr:last-child td {
+  border-bottom: 0;
+}
+
+.markdown-body hr {
+  border: 0;
+  height: 1px;
+  margin: 36px 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 106, 61, 0.42), rgba(117, 233, 255, 0.28), transparent);
+}
+
+.markdown-body img {
+  max-width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 980px) {
+  .reader-hero,
+  .reader-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toc-card {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .reader-shell {
+    width: min(100% - 22px, 1380px);
+    padding-top: 12px;
+  }
+
+  .reader-hero > div,
+  .file-panel,
+  .toc-card,
+  .markdown-body {
+    border-radius: 22px;
+  }
+
+  .reader-hero > div,
+  .file-panel {
+    padding: 22px;
+  }
+
+  .markdown-body {
+    padding: 24px 20px;
+    font-size: 16px;
+  }
+}
+</style>
+<style>
+.standalone-reader{width:min(1380px,calc(100% - 44px));margin:0 auto;padding:18px 0 78px;position:relative;z-index:2}
+.standalone-hero,.standalone-toc,.standalone-content{border:1px solid var(--line);background:linear-gradient(145deg,rgba(245,235,210,.105),rgba(245,235,210,.045)),linear-gradient(180deg,rgba(16,22,17,.94),rgba(6,8,6,.90));box-shadow:var(--shadow-deep),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(18px) saturate(1.08)}
+.standalone-hero{position:relative;overflow:hidden;border-radius:38px;padding:clamp(28px,4vw,48px);margin-bottom:24px}
+.standalone-layout{display:grid;grid-template-columns:292px minmax(0,1fr);gap:22px;align-items:start}
+.standalone-toc{position:sticky;top:18px;border-radius:28px;padding:20px;max-height:calc(100vh - 36px);overflow:auto}
+.standalone-toc-title{margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.standalone-toc a{display:block;border:1px solid transparent;border-radius:13px;padding:8px 10px;color:var(--paper-soft);font-size:14px;line-height:1.45;text-decoration:none}
+.standalone-toc a:hover{color:var(--paper);border-color:rgba(117,233,255,.20);background:rgba(117,233,255,.08);transform:translateX(2px)}
+.standalone-toc .toc-level-2{margin-left:10px}.standalone-toc .toc-level-3{margin-left:20px;color:var(--paper-muted)!important}
+.standalone-content{border-radius:34px;padding:clamp(28px,4vw,58px);color:var(--paper-soft);line-height:1.86;font-size:17px}
+.standalone-content h1,.standalone-content h2,.standalone-content h3,.standalone-content h4{color:var(--paper);line-height:1.24;letter-spacing:-.02em;scroll-margin-top:28px}
+.standalone-content h1,.standalone-content h2{font-family:var(--font-display)}.standalone-content h1{margin:0 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line);font-size:clamp(32px,4vw,54px)}
+.standalone-content h2{margin:46px 0 16px;padding-left:16px;border-left:4px solid var(--accent-red);font-size:clamp(28px,3vw,38px)}.standalone-content h3{margin:32px 0 12px;color:#f8d89b;font-size:23px}
+.standalone-content strong{color:#fff4df}.standalone-content a{color:var(--accent-cyan)}.standalone-content code{border:1px solid rgba(117,233,255,.22);border-radius:8px;padding:2px 6px;color:#c9f7ff;background:rgba(117,233,255,.08);font-family:var(--font-mono)}
+.standalone-content pre{overflow:auto;border:1px solid rgba(117,233,255,.18);border-radius:20px;margin:22px 0;padding:22px;background:rgba(4,8,7,.96)}.standalone-content pre::before{content:attr(data-lang);display:block;margin-bottom:12px;color:var(--accent-amber);font-family:var(--font-mono);font-size:12px;text-transform:uppercase}.standalone-content pre code{border:0;padding:0;background:transparent}
+.standalone-content blockquote{margin:24px 0;border-left:4px solid var(--accent-amber);border-radius:16px;padding:14px 18px;color:#f2d8a8;background:rgba(232,184,91,.08)}
+.standalone-content .table-wrap{overflow:auto;margin:22px 0;border:1px solid var(--line);border-radius:20px}.standalone-content table{width:100%;border-collapse:collapse;min-width:720px}.standalone-content th,.standalone-content td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top}.standalone-content th{color:var(--paper);background:rgba(255,106,61,.09)}
+.top-links{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px}.top-links a{border:1px solid rgba(242,230,200,.18);border-radius:999px;padding:10px 14px;color:var(--paper);background:rgba(242,230,200,.07);text-decoration:none}
+@media(max-width:980px){.standalone-layout{grid-template-columns:1fr}.standalone-toc{position:relative;top:0;max-height:none}}
+</style><style>
+.standalone-layout>*{min-width:0}.standalone-content{overflow-wrap:anywhere}
+.top-links a{min-height:44px;display:inline-flex;align-items:center}
+.standalone-content pre{max-width:100%;white-space:pre;overflow:auto;font-size:14px;line-height:1.7}
+.standalone-content pre code{white-space:pre;overflow-wrap:normal}
+figure.lesson-figure{margin:28px 0;background:#101713;border:1px solid #334238;border-radius:20px;padding:16px;overflow:auto}
+.lesson-figure svg{width:100%;height:auto;min-width:510px;display:block}
+.lesson-figure figcaption{font-size:14px;color:#d9cab0;margin-top:12px}
+details.answer{margin:20px 0;border:1px solid #526044;border-radius:16px;background:#151d16;padding:14px 18px}
+details.answer summary{cursor:pointer;color:#f8d89b;font-weight:600;min-height:34px}
+details.answer .answer-body{padding-top:8px}
+a:focus-visible,summary:focus-visible{outline:2px solid #75e9ff;outline-offset:4px}
+@media(max-width:600px){.standalone-reader{width:calc(100% - 24px)}.standalone-content{padding:22px 18px}.standalone-hero{padding:26px 20px}.standalone-content table{min-width:600px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{body{background:white;color:#111}body::before,body::after,.standalone-toc,.top-links,.back-link{display:none}.standalone-reader{width:100%;padding:0}.standalone-layout{display:block}.standalone-content,.standalone-hero{background:white;color:#111;box-shadow:none;border:none;padding:12px}.standalone-content h1,.standalone-content h2,.standalone-content h3,.standalone-content strong{color:#111}.standalone-content pre,.standalone-content code,.standalone-content blockquote,.standalone-content th,details.answer{background:#f4f4f4;color:#111}.standalone-content table{min-width:0}.standalone-content th,.standalone-content td{border-color:#ccc}.standalone-content a{color:#163b68}}
+</style></head><body><div class="standalone-reader"><div class="standalone-hero"><a class="back-link" href="../course-showcase.html">← 返回课程中心</a><p class="eyebrow">AI Course · HTML</p><h1>L08 · 课后习题及参考答案</h1><p class="doc-summary">18 道题 · 核心 01–12 / 拓展 13–18 · 先思考，再展开答案</p><div class="top-links"><a href="../course-showcase.html">课程中心</a><a href="../lessons/week02-lesson08-prompt-versioning-evaluation.html">返回 L08 讲义</a><a href="../GLOSSARY.html">术语表</a></div></div><div class="standalone-layout"><aside class="standalone-toc"><div class="standalone-toc-title">目录</div><nav><a class="toc-level-1" href="#week-2-lesson-8课后习题及参考答案">Week 2 Lesson 8：课后习题及参考答案</a><a class="toc-level-2" href="#01-校验通过为什么仍然可能是错误答案">01. 校验通过，为什么仍然可能是错误答案？</a><a class="toc-level-2" href="#02-prompt-改版的实验清单缺了什么">02. Prompt 改版的实验清单缺了什么？</a><a class="toc-level-2" href="#03-同时改-prompt-与模型能否归因">03. 同时改 Prompt 与模型，能否归因？</a><a class="toc-level-2" href="#04-设计一个高价值测试-case">04. 设计一个高价值测试 Case</a><a class="toc-level-2" href="#05-同一事故-20-个改写随机拆分合理吗">05. 同一事故 20 个改写，随机拆分合理吗？</a><a class="toc-level-2" href="#06-标签写错了怎么办">06. 标签写错了怎么办？</a><a class="toc-level-2" href="#07-哪些规则该硬编码哪些交给-judge">07. 哪些规则该硬编码，哪些交给 Judge？</a><a class="toc-level-2" href="#08-给-llm-judge-写一个可操作量规">08. 给 LLM Judge 写一个可操作量规</a><a class="toc-level-2" href="#09-成对实验与发布判断">09. 成对实验与发布判断</a><a class="toc-level-2" href="#10-api-失败与-judge-失败如何计分">10. API 失败与 Judge 失败如何计分？</a><a class="toc-level-2" href="#11-计算真实的每成功任务成本">11. 计算真实的每成功任务成本</a><a class="toc-level-2" href="#12-低成本、高分候选也要拒绝吗">12. 低成本、高分候选也要拒绝吗？</a><a class="toc-level-2" href="#13-代码阅读通过标志代表什么">13. 代码阅读：通过标志代表什么？</a><a class="toc-level-2" href="#14-给评分器列反例测试">14. 给评分器列反例测试</a><a class="toc-level-2" href="#15-三次重复与缓存">15. 三次重复与缓存</a><a class="toc-level-2" href="#16-设计一个最小发布门禁">16. 设计一个最小发布门禁</a><a class="toc-level-2" href="#17-回滚时只改-production-标签够吗">17. 回滚时只改 production 标签够吗？</a><a class="toc-level-2" href="#18-一分钟面试回答与反追问">18. 一分钟面试回答与反追问</a><a class="toc-level-2" href="#自测与提交方式">自测与提交方式</a></nav></aside><article class="standalone-content markdown-body"><h1 id="week-2-lesson-8课后习题及参考答案">Week 2 Lesson 8：课后习题及参考答案</h1>
+<blockquote>主题：Prompt 版本管理、测试集、Eval、发布门禁与回滚。</blockquote>
+<blockquote>共 18 题。第 01–12 题为核心题，第 13–18 题为代码与工程拓展。</blockquote>
+<blockquote>建议用时：核心题 35–45 分钟，拓展题按需完成；课后用时不计入 75 分钟正课。</blockquote>
+<blockquote>题目后紧跟参考答案。本文件是自学参考，不表示你已提交、已被批改或已经掌握。</blockquote>
+<blockquote>所有数值案例均为人工编写的教学数据，不是模型实测结果。</blockquote>
+<p><a href="../lessons/week02-lesson08-prompt-versioning-evaluation.html">返回 L08 讲义</a> · <a href="../course-showcase.html">课程中心</a> · <a href="../GLOSSARY.html">术语表</a></p>
+<hr>
+<h2 id="01-校验通过为什么仍然可能是错误答案">01. 校验通过，为什么仍然可能是错误答案？</h2>
+<p>材料只说明“回滚参数后延迟恢复”，没有确认因果关系。模型补齐全部字段后输出 <code>status=complete</code>、<code>confirmed_root_cause=连接池参数错误</code>。</p>
+<p>请区分 JSON、Schema、业务规则、任务 Eval 各能发现什么，说明 L07 的 10 个确定性单测为什么不足以证明 Prompt 效果。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>JSON 解析只检查语法；Schema 检查字段、类型与枚举；现有业务规则只检查已编码的条件，例如 complete 与 unknown 的矛盾。模型填了一个非 unknown 的错误根因，可能绕过这些检查。</p>
+<p>任务 Eval 应对照材料判断证据支持度：回滚与恢复相关不等于根因已确认，因此应失败或交人工复核。L07 单测使用固定输出测试程序行为，没有覆盖真实模型在多类输入上的表现。程序单测通过与模型任务质量必须分别报告。</p>
+<p>判分要点：不能把 Pydantic 当事实验证器；不能只回答“模型有幻觉”而不解释哪层遗漏。</p>
+</div></details><hr>
+<h2 id="02-prompt-改版的实验清单缺了什么">02. Prompt 改版的实验清单缺了什么？</h2>
+<p>某同事只记录：</p>
+<pre data-lang="json"><code>{&quot;prompt_version&quot;: &quot;v2&quot;, &quot;model&quot;: &quot;latest&quot;, &quot;score&quot;: 0.92}</code></pre>
+<p>至少补充 8 项，使其能够追溯和公平比较，并解释为什么不能把 API key 也写入清单。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>至少包括：prompt_key、不可变模板内容或版本引用、baseline 版本、dataset version、evaluator/rubric version、schema version、实际 Provider 和 base_url、模型请求别名与可获得的实际模型标识、生成参数、repair policy、runner revision、实验 run_id、每 case 重复次数、并发、缓存策略、价格快照和原始输出的受控引用。</p>
+<p>“latest”可能变化；若拿不到模型快照 ID，应标注不可获得、记录时间和已返回的标识，不伪造确定性。API key 是调用凭据，不是评估证据；只从安全配置读取，不放日志、Git 或公开报告。</p>
+</div></details><hr>
+<h2 id="03-同时改-prompt-与模型能否归因">03. 同时改 Prompt 与模型，能否归因？</h2>
+<p>v1 使用模型 A，v2 使用模型 B 且多加两个 few-shot 示例。通过率从 80% 到 90%。能否说“两个示例使准确率提高 10%”？怎样改实验？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>不能：模型与 Prompt 同时变化，存在混杂因素；80%→90% 是提高 <strong>10 个百分点</strong>，相对提高 12.5%。现有证据只能说明这两个配置组合在当前测试中不同。</p>
+<p>如果要隔离 Prompt 效果，在同一模型、同一数据/评分/参数/repair 条件下比较示例有无。必要时做模型 A/B × Prompt v1/v2 的四组实验，分别看模型效应、Prompt 效应及交互，不把所有变化归为 Prompt。</p>
+</div></details><hr>
+<h2 id="04-设计一个高价值测试-case">04. 设计一个高价值测试 Case</h2>
+<p>设计一条“付款后订单仍显示未支付”的 case。要求包含 case_id、group_id、input、expected 和 tags；明确哪些数据发给模型、哪些只给评分器。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<pre data-lang="json"><code>{
+  &quot;case_id&quot;: &quot;PAY-001&quot;,
+  &quot;group_id&quot;: &quot;payment-incident-001&quot;,
+  &quot;input&quot;: {
+    &quot;feedback&quot;: &quot;用户说已付款两小时，但订单页仍显示未支付。没有支付网关查询结果。&quot;
+  },
+  &quot;expected&quot;: {
+    &quot;must_distinguish&quot;: &quot;用户陈述与可信系统状态&quot;,
+    &quot;required_action&quot;: &quot;查询订单和支付记录&quot;,
+    &quot;forbidden_claim&quot;: &quot;已确认支付成功或失败&quot;
+  },
+  &quot;tags&quot;: [&quot;payment_state_unknown&quot;, &quot;user_claim_not_system_fact&quot;]
+}</code></pre>
+<p>Prompt 只接收 input 与稳定任务规则。expected 给 evaluator，用来判断输出是否违反证据边界；group_id 用于去重和划分同源样本。若整条 case 都送模型，相当于把评分答案塞进试题。</p>
+<p>此题没有唯一正确文案，但必须避免把用户陈述视为数据库事实。</p>
+</div></details><hr>
+<h2 id="05-同一事故-20-个改写随机拆分合理吗">05. 同一事故 20 个改写，随机拆分合理吗？</h2>
+<p>把同一个事故描述改写 20 次，然后随机把 16 条放开发集、4 条放留出集。这样得到的验收结果可靠吗？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>存在同源泄漏。虽然字符串不同，关键事实、难点和答案都高度相似，留出样本并不真正独立。</p>
+<p>先按原始事故/文档来源 group_id 去重与分组划分，再在各自集合内部扩增；近重复、同一用户任务、多轮上下文也需要整体划分。评估统计时不把这 20 个改写等同 20 条独立事故。扩增可以丰富表达，不自动扩大业务覆盖。</p>
+</div></details><hr>
+<h2 id="06-标签写错了怎么办">06. 标签写错了怎么办？</h2>
+<p>发现留出集一条“未确认根因”的样本被标为 complete。能否直接改成 insufficient_context，让候选通过，然后沿用旧报告里的基线分数？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>可以纠正标签，但必须保留依据、评审人/角色和变更记录，生成新 dataset version，并在相同新标准下重跑或重新评分基线与候选。</p>
+<p>不能只修候选一方。被反复查看、用来调 Prompt 的留出样本会逐步成为开发数据，需要补新的未见验收样本。不能为了让候选通过而事后改变正确性定义。</p>
+</div></details><hr>
+<h2 id="07-哪些规则该硬编码哪些交给-judge">07. 哪些规则该硬编码，哪些交给 Judge？</h2>
+<p>分类并说明理由：</p>
+<ul><li>返回字段只能有固定 8 个；</li><li>摘要是否遗漏“用户影响范围”；</li><li>请求是否有权限执行退款；</li><li>根因断言是否被材料支持；</li><li>输出是否超过 200 字。</li></ul>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<div class="table-wrap"><table><thead><tr><th>检查</th><th>首选方式</th><th>理由</th></tr></thead><tbody><tr><td>固定字段</td><td>Schema / 确定性代码</td><td>边界明确、可重复</td></tr><tr><td>语义覆盖</td><td>required facts + 校准的 Judge/人审</td><td>可能有多种正确措辞</td></tr><tr><td>退款权限</td><td>可信鉴权与业务系统</td><td>不能让模型裁决授权</td></tr><tr><td>事实支持</td><td>证据 rubric + Judge，关键争议人审</td><td>需要语义对照，不只是字符串匹配</td></tr><tr><td>字数</td><td>确定性计数</td><td>先定义按字符、词还是字节计数</td></tr></tbody></table></div>
+<p>可计算的规则不必浪费一次模型调用；难以精确匹配的语义不要用“包含某关键词”假装完整解决。</p>
+</div></details><hr>
+<h2 id="08-给-llm-judge-写一个可操作量规">08. 给 LLM Judge 写一个可操作量规</h2>
+<p>请为“根因是否有证据”设计 0/1/2 三档评分，规定如何输出证据，以及遇到歧义怎么办。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<pre data-lang="text"><code>0：明确断言某根因已确认，但输入只给相关性或猜测。
+1：根因表述含糊、归属不清，无法确定是否仍保留不确定性。
+2：有明确证据时准确归纳；没有证据时明确 unknown/待确认。
+
+输出：score、evidence_quote、brief_reason、needs_review。
+证据摘录必须来自输入或待评输出，不新造证据。
+歧义：needs_review=true，进入人工复核，不自动当满分。</code></pre>
+<p>应要求简短可核验的理由，不要求内部逐步思维过程。对 judge 返回也做 Schema 校验；采样与人类标注对齐，并记录 judge model/rubric 版本。高风险关键错误不能靠流畅度加分抵消。</p>
+</div></details><hr>
+<h2 id="09-成对实验与发布判断">09. 成对实验与发布判断</h2>
+<p>100 条相同样本，无 API/judge 缺失，结果如下：两版都通过 82 条；仅基线通过 4 条；仅候选通过 10 条；两版都失败 4 条。</p>
+<p>计算：两版通过率、提升百分点、相对增幅、新增退化率。如果 4 条退化中有 1 条违反事先规定的关键事实门禁，应怎样决策？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<pre data-lang="text"><code>基线通过：(82 + 4) / 100 = 86%
+候选通过：(82 + 10) / 100 = 92%
+净提升：92% - 86% = 6 个百分点
+相对增幅：6 / 86 ≈ 6.98%
+新增退化率（全部 case 为分母）：4 / 100 = 4%
+原本正确样本中的退化率：4 / 86 ≈ 4.65%</code></pre>
+<p>4/100 和 4/86 都可使用，但必须写清名称和分母。关键事实门禁失败应阻断发布，先定位退化，再复跑相关切片与全量回归。不要忽略失败案例，也不能凭单次 100 条实验声称提升已经统计显著。</p>
+</div></details><hr>
+<h2 id="10-api-失败与-judge-失败如何计分">10. API 失败与 Judge 失败如何计分？</h2>
+<p>100 次生成请求：10 次 API 失败；90 次有响应，其中 81 次任务合格。先计算两种通过率。</p>
+<p>再讨论另一场实验：生成都成功，但 Judge 有 5 次超时。能否把超时的 5 条扔掉后报告“完整测试通过”？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<pre data-lang="text"><code>成功响应内的合格率：81 / 90 = 90%
+端到端任务通过率：81 / 100 = 81%
+生成 API 错误率：10 / 100 = 10%</code></pre>
+<p>Judge 超时属于 evaluation_error，不代表模型回答错误，也不代表正确。应报告评分覆盖率 95/100，按事先约定补跑评分或阻断实验结论；不能无声删样本，也不能说“完整测试通过”。补跑应保留记录，不重复生成更有利的答案来替换待评分输出。</p>
+</div></details><hr>
+<h2 id="11-计算真实的每成功任务成本">11. 计算真实的每成功任务成本</h2>
+<p>一次 100 个任务的实验，首轮生成共 ¥2.00，repair 共 ¥0.40，judge 共 ¥0.60；最终成功 80 个任务。</p>
+<p>分别计算生成侧每任务成本、生成侧每成功任务成本和含 judge 的实验每任务成本。API 返回 usage 缺失时应填 0 吗？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<pre data-lang="text"><code>生成侧总成本：2.00 + 0.40 = ¥2.40
+生成侧每任务成本：2.40 / 100 = ¥0.024
+生成侧每成功任务成本：2.40 / 80 = ¥0.030
+含 judge 的实验总成本：2.00 + 0.40 + 0.60 = ¥3.00
+含 judge 的实验每任务成本：3.00 / 100 = ¥0.030
+含 judge 的实验每成功任务成本：3.00 / 80 = ¥0.0375</code></pre>
+<p>两个 ¥0.030 恰好数值相同，但分母和用途不同。usage 缺失应标 unknown/null 并说明覆盖率，不能冒充零成本。真实生产不一定逐请求运行 judge，因此实验费用也不能直接当线上推理费用。</p>
+</div></details><hr>
+<h2 id="12-低成本、高分候选也要拒绝吗">12. 低成本、高分候选也要拒绝吗？</h2>
+<p>候选更便宜、整体通过率更高，却在“缺信息”切片从 90% 降至 60%。正常样本占总体的 90%。你如何解释？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>整体指标被多数正常样本主导，掩盖关键切片退化。先对照事先设定的各切片最低要求，检查分布、样本量与标注，不能用总体平均冲掉高风险缺失信息场景。</p>
+<p>如果“缺信息时不编造”是关键要求，候选应阻断；即便没有预设关键门槛，也不能仅凭总体均值就放量，应追加针对性评估、审查收益代价并更新后续治理规则。改变规则后应透明记录，不挑一个能让当前候选获胜的口径。</p>
+</div></details><hr>
+<h2 id="13-代码阅读通过标志代表什么">13. 代码阅读：通过标志代表什么？</h2>
+<p>阅读讲义第 7 节 <code>score_case()</code>。回答：为什么分别保存 raw_json_ok、contract_ok、rule_ok？<code>rules_passed=true</code> 能否替代完整任务评估？<code>extra=&quot;forbid&quot;</code> 是否自动启用严格类型？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>原始输出可能夹 Markdown fence：完整 raw 不是 JSON，但 L07 提取器可以取出对象并通过契约校验。三个标志区分原始格式、容错后的契约、样本特定规则；合在一个通过分里会隐藏缺陷。</p>
+<p>rules_passed 只表示片段实现的条件通过，没有验证 required facts 全部覆盖和全部语义证据，不应叫完整任务质量。extra forbid 只控制额外字段，不等于 strict=True；Pydantic 默认可能做类型转换。如果不允许字符串数字，应额外检查或开启 strict mode 并重新验证。</p>
+</div></details><hr>
+<h2 id="14-给评分器列反例测试">14. 给评分器列反例测试</h2>
+<p>为 <code>score_case()</code> 列至少 6 个测试，包括一个“看似合法但任务错误”的例子。不要调用真实模型。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<div class="table-wrap"><table><thead><tr><th>输入</th><th>预期</th></tr></thead><tbody><tr><td>全字段正确，status 与根因未知要求一致</td><td>三个标志均真，rules_passed 真</td></tr><tr><td>同一结果外包 Markdown fence</td><td>raw_json_ok 假，contract_ok 可真，rules_passed 假</td></tr><tr><td>缺 impact 必填字段</td><td>contract_ok 假，rules_passed 假</td></tr><tr><td>Schema 合法但 status 与 expected 不符</td><td>contract_ok 可真，rule_ok 假</td></tr><tr><td>status 仍不足，但根因被填成确定推测</td><td>对 must_be_unknown 样本，rule_ok 假</td></tr><tr><td>文本 not json 或空字符串</td><td>返回不通过，不产生无解释的程序崩溃</td></tr><tr><td>原始输出为数组 []</td><td>不是目标对象，raw_json_ok 假</td></tr><tr><td>原始对象包含 NaN / Infinity 常量</td><td>非标准 JSON，raw_json_ok 假，不能因 Python 默认支持而算通过</td></tr><tr><td>测试数据 expected 本身缺字段</td><td>数据集预检失败，不能计为模型答错</td></tr></tbody></table></div>
+<p>另外还应给统计器测试重复 case ID、空集、缺失 trial、分母、同一响应重用和价格缺失。评分逻辑错了，整个发布证据就不可靠。</p>
+</div></details><hr>
+<h2 id="15-三次重复与缓存">15. 三次重复与缓存</h2>
+<p>40 个 case，每个版本各跑 3 次。为了省钱，后两次直接复用首次缓存。能否报告“120 个独立样本零失败，因此稳定可靠”？若 100 个真正独立二项样本零失败，又能说明什么？</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>不能。缓存是在重复评分相同输出，不是重复生成，不能测模型随机性；40 个 case 的三次结果也不能当 120 个独立业务案例。</p>
+<p>应明确区分 generation run 与 re-score run；测稳定性时独立生成，记录 cache policy，并按 case/group 分析重复结果。对于 100 个符合独立同分布假设的二项样本零失败，95% 单侧错误率上界的经验近似约 3/100=3%，不是未来错误率为零。相关样本不能生搬这一近似。</p>
+</div></details><hr>
+<h2 id="16-设计一个最小发布门禁">16. 设计一个最小发布门禁</h2>
+<p>你的事故摘要服务准备发布 v2。写出至少 6 条可执行条件，并说明为什么不能只设“加权总分超过 0.9”。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>可以采用以下结构，具体阈值由团队在跑实验前确定：</p>
+<ol><li>固定 manifest 与 dataset/evaluator 版本，要求必需 trial 齐全。</li><li>不存在未解决的 evaluation_error，或按明示规则补全后再决策。</li><li>关键证据捏造、未授权执行等阻断项为零新增，并满足绝对安全要求。</li><li>原始格式、Schema 与最终任务通过率分别达到绝对最低线及基线比较要求。</li><li>缺失、冲突、对抗等关键切片不低于预设门槛。</li><li>延迟、生成及 repair 成本符合预算，计费缺失覆盖率符合要求。</li><li>所有新增退化案例已审查，候选与旧配置具备回滚兼容性。</li></ol>
+<p>加权总分可能让文风优势抵消关键事实错误；必须保留独立的阻断条件，而非把所有事情都平均化。</p>
+</div></details><hr>
+<h2 id="17-回滚时只改-production-标签够吗">17. 回滚时只改 production 标签够吗？</h2>
+<p>v2 Prompt 配合 Schema v2 上线后出问题。你把 production 指针改回 Prompt v1，却保留 Schema v2；正在执行的多步任务也立刻读取新指针。指出两个风险并给出方案。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>风险一：旧 Prompt 可能不提供 Schema v2 所需字段，回滚反而造成结构失败；需验证兼容性，必要时回滚完整 Prompt/Schema/模型/业务配置组合，不能只换字符串。</p>
+<p>风险二：同一个进行中的任务混用版本，状态和规则可能不一致；应在请求/任务开始时固定解析版本，并记录配置快照。在途任务按明确策略完成、取消或迁移，新任务再采用回滚版本。</p>
+<p>还应保存发布记录、触发条件、实验 ID 和影响范围，不把“切换成功”等同业务已恢复。</p>
+</div></details><hr>
+<h2 id="18-一分钟面试回答与反追问">18. 一分钟面试回答与反追问</h2>
+<p>题目：“你如何让 Prompt 的版本迭代可测试、可上线、可回滚？”回答后再说明：离线 Eval 与线上 A/B 的区别。</p>
+<details class="answer"><summary>展开参考答案</summary><div class="answer-body">
+<p>我用不可变的 Prompt 版本管理任务规则，把模型、Schema、数据集、评分器和 repair policy 绑定成实验清单。测试集覆盖正常、缺失、矛盾与对抗案例，划分开发、回归与留出数据，禁止把 expected 送入模型。评分先用确定性契约与硬性安全检查，再用经人工校准的 LLM judge 做有证据的语义评分。比较时对同一 case 成对评估，关注新增退化、切片、首轮及 repair 后成功率、成本和尾延迟。关键错误不能被平均分抵消。通过离线门禁后灰度，稳定分配用户或任务、监控线上业务效果，并保留与 Schema、模型兼容的回滚配置。</p>
+<p>离线 Eval 在固定样本与规则下控制变量、复现比较；线上 A/B 在真实流量中随机分配版本，验证真实业务收益与影响。离线更好不保证线上更好；A/B 也不能省略发布前的安全校验。</p>
+<p>判分要点：必须覆盖版本、数据、评分、比较、门禁、回滚，不要只列工具名字。</p>
+</div></details><hr>
+<h2 id="自测与提交方式">自测与提交方式</h2>
+<ul><li>[ ] 我能说清实验清单为什么不止 Prompt 版本。</li><li>[ ] 我能独立设计防泄漏、带期望行为的 case。</li><li>[ ] 我能解释 judge 的偏差和校准方式。</li><li>[ ] 我能计算通过率、百分点、相对提升与每成功任务成本。</li><li>[ ] 我能明确拒绝一个“整体更高分但关键退化”的候选。</li><li>[ ] 我能把回滚落实到兼容的运行配置和在途任务策略。</li></ul>
+<p>需要批改时，按题号提交自己的答案。批改会区分“概念正确”“指标口径错误”“缺少工程边界”等问题，参考答案不替代真实作答记录。</p>
+<p><a href="../lessons/week02-lesson08-prompt-versioning-evaluation.html">返回 L08 讲义</a></p></article></div></div></body></html>

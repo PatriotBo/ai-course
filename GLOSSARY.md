@@ -388,3 +388,27 @@ Thought → Action → Observation → Thought → Action → ...
 **真实项目位置**：结构化摘要、分类器、Tool Calling 参数、Agent 决策对象、RAG 引用结果等需要稳定机器解析的链路。
 
 **面试表达**：我会用 constrained decoding 提高生成阶段的 Schema 合规率，同时保留 Pydantic 接收校验和业务规则。生成约束、接收校验、业务校验是互补的三层，不应互相替代。
+
+---
+
+## 25. LLM-as-a-Judge
+
+> 本课新增：2026-09-24。当前评估工具与官方指南中的高频工程概念，并非本日新发明的技术。
+
+**一句话**：LLM-as-a-Judge 是让模型依据明确评分量规（rubric）、输入材料与证据评判另一个系统的输出，用于语义覆盖、事实支持度、偏好比较等难以完全写成规则的评估。
+
+**运行位置**：测试输入 → 被测系统输出 → 确定性检查 → Judge 评分 → 人工复核与版本比较。参考答案给评估器，不泄漏给被测模型。
+
+**必要组件**：数据集、rubric、judge model/version、评分输出 Schema、证据摘录、人工校准样本、争议处理和评分失败状态。Judge 超时或无效输出记 evaluation_error，不当满分，也不假装被测系统业务错误。
+
+**后端视角**：更适合把 Judge 视为一个有误差的语义评分依赖，而不是最终权威。确定性的字段检查与权限控制继续交给代码，模型评分也需预算、版本、校验和监控。
+
+**主要风险**：位置偏差、偏爱长回答、模型自我偏好、提示注入、rubric 漂移。可通过隐藏版本名、交换 A/B 顺序、允许平局、固定评分版本和对齐人工标注降低影响，但无法保证全部消除。
+
+**真实项目位置**：Promptfoo 的 llm-rubric 断言、LangSmith 的模型评分流程及业务自建评估 Harness。用于辅助发布评审，不替代资金、权限等高风险操作审批。
+
+**面试表达**：我会先使用确定性断言，再用经过人工校准、有证据的 LLM judge 评估语义质量，固定评分器版本，检查切片和关键退化。Judge 不是事实真值，关键错误不允许被整体均分抵消。
+
+**参考**：[OpenAI Evaluation best practices](https://platform.openai.com/docs/guides/evaluation-best-practices)；[Promptfoo Assertions](https://www.promptfoo.dev/docs/configuration/expected-outputs/)。
+
+[打开 L08 讲义](lessons/week02-lesson08-prompt-versioning-evaluation.html)

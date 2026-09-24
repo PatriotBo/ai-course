@@ -15,7 +15,8 @@
 | 主语言 | Python 优先；工程化可用 Go |
 | 当前总进度 | 7 / 39 lessons |
 | 当前项目 | Project 1：LLM API Backend Service（结构化输出与校验阶段） |
-| 下节课 | Week 2 Lesson 8：Prompt 版本管理与测试集 |
+| 下节课 | Week 2 Lesson 8：Prompt 版本管理与测试集（讲义、习题及答案已生成，待学习） |
+| 资料更新 | 2026-09-24 发布批次：L08 讲义、18 道习题及参考答案、课程入口和术语表；L07 完成状态尚未确认 |
 
 ---
 
@@ -29,7 +30,7 @@
 - [x] L05 错误处理：超时、重试、限流、成本估算
 - [x] L06 Prompt 设计原则
 - [ ] L07 结构化输出（进行中）
-- [ ] L08 Prompt 版本管理与测试集
+- [ ] L08 Prompt 版本管理与测试集（资料已生成，待学习）
 - [ ] L09 Embedding 直觉与向量检索
 - [ ] L10 Chunking / Metadata / Index
 - [ ] L11 RAG 问答链路
@@ -75,6 +76,7 @@
 | L05 | [课后练习 HTML](assignments/week01-lesson05-homework.html) | 已提供参考答案，本节完成 | 讲义：[Lesson 5 HTML](lessons/week01-lesson05-error-retry-rate-limit-cost.html)；代码：[llm-api-reliability](code/llm-api-reliability/README.md)；[参考答案 HTML](reviews/week01-lesson05-homework-reference.html) |
 | L06 | [课后练习及答案 HTML](assignments/week02-lesson06-homework.html) | 已生成，本节完成 | 每道题紧跟标准答案；讲义：[Lesson 6 HTML](lessons/week02-lesson06-prompt-design-principles.html)；代码：[prompt-design](code/prompt-design/README.md) |
 | L07 | [课后练习及答案 HTML](assignments/week02-lesson07-homework.html) | 已生成，课程进行中 | 讲义：[Lesson 7 HTML](lessons/week02-lesson07-structured-output-json-schema-pydantic.html)；代码：[structured-output](code/structured-output/README.md)；等待正式学习完成后更新掌握情况 |
+| L08 | [课后习题及参考答案 HTML](assignments/week02-lesson08-homework.html) | 18 题及答案已生成，未提交 | [讲义 HTML](lessons/week02-lesson08-prompt-versioning-evaluation.html)；核心 01–12 题，拓展 13–18 题；参考答案不是个人批改，未标记学习完成 |
 
 ---
 
@@ -176,13 +178,24 @@
 
 ---
 
+### 2026-09-24 Lesson 8 备课记录（非学习完成记录）
+
+- 已生成 L08《Prompt 版本管理与测试集》75 分钟讲义和 18 道题答合一练习，HTML 与 Markdown 均可回看。
+- 承接 L06 Prompt Contract 与 L07 结构化校验，重点讲实验清单、样本划分、LLM-as-a-Judge、成对比较、指标口径、发布门禁及兼容回滚。
+- 本次只有讲义内评分片段与实验设计，没有新增完整 Runner，也没有执行真实 Provider 评估；教学数字不代表实测。
+- 新增术语 LLM-as-a-Judge；参考 OpenAI、Promptfoo、LangSmith 官方评估文档。
+- L07 完成状态仍待用户确认，总完成数保持 7/39；L08 待学习，未提交作业，不推断掌握情况。
+- L08 后续课程为 L09 Embedding 直觉与向量检索；备课阶段仅本地生成，随后按用户确认将 L08 资料与相关入口纳入 GitHub Pages 发布。发布不代表学习完成，当前完成数仍为 7/39。
+
+---
+
 ## 7. 已生成资料索引
 
 | 类型 | 文件 | 状态 | 说明 |
 |---|---|---|---|
-| 课程首页 | `course-showcase.html` | 已生成 | 已显示当前进度：L00-L06 完成，L07 进行中；首页行动入口直达 Lesson 7 HTML |
+| 课程首页 | `course-showcase.html` | 已生成 | L00-L06 完成，L07 完成待确认；主入口为 L08 新课讲义和习题答案，历史回看仍仅展示已完成课程 |
 | Markdown 阅读器 | `reader.html` | 已生成 | 用于 UTF-8 预览所有课程 Markdown |
-| 术语表 | [GLOSSARY.html](GLOSSARY.html) / [GLOSSARY.md](GLOSSARY.md) | 持续更新 | 今日新增：Constrained Decoding；已包含 Prompt Contract、Exponential Backoff、SSE、Responses API 等术语；课程入口优先使用 HTML 页面 |
+| 术语表 | [GLOSSARY.html](GLOSSARY.html) / [GLOSSARY.md](GLOSSARY.md) | 持续更新 | 今日新增：LLM-as-a-Judge；已包含 Constrained Decoding、Prompt Contract、Exponential Backoff、SSE、Responses API 等术语；课程入口优先使用 HTML 页面 |
 | Lesson 0 讲义 | `lessons/week00-lesson00-ai-career-map.md` | 已完成 | 历史课程可回看 |
 | Lesson 0 课堂练习 | `reviews/week00-lesson00-class-exercise.md` | 已完成 | 课中能力迁移诊断，不与课后作业混用 |
 | Lesson 0 完整批改 | `reviews/week00-lesson00-homework-review.md` | 已完成 | 课后作业回看中心唯一保留的作业批改入口 |
@@ -222,6 +235,10 @@
 | Lesson 7 Python 语法补充 | [code/structured-output/PYTHON_NOTES.md](code/structured-output/PYTHON_NOTES.md) | 已生成 | Literal、Field、ConfigDict、ValidationError、Callable 注入等新增语法 |
 | Lesson 7 课后练习及答案 HTML | [assignments/week02-lesson07-homework.html](assignments/week02-lesson07-homework.html) | 已生成 | 题答合一，覆盖三层校验、Schema 设计、Repair、可观测性与面试表达 |
 | Lesson 7 课后练习及答案 Markdown | [assignments/week02-lesson07-homework.md](assignments/week02-lesson07-homework.md) | 已生成 | HTML 页对应源文件；不另开重复答案页 |
+| Lesson 8 HTML 讲义 | [lessons/week02-lesson08-prompt-versioning-evaluation.html](lessons/week02-lesson08-prompt-versioning-evaluation.html) | 已生成，待学习 | 75 分钟版本管理、测试集、评分、成对实验、发布门禁与回滚 |
+| Lesson 8 Markdown 讲义 | [lessons/week02-lesson08-prompt-versioning-evaluation.md](lessons/week02-lesson08-prompt-versioning-evaluation.md) | 已生成 | 包含局部规则评分代码、教学演算与官方参考资料 |
+| Lesson 8 HTML 习题答案 | [assignments/week02-lesson08-homework.html](assignments/week02-lesson08-homework.html) | 已生成，未提交 | 18 题，逐题参考答案；核心题与拓展题合为一套 |
+| Lesson 8 Markdown 习题答案 | [assignments/week02-lesson08-homework.md](assignments/week02-lesson08-homework.md) | 已生成 | 与 HTML 同源，非个人作答批改 |
 
 ---
 
